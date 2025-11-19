@@ -17,5 +17,5 @@
 <a href="#">Borrowed Books</a>
 <a href="#">Issued Records</a>
 <a href="#">Settings</a>
-<a href="">Logout</a>
+<a href="index.php?page=logout">Logout</a>
 </div>

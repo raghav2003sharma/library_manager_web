@@ -42,5 +42,6 @@ $page = $_GET['main-page'] ?? 'dashboard';
 </div>
 <!-- End of Main Section -->
 </div>
+<script src="../../public/js/manage-users.js"></script>
 </body>
 </html>

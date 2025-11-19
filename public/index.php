@@ -20,6 +20,10 @@ if ($page === 'user-home') {
     require_once "../app/views/user-dash.php";
     exit;
 }
+if($page === 'logout'){
+    require_once "../app/controllers/logout.php";
+    exit;
+}
 
 if (isset($_SESSION['user_id'])) {
     if($_SESSION['role'] === 'admin'){

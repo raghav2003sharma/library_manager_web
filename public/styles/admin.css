@@ -98,3 +98,277 @@ font-size: 16px;
 button:hover {
 background: #3c57d6;
 }
+
+/*---------------------------------------------------------------------------- manage-users */
+.users-container {
+    width: 100%;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.users-header h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.btn-add {
+    background-color: #4CAF50;
+    width:fit-content;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn-add:hover {
+    background-color: #45a049;
+}
+
+.search-box {
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    width: 250px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.users-table thead {
+    background-color: #333;
+    color: #fff;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* .users-table tr:hover {
+    background-color: #f2f2f2;
+} */
+
+.btn-edit,
+.btn-delete {
+    width:fit-content;
+    padding: 6px 10px;
+    font-size: 13px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: white;
+    margin-right: 5px;
+}
+
+.btn-edit {
+    background-color: #2196F3;
+}
+
+.btn-edit:hover {
+    background-color: #0b7dda;
+}
+
+.btn-delete {
+    background-color: #f44336;
+}
+
+.btn-delete:hover {
+    background-color: #da190b;
+}
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 18px;
+    gap: 15px;
+}
+
+.pagination button {
+    background: #333;
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background: #555;
+}
+
+#pageNumber {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Modal Box */
+.modal-box {
+    background: white;
+    padding: 20px;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.modal-box h3 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.modal-box input,
+.modal-box select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-save {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+}
+
+.btn-close {
+    background: #f44336;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+}
+.add-user-form {
+    width: 320px;
+    background: #fff;
+    padding: 18px 22px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* hidden by default */
+    z-index: 999;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.add-user-form h3 {
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.add-user-form label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    display: block;
+    color: #444;
+}
+
+.add-user-form input,
+.add-user-form select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-save {
+    background: #2ecc71;
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-close {
+    background: #e74c3c;
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-save:hover {
+    background: #27ae60;
+}
+
+.btn-close:hover {
+    background: #c0392b;
+}
+#editUserForm{
+    display: none; /* hidden by default */
+    position: fixed;
+    width: 320px;
+    background: #fff;
+    padding: 18px 22px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* hidden by default */
+    z-index: 999;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Optional overlay behind modal */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 998;
+}
+
+/* Smooth fade */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -48%); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+
