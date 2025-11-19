@@ -39,13 +39,13 @@ if (strlen($password) < 6) {
         $_SESSION['name'] = $user['name'];
         $_SESSION['role'] = $user['role'];
 
-        // if ($user['role'] === 'admin') {
-        //     header("Location: ../public/index.php");
-        // } else {
-        //     header("Location: ../public/index.php");
-        // }
-        // exit;
-        echo "Login successful. Welcome, " . htmlspecialchars($user['name']) . "!";
+        if ($user['role'] === 'admin') {
+        header("Location: /public/index.php?page=admin-home");
+    } else {
+        header("Location: /public/index.php?page=user-home");
+    }
+    exit;
+      
     } else {
         $_SESSION['error'] = "Incorrect password.";
         header("Location: /public/index.php?page=login");

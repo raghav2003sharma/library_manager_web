@@ -1,4 +1,6 @@
 <?php
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
 $success = $_SESSION['success'] ?? '';
 unset($_SESSION['success']);
 ?>
@@ -12,10 +14,6 @@ unset($_SESSION['success']);
 </head>
 <body>
      <div class="container">
-        <?php if ($error): ?>
-            <p style="color:red;"><?php echo $error; ?></p>
-        <?php endif; ?>
-
         <h1 class="frm-heading">Sign in</h1>
         <form class="main-frm"action="../app/controllers/login.php" method="POST">
             <input type="email" name="email" placeholder="Email" required><br>
@@ -27,6 +25,10 @@ unset($_SESSION['success']);
 <script>
   <?php if (!empty($success)) : ?>
             alert("<?= $success ?>");
+        <?php endif; ?>
+        
+  <?php if (!empty($error)) : ?>
+            alert("<?= $error ?>");
         <?php endif; ?>
 </script>
 <script>
