@@ -364,6 +364,56 @@ background: #3c57d6;
     background: rgba(0,0,0,0.4);
     z-index: 998;
 }
+.modal {
+     display: none; /* hidden by default */
+    position: fixed;
+    width: 320px;
+    background: #fff;
+    padding: 18px 22px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* hidden by default */
+    z-index: 999;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* .modal-content {
+    background: white;
+    padding: 20px;
+    width: 320px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+} */
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-cancel {
+    width:fit-content;
+    padding: 8px 16px;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-delete {
+        width:fit-content;
+    padding: 8px 16px;
+    background: #e63946;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 /* Smooth fade */
 @keyframes fadeIn {

@@ -57,12 +57,13 @@
 
 
 <!-- EDIT USER MODAL -->
-    <form id="editUserForm" >
+    <form id="editUserForm" action="../app/controllers/edit-user.php" method="POST">
         <h3>Edit User</h3>
-        <input type="text" placeholder="username" id="editUsername">
-        <input type="email" placeholder="email" id="editEmail">
+        <input type="hidden" id="edit_id" name="id">
+        <input name="name"type="text" placeholder="username" id="editUsername">
+        <input name="email" type="email" placeholder="email" id="editEmail">
         <label>Role</label>
-        <select id="editRole">
+        <select name="role" id="editRole">
             <option>User</option>
             <option>Admin</option>
         </select>
@@ -72,4 +73,18 @@
         </div>
     </form>
     
+</div>
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <form class="modal-content" method="post" action="../app/controllers/delete-user.php">
+        <h3>Are you sure?</h3>
+        <p>You are about to delete this user. This action cannot be undone.</p>
+
+        <input name="id"type="hidden" id="delete_id">
+
+        <div class="modal-buttons">
+            <button type="button"class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+            <button type="submit"class="btn-delete" >Delete</button>
+        </div>
+</form>
 </div>
