@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../../config/db.php";
 
 $result = $conn->query("SELECT user_id, name, email, role,created_at FROM users");

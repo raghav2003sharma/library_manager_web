@@ -4,12 +4,12 @@ function showAddUserForm() {
 function hideAddUserForm() {
     document.getElementById('addUserForm').style.display = 'none';
 }
-document.getElementById('btn-add').addEventListener('click', showAddUserForm);
-
+const table = document.getElementById("userTableBody");
+if(table){
 fetch('../app/controllers/fetch-users.php')
   .then(res => res.json())
   .then(users => {
-      const table = document.getElementById("tableBody");
+      
       table.innerHTML = "";
 
       users.forEach(user => {
@@ -27,6 +27,7 @@ fetch('../app/controllers/fetch-users.php')
           </tr>`;
       });
   });
+}
 function openEditModal(id,username, email, role) {
     document.getElementById("editUsername").value = username;
     document.getElementById("editEmail").value = email;

@@ -24,17 +24,12 @@
 <!-- Borrow Record Form -->
 <div class="form-box">
 <h2>Enter Borrow Record</h2>
-<form>
-<label>User ID</label>
-<input type="text" placeholder="Enter User ID" />
+<form id="borrow-form" method="post" action="../app/controllers/borrow-book.php">
+<input name="b-email" type="text" placeholder="Enter User email" />
 
-
-<label>Book ID</label>
-<input type="text" placeholder="Enter Book ID" />
-
-
+<input name="b-title" type="text" placeholder="Enter Book title" />
 <label>Borrow Date</label>
-<input type="date" />
+<input name="b-date" type="date" />
 
 
 <button type="submit">Submit Borrow Record</button>
@@ -43,20 +38,15 @@
 
 
 <!-- Return Record Form -->
-<div class="form-box">
+<div class="form-box" >
 <h2>Enter Return Record</h2>
-<form>
-<label>User ID</label>
-<input type="text" placeholder="Enter User ID" />
+<form id=return-form method="post" action="../app/controllers/return-book.php">
+<input type="text" name="r-email" placeholder="Enter User email" />
 
-
-<label>Book ID</label>
-<input type="text" placeholder="Enter Book ID" />
-
+<input type="text" name="r-title" placeholder="Enter Book title" />
 
 <label>Return Date</label>
-<input type="date" />
-
+<input name="r-date" type="date" />
 
 <button type="submit">Submit Return Record</button>
 </form>

@@ -2,7 +2,7 @@
 <div class="users-container">
 
     <div class="users-header">
-        <button class="btn-add" id="btn-add">+ Add User</button>
+        <button class="btn-add" id="btn-add" type="button" onclick="showAddUserForm()">+ Add User</button>
         <form action="../app/controllers/add-user.php" method="post" class="add-user-form" id="addUserForm" style="display:none;">
             <h3>Add New User</h3>
             <input type="text" name="username" placeholder="username" required>
@@ -40,7 +40,7 @@
                 </tr>
             </thead>
 
-            <tbody id="tableBody">
+            <tbody id="userTableBody">
                
             </tbody>
         </table>
@@ -57,7 +57,7 @@
 
 
 <!-- EDIT USER MODAL -->
-    <form id="editUserForm" action="../app/controllers/edit-user.php" method="POST">
+    <form id="editUserForm" class="editForm" action="../app/controllers/edit-user.php" method="POST">
         <h3>Edit User</h3>
         <input type="hidden" id="edit_id" name="id">
         <input name="name"type="text" placeholder="username" id="editUsername">

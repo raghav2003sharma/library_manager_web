@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../../config/db.php";
 
 if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['role'])){
