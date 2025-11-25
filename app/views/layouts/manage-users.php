@@ -23,7 +23,7 @@
 
     <!-- Search Bar -->
     <div class="search-box">
-        <input type="text" placeholder="Search users..." id="userSearch">
+        <input type="text" placeholder="Search users by name,email and role" id="userSearch">
     </div>
 
     <!-- Users Table -->

@@ -46,6 +46,28 @@ $page = $_GET['main-page'] ?? 'dashboard';
             alert("<?= $error ?>");
         <?php endif; ?>
 </script>
-
+<script>
+    function toggleSettings() {
+        var settingsDiv = document.querySelector('.settings');
+        if (settingsDiv.style.display === 'block') {
+            settingsDiv.style.display = 'none';
+        } else {
+            settingsDiv.style.display = 'block';
+        }
+    }
+    </script>
+    <script>
+        function showForm(){
+    const form = document.querySelector(".pass-modal");
+    if(form.style.display === "none" || form.style.display === ""){
+        form.style.display = "flex";
+    } else {
+        form.style.display = "none";
+    }
+}
+function closeChangePass(){
+    document.querySelector(".pass-modal").style.display = "none";
+}
+    </script>
 </body>
 </html>

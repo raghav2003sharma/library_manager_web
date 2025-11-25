@@ -1,4 +1,8 @@
 <?php
+session_set_cookie_params([
+    'path' => '/',
+    'samesite' => 'Lax'
+]);
 session_start();
 require_once "../../config/db.php";
 if (
@@ -41,10 +45,10 @@ if (strlen($password) < 6) {
 
         if ($user['role'] === 'admin') {
         header("Location: /public/index.php?page=admin-home");
-    } else {
+        } else {
         header("Location: /public/index.php?page=user-home");
-    }
-    exit;
+        }
+        exit;
       
     } else {
         $_SESSION['error'] = "Incorrect password.";

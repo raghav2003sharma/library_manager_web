@@ -1,10 +1,10 @@
 
 <div class="borrow-books">
 
-<div class="section-title">Borrowed Books</div>
+<div class="section-title">Borrow History</div>
 
     <div class="search-box">
-        <input type="text" id="searchBorrow" placeholder="Search user or book...">
+        <input type="text" id="searchHistory" placeholder="Search user or book...">
     </div>
 <div class="table-wrapper">
 
@@ -16,10 +16,11 @@
                 <th>Status</th>
                 <th>Borrow Date</th>
                 <th>Due Date</th>
+                <th>Return Date</th>
             </tr>
         </thead>
 
-        <tbody id="borrowTable">
+        <tbody id="borrowHistory">
 
             
         </tbody>

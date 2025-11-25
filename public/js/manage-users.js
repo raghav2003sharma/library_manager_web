@@ -4,9 +4,19 @@ function showAddUserForm() {
 function hideAddUserForm() {
     document.getElementById('addUserForm').style.display = 'none';
 }
+const usersInput = document.getElementById("userSearch");
 const table = document.getElementById("userTableBody");
 if(table){
-fetch('../app/controllers/fetch-users.php')
+    loadUsers();
+}
+if(usersInput){
+usersInput.addEventListener("keyup", () => {
+    let query = usersInput.value.trim();
+    loadUsers(query);
+});
+}
+function loadUsers(query=""){
+fetch(`../app/controllers/fetch-users.php?q=${query}`)
   .then(res => res.json())
   .then(users => {
       
@@ -27,7 +37,9 @@ fetch('../app/controllers/fetch-users.php')
           </tr>`;
       });
   });
+
 }
+
 function openEditModal(id,username, email, role) {
     document.getElementById("editUsername").value = username;
     document.getElementById("editEmail").value = email;

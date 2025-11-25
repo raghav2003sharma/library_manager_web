@@ -50,6 +50,19 @@ text-decoration: none;
 background: #2a2a3d;
 border-radius: 5px;
 }
+.settings{
+    display:none;
+    padding-left:10px;
+}
+.settings a{
+display: block;
+padding: 12px;
+margin: 8px 0;
+color: #cfcfcf;
+text-decoration: none;
+background: #2a2a3d;
+border-radius: 5px;
+}
 
 
 .sidebar a:hover {
@@ -450,3 +463,80 @@ background: #3c57d6;
 }
 
 
+
+
+#change-pass-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pass-modal{
+      position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+      background: #fff;
+    width: 380px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+.form-modal{
+      background: #fff;
+    width: 380px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+.form-modal h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.form-modal input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+/* Buttons */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.cancel-btn {
+    background: #bbb;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #999;
+}
+
+.save-btn {
+    background: #0078ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #005fcc;
+}

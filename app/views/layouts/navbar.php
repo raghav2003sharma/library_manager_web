@@ -1,3 +1,5 @@
+<?php session_name("ADMINSESS"); 
+session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

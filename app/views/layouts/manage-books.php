@@ -7,7 +7,16 @@
             <h3>Add New Book</h3>
             <input type="text" name="title" placeholder="book title" required>
             <input type="text" name="author"  placeholder="author" required>
-            <input type="text" name="category" placeholder="category" required>
+            <input type="text" name="description"  placeholder="description" >
+            <!-- <input type="text" name="category" placeholder="category" required> -->
+               <label for="category">Category</label>
+             <select name="category" id="addCategory" required>
+                <option value="fiction">Fiction</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="history">History</option>
+                <option value="helf-help">Self-Help</option>
+                <option value="education">Education</option>
+            </select>
            <input type="number" name="stock"  placeholder="stock" required>
            <label>Cover Image</label>
             <input type="file" name="cover"  placeholder="cover image" accept="image/*">
@@ -17,7 +26,7 @@
             </div>
         </form>
 <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search books...">
+    <input type="text" id="searchBooks" placeholder="Search books...">
 </div>
 <div class="table-wrapper">
 <table class="users-table">
@@ -47,7 +56,15 @@
         <input type="hidden" id="editBook_id" name="book_id">
         <input type="text" name="title" placeholder="book title" id="editTitle"required>
             <input type="text" name="author"  placeholder="author" id="editAuthor"required>
-            <input type="text" name="category" placeholder="category"id="editCategory" required>
+            <!-- <input type="text" name="category" placeholder="category"id="editCategory" required> -->
+             <label for="category"> Edit Category</label>
+             <select name="category" id="editCategory" required>
+                <option value="fiction">Fiction</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="history">History</option>
+                <option value="helf-help">Self-Help</option>
+                <option value="education">Education</option>
+            </select>
            <input type="number" name="stock"  placeholder="stock"id="editStock" required>
            <label> Edit Cover Image</label>
             <input type="file" name="cover" id="editCover"  placeholder="cover image" accept="image/*">

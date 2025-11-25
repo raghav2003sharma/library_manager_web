@@ -14,6 +14,7 @@ if(
 $title = trim($_POST['title']);
 $author = trim($_POST['author']);
 $category = trim($_POST['category']);
+$desc = $_POST['description'] ?? null;
 $stock = intval($_POST['stock']);
 $cover = $_FILES['cover'];
 $coverImagePath = null;
@@ -34,8 +35,8 @@ if ($cover && $cover['error'] === UPLOAD_ERR_OK) {
 }
 
 
-$stmt = $conn->prepare("INSERT INTO books (title,author,category,stock,cover_image) VALUES (?, ?, ?, ?,?)");
-$stmt->bind_param("sssis",$title, $author, $category, $stock, $coverImagePath);
+$stmt = $conn->prepare("INSERT INTO books (title,author,description,category,stock,cover_image) VALUES (?, ?, ?,?, ?,?)");
+$stmt->bind_param("ssssis",$title, $author,$desc, $category, $stock, $coverImagePath);
 if($stmt->execute()){
     $_SESSION['success'] = "Book added successfully.";
     header("Location: /public/index.php?page=admin-home&main-page=manage-books");

@@ -1,6 +1,16 @@
       const booksTable = document.getElementById("booksTable");
+      const searchBooks = document.getElementById("searchBooks");
+      if(searchBooks){
+      searchBooks.addEventListener("keyup", () => {
+          let query = searchBooks.value.trim();
+          loadBooks(query);
+      });
+    }
 if(booksTable){
-fetch('../app/controllers/fetch-books.php')
+    loadBooks();
+}
+    function loadBooks(query=""){
+fetch(`../app/controllers/fetch-books.php?q=${query}`)
   .then(res => res.json())
   .then(books => {
       booksTable.innerHTML = "";
@@ -14,6 +24,7 @@ fetch('../app/controllers/fetch-books.php')
               <td>${book.category}</td>
               <td>${book.stock}</td>
               <td>${book.created_at}</td>
+              <td>${book.cover_image}</td>
                 <td>
                     <button class="btn-edit" onclick="openEditBook('${book.book_id}','${book.title}','${book.author}','${book.category}','${book.stock}','${book.cover_image}')">Edit</button>
                     <button class="btn-delete" onclick="openDeleteBook('${book.book_id}')">Delete</button>

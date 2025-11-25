@@ -1,22 +1,33 @@
+<?php
+require_once "../config/db.php";
 
+      $users =  $conn->query("SELECT COUNT(*) AS total_users FROM users");
+      $books = $conn->query("SELECT COUNT(*) AS total_books FROM books");
+      $borrowed = $conn->query("SELECT COUNT(*) AS borrowed_books FROM borrow_records WHERE return_date IS NULL");
+      $overdue = $conn->query("SELECT COUNT(*) AS overdue_books FROM borrow_records WHERE return_date IS NULL AND due_date < CURDATE()");
+      $total_users = $users->fetch_assoc()['total_users'];
+        $total_books = $books->fetch_assoc()['total_books'];
+        $borrowed_books = $borrowed->fetch_assoc()['borrowed_books'];
+        $overdue_books = $overdue->fetch_assoc()['overdue_books'];
+?>
 
 <div class="section-title">Dashboard</div>
 <div class="cards">
 <div class="card">
 <h3>Total Users</h3>
-<p>124</p>
+<p><?= $total_users ?></p>
 </div>
 <div class="card">
 <h3>Total Books</h3>
-<p>540</p>
+<p><?= $total_books ?></p>
 </div>
 <div class="card">
 <h3>Borrowed Books</h3>
-<p>89</p>
+<p><?= $borrowed_books ?></p>
 </div>
 <div class="card">
-<h3>Overdue Books</h3>
-<p>12</p>
+<h3>Over due books</h3>
+<p><?=$overdue_books?></p>
 </div>
 </div>
 
