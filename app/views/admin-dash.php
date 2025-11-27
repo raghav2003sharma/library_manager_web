@@ -17,20 +17,18 @@ if (isset($_SESSION['error'])) {
 }
 $page = $_GET['main-page'] ?? 'dashboard';
 ?>
-<?php include "layouts/navbar.php"; ?>
 <?php include "layouts/sidebar.php"; ?>
 <!-- Main Section -->
 <div class="main">
-
 <?php
 
     $file = "layouts/$page.php";
     include $file;
     
     ?>
-</div>
 
 <!-- End of Main Section -->
+</div>
 </div>
 <script src="../../public/js/manage-users.js"></script>
 <script src="../../public/js/manage-books.js"></script>
