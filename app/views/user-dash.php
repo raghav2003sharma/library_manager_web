@@ -16,19 +16,24 @@ if (isset($_SESSION['error'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>User Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles/user.css">
 </head>
 <body>
-
+<div class="page-wrapper">
 <!-- NAVBAR -->
 <div class="navbar">
 <div class="logo">📘 Books Mania</div>
-<div class="nav-links">
-<a href="#">Available Books</a>
-<a href="#">My Borrowed Books</a>
+<div id="navLinks" class="nav-links">
+<a href="#" onclick="showPage('home')">Home</a>
+<a href="#" onclick="showPage('borrow')">Borrowed</a>
 <a href="#" onclick="toggleSettings()">Settings</a>
 </div>
+<div class="menu-icon" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 </div>
         <div class="dropdown">
             <a href="#" onclick="showForm()">Change Password</a>
@@ -50,6 +55,7 @@ if (isset($_SESSION['error'])) {
         </div>
 
 <!-- SEARCH BAR -->
+ <div id="home-section">
 <div class="search-bar">
 <input type="text" class="search-input" id="availBooks" placeholder="Search books by title or author..." />
 <button class="search-btn" onclick="searchBooks()">Search</button>
@@ -59,12 +65,12 @@ if (isset($_SESSION['error'])) {
 
 <h2 class="section-title">Available Books</h2>
 <div class="filters">
-<button class="filter-btn active" onclick="loadCategory(this);fetchAvailableBooks('all')">All Books</button>
-<button class="filter-btn" onclick="loadCategory(this);fetchAvailableBooks('fiction')">Fiction</button>
-<button class="filter-btn" onclick="loadCategory(this);fetchAvailableBooks('sci-fi')">Sci-Fi</button>
-<button class="filter-btn"onclick="loadCategory(this);fetchAvailableBooks('history')">History</button>
-<button class="filter-btn" onclick="loadCategory(this);fetchAvailableBooks('self-help')">Self-Help</button>
-<button class="filter-btn" onclick="loadCategory(this);fetchAvailableBooks('education')">Education</button>
+<button class="filter-btn active" onclick="loadCategory(this,'all');fetchAvailableBooks('all')">All Books</button>
+<button class="filter-btn" onclick="loadCategory(this,'fiction');fetchAvailableBooks('fiction')">Fiction</button>
+<button class="filter-btn" onclick="loadCategory(this,'sci-fi');fetchAvailableBooks('sci-fi')">Sci-Fi</button>
+<button class="filter-btn"onclick="loadCategory(this,'history');fetchAvailableBooks('history')">History</button>
+<button class="filter-btn" onclick="loadCategory(this,'self-help');fetchAvailableBooks('self-help')">Self-Help</button>
+<button class="filter-btn" onclick="loadCategory(this,'education');fetchAvailableBooks('education')">Education</button>
 
 </div>
 
@@ -73,7 +79,8 @@ if (isset($_SESSION['error'])) {
 
 </div>
 </div>
-<div class="avail-books">
+</div>
+<div class="avail-books" id="borrowed-section" style="display:none;">
 
 <!-- BORROWED SECTION -->
 <h2 class="section-title">My Borrowed Books</h2>
@@ -83,6 +90,7 @@ if (isset($_SESSION['error'])) {
 </div>
 <div class="footer">
     <p>&copy; <?php echo date('Y')?> Books Mania. All rights reserved.</p>
+</div>
 </div>
 <script src="../../public/js/user-dash.js"></script>
 <script> 

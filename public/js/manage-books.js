@@ -1,21 +1,34 @@
       const booksTable = document.getElementById("booksTable");
       const searchBooks = document.getElementById("searchBooks");
+      const prevBooks = document.getElementById("prevBooks");
+    const nextBooks = document.getElementById("nextBooks");
       if(searchBooks){
       searchBooks.addEventListener("keyup", () => {
           let query = searchBooks.value.trim();
           loadBooks(query);
       });
     }
+    function bookStep(step){
+         const pageNumberSpan = document.getElementById("pageNumber");
+    const currentPage = parseInt(pageNumberSpan.textContent);
+    const newPage = currentPage + step;
+    if(newPage < 1) return; 
+    pageNumberSpan.textContent = newPage;
+    
+
+    loadBooks(searchBooks.value.trim(), newPage);
+    
+    }
 if(booksTable){
     loadBooks();
 }
-    function loadBooks(query=""){
-fetch(`../app/controllers/fetch-books.php?q=${query}`)
+    function loadBooks(query="",page=1){
+fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}`)
   .then(res => res.json())
-  .then(books => {
+  .then(data => {
       booksTable.innerHTML = "";
 
-      books.forEach(book => {
+      data.books.forEach(book => {
           booksTable.innerHTML += `
           <tr>
               <td>${book.book_id}</td>
@@ -24,13 +37,24 @@ fetch(`../app/controllers/fetch-books.php?q=${query}`)
               <td>${book.category}</td>
               <td>${book.stock}</td>
               <td>${book.created_at}</td>
-              <td>${book.cover_image}</td>
+              <td><img src="${book.cover_image}"/></td>
                 <td>
                     <button class="btn-edit" onclick="openEditBook('${book.book_id}','${book.title}','${book.author}','${book.category}','${book.stock}','${book.cover_image}')">Edit</button>
                     <button class="btn-delete" onclick="openDeleteBook('${book.book_id}')">Delete</button>
                 </td>
           </tr>`;
       });
+       const totalPages = Math.ceil(data.totalRows / 5);
+        if(page === 1){
+        prevBooks.disabled = true;
+    } else {
+        prevBooks.disabled = false;
+    }
+    if(page >= totalPages){
+        nextBooks.disabled = true;
+    } else {
+        nextBooks.disabled = false;
+    }
   });
 }
   function showBookAddForm(){

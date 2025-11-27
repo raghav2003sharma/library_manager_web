@@ -14,11 +14,17 @@ require_once "../config/db.php";
 <div class="section-title">Dashboard</div>
 <div class="cards">
 <div class="card">
+  <div class="card-icon">
 <h3>Total Users</h3>
+<i class="fa-regular fa-user"></i>
+  </div>
 <p><?= $total_users ?></p>
 </div>
 <div class="card">
+  <div class="card-icon">
 <h3>Total Books</h3>
+<i class="fa-solid fa-book"></i>
+  </div>
 <p><?= $total_books ?></p>
 </div>
 <div class="card">
@@ -60,5 +66,15 @@ require_once "../config/db.php";
 <input name="r-date" type="date" />
 
 <button type="submit">Submit Return Record</button>
+</form>
+</div>
+<div class="form-box" >
+<h2>Pay fine </h2>
+<form id="fineForm" method="POST" action="../app/controllers/pay-fine.php">
+    <input type="email" name="email" placeholder="User Email" required>
+    <input type="text" name="title" placeholder="Book Title"required>
+    <input type="number" step="0.01" placeholder="fine amount paid" name="amount" required>
+
+    <button type="submit">Submit</button>
 </form>
 </div>

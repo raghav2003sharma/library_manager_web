@@ -2,6 +2,10 @@ const borrowTable = document.getElementById("borrowTable");
 const borrowHistory = document.getElementById("borrowHistory");
 const searchBorrow = document.getElementById("searchBorrow");
 const searchHistory = document.getElementById("searchHistory");
+ const prevBorrow = document.getElementById("prevBorrow");
+const nextBorrow = document.getElementById("nextBorrow");
+const prevPage = document.getElementById("prevPage");
+const nextPage = document.getElementById("nextPage");
  if(searchBorrow){
     searchBorrow.addEventListener("keyup", () => {
         let query = searchBorrow.value.trim();
@@ -17,13 +21,22 @@ if(searchHistory){
 if(borrowTable){
     loadBorrowRecords();
 }
-    function loadBorrowRecords(query=""){
-    fetch(`../app/controllers/show-borrows.php?q=${query}`)
+function borrowPage(step){
+    const pageNumber = document.getElementById("pageNumber");
+    const currentPage = parseInt(pageNumber.textContent);
+    const newPage = currentPage + step;
+    if(newPage < 1) return; 
+    pageNumber.textContent = newPage;
+
+    loadBorrowRecords(searchBorrow.value.trim(), newPage);
+}
+    function loadBorrowRecords(query="",page=1){
+    fetch(`../app/controllers/show-borrows.php?q=${query}&page=${page}`)
   .then(res => res.json())
-  .then(books => {
+  .then(data => {
       borrowTable.innerHTML = "";
 
-      books.forEach(book => {
+      data.records.forEach(book => {
           borrowTable.innerHTML += `
           <tr>
               <td>${book.name}</td>
@@ -33,18 +46,38 @@ if(borrowTable){
               <td>${book.due_date}</td>
           </tr>`;
       });
+       const totalPages = Math.ceil(data.totalRows / 5);
+        if(page === 1){
+        prevBorrow.disabled = true;
+    } else {
+        prevBorrow.disabled = false;
+    }
+    if(page >= totalPages){
+        nextBorrow.disabled = true;
+    } else {
+        nextBorrow.disabled = false;
+    }
   });
 }
 if(borrowHistory){
     loadBorrowHistory();
 }
-    function loadBorrowHistory(query=""){
-    fetch(`../app/controllers/borrow-history.php?q=${query}`)
+function historyPage(step){
+    const pageNumberSpan = document.getElementById("pageNumber");
+    const currentPage = parseInt(pageNumberSpan.textContent);
+    const newPage = currentPage + step;
+    if(newPage < 1) return; 
+    pageNumberSpan.textContent = newPage;
+
+    loadBorrowHistory(searchHistory.value.trim(), newPage);
+}
+    function loadBorrowHistory(query="",page=1){
+    fetch(`../app/controllers/borrow-history.php?q=${query}&page=${page}`)
   .then(res => res.json())
-  .then(books => {
+  .then(data => {
       borrowHistory.innerHTML = "";
 
-      books.forEach(book => {
+      data.records.forEach(book => {
           borrowHistory.innerHTML += `
           <tr>
               <td>${book.name}</td>
@@ -55,5 +88,16 @@ if(borrowHistory){
                 <td>${book.return_date ? book.return_date : '-'}</td>
           </tr>`;
       });
+        const totalPages = Math.ceil(data.totalRows / 5);
+        if(page === 1){
+        prevPage.disabled = true;
+    } else {
+        prevPage.disabled = false;
+    }
+    if(page >= totalPages){
+        nextPage.disabled = true;
+    } else {
+        nextPage.disabled = false;
+    }
   });
 }

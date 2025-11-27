@@ -6,6 +6,8 @@ function hideAddUserForm() {
 }
 const usersInput = document.getElementById("userSearch");
 const table = document.getElementById("userTableBody");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 if(table){
     loadUsers();
 }
@@ -15,14 +17,24 @@ usersInput.addEventListener("keyup", () => {
     loadUsers(query);
 });
 }
-function loadUsers(query=""){
-fetch(`../app/controllers/fetch-users.php?q=${query}`)
-  .then(res => res.json())
-  .then(users => {
-      
-      table.innerHTML = "";
+function stepChange(step){// on clicking next or previous
+    const pageNumberSpan = document.getElementById("pageNumber");
+    const currentPage = parseInt(pageNumberSpan.textContent);
+    const newPage = currentPage + step;
+    if(newPage < 1) return; 
+    pageNumberSpan.textContent = newPage;
+    
+    loadUsers(usersInput.value.trim(), newPage);
 
-      users.forEach(user => {
+}
+function loadUsers(query="",page=1){
+    console.log("page",page);
+fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}`)
+  .then(res => res.json())
+  .then(data => {
+
+      table.innerHTML = "";
+      data.users.forEach(user => {
           table.innerHTML += `
           <tr>
               <td>${user.user_id}</td>
@@ -36,6 +48,17 @@ fetch(`../app/controllers/fetch-users.php?q=${query}`)
                     </td>
           </tr>`;
       });
+        const totalPages = Math.ceil(data.totalRows / 5);
+        if(page === 1){
+        prevBtn.disabled = true;
+    } else {
+        prevBtn.disabled = false;
+    }
+    if(page >= totalPages){
+        nextBtn.disabled = true;
+    } else {
+        nextBtn.disabled = false;
+    }
   });
 
 }

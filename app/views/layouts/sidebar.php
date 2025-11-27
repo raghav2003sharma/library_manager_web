@@ -10,7 +10,7 @@
 <a href="index.php?page=admin-home&main-page=borrow-history" >Borrowed History</a>
 <a href="#" onclick="toggleSettings()">Settings</a>
 <div class="settings" >
-    <a href="#">edit profile</a>
+    <!-- <a href="#">edit profile</a> -->
     <a href="#" onclick="showForm()">Change Password</a>
 </div>
 <a href="index.php?page=logout">Logout</a>

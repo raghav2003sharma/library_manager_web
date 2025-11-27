@@ -48,9 +48,9 @@
 
     <!-- Pagination -->
     <div class="pagination">
-        <button id="prevBtn">Previous</button>
+        <button id="prevBtn" onclick="stepChange(-1)">Previous</button>
         <span id="pageNumber">1</span>
-        <button id="nextBtn">Next</button>
+        <button id="nextBtn" onclick="stepChange(1)">Next</button>
     </div>
 
 </div>

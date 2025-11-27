@@ -17,14 +17,13 @@ if (isset($_SESSION['error'])) {
 }
 $page = $_GET['main-page'] ?? 'dashboard';
 ?>
-
 <?php include "layouts/navbar.php"; ?>
 <?php include "layouts/sidebar.php"; ?>
-
 <!-- Main Section -->
 <div class="main">
 
 <?php
+
     $file = "layouts/$page.php";
     include $file;
     

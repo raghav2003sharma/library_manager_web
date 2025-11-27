@@ -3,6 +3,9 @@ session_start();
 require_once "../../config/db.php";
 $search = $_GET['q'] ?? ""; 
 $search = "%$search%";
+$limit =10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
 function getBookPreview($conn,$bookId,$title,$preview_link_db) {
       if (!empty($preview_link_db)) {
         return [
@@ -29,24 +32,22 @@ function getBookPreview($conn,$bookId,$title,$preview_link_db) {
     $stmt->execute();
     return [
         "preview_link" => $previewLink ?? null
-        // "thumbnail" => $info['imageLinks']['thumbnail'] ?? null
     ];
 }
 
 $category = isset($_GET['category']) ? $_GET['category'] : null;
 if($category === "all" || $category === null){
-    $sql = "SELECT book_id, title, author, category, stock, cover_image,preview_link FROM books WHERE stock > 0 AND (title LIKE ? OR author LIKE ?)";
+    $sql = "SELECT book_id, title, author, category, stock, cover_image,preview_link FROM books WHERE stock > 0 AND (title LIKE ? OR author LIKE ?) LIMIT ? OFFSET ?";
 } else {
-    $sql = "SELECT book_id, title, author, category, stock, cover_image,preview_link FROM books WHERE stock > 0 AND category = ? AND (title LIKE ? OR author LIKE ?)";
+    $sql = "SELECT book_id, title, author, category, stock, cover_image,preview_link FROM books WHERE stock > 0 AND category = ? AND (title LIKE ? OR author LIKE ?) LIMIT ? OFFSET ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $category, $search, $search);
+    $stmt->bind_param("sssii", $category, $search, $search, $limit, $offset);
     $stmt->execute();
     $result = $stmt->get_result();
     $books = [];    
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
               $previewData = getBookPreview($conn,$row['book_id'],$row['title'],$row['preview_link']);
-
         $row['preview_link'] = $previewData['preview_link'];
             $books[] = $row;
         }
@@ -55,7 +56,7 @@ if($category === "all" || $category === null){
     exit;
 }
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $search, $search);
+$stmt->bind_param("ssii", $search, $search, $limit, $offset);
 $stmt->execute();
 $result = $stmt->get_result();
 $books = [];    

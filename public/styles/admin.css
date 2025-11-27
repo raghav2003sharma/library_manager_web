@@ -88,11 +88,15 @@ gap: 20px;
 }
 .card {
 background: #fff;
-padding: 20px;
+padding: 15px;
 border-radius: 8px;
 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
+.card-icon{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
 .card h3 {
 margin: 0 0 10px 0;
@@ -100,7 +104,7 @@ margin: 0 0 10px 0;
 
 
 .form-box {
-width:fit-content;
+width:90%;
 background: #fff;
 padding: 20px;
 padding-right: 30px;
@@ -120,7 +124,7 @@ border: 1px solid #ccc;
 
 
 button {
-background: #4b6bfb;
+background: #3349aa;
 color: white;
 cursor: pointer;
 font-size: 16px;
@@ -304,6 +308,7 @@ background: #3c57d6;
     width: 320px;
     background: #fff;
     padding: 18px 22px;
+    padding-right:30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     position: fixed;
@@ -473,7 +478,7 @@ background: #3c57d6;
 .pass-modal{
       position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.6);
@@ -539,4 +544,9 @@ background: #3c57d6;
 
 .save-btn:hover {
     background: #005fcc;
+}
+#booksTable img{
+    width: 50px;
+    height: auto;
+    border-radius: 4px;
 }

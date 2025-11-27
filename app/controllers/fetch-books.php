@@ -3,13 +3,22 @@ session_start();
 require_once "../../config/db.php";
 $search = $_GET['q'] ?? ""; 
 $search = "%$search%";
+$limit = 5;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+    $total = $conn->prepare("Select count(*) as total from books WHERE title LIKE ?
+           OR author LIKE ?");
+    $total->bind_param("ss", $search, $search);
+    $total->execute();
+    $res = $total->get_result();
+    $totalRows = $res->fetch_assoc()['total'];
 $sql = "SELECT book_id, title, author, category, stock,cover_image,created_at 
         FROM books
         WHERE title LIKE ?
            OR author LIKE ?
-           OR category LIKE ?";
+           OR category LIKE ? limit ? OFFSET ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $search, $search, $search);
+$stmt->bind_param("sssii", $search, $search, $search,$limit,$offset);
 $stmt->execute();
 $result = $stmt->get_result();
 $books = [];
@@ -18,6 +27,6 @@ if ($result->num_rows > 0) {
         $books[] = $row;
     }
 }
-echo json_encode($books);
+echo json_encode(["books"=>$books,"totalRows"=>$totalRows]);
 
 ?>
