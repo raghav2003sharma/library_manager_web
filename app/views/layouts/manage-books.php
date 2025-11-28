@@ -63,7 +63,7 @@
                 <option value="fiction">Fiction</option>
                 <option value="sci-fi">Sci-Fi</option>
                 <option value="history">History</option>
-                <option value="helf-help">Self-Help</option>
+                <option value="self-help">Self-Help</option>
                 <option value="education">Education</option>
             </select>
            <input type="number" name="stock"  placeholder="stock"id="editStock" required>

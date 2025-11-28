@@ -1,6 +1,6 @@
 <?php
 session_start();
-$page = $_GET['page'] ?? 'login';
+$page = $_GET['page'] ?? 'user-home';
 
 if ($page === 'register') {
     require_once "../app/views/register.php";
@@ -36,6 +36,6 @@ if (isset($_SESSION['user_id'])) {
     }
 }
 
-require_once "../app/views/login.php";
+require_once "../app/views/user-dash.php";
 
 ?>

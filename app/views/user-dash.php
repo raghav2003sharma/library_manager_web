@@ -17,9 +17,9 @@ if (isset($_SESSION['error'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <title>User Dashboard</title>
+    <title>Books Mania</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/user.css">
+    <link rel="stylesheet" href="public/styles/user.css">
 </head>
 <body>
 <div class="page-wrapper">
