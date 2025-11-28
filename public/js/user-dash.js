@@ -145,3 +145,27 @@ function showPage(page) {
 function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("active");
 }
+function autoSearch(query) {
+    if (query.length < 1) {
+        document.getElementById("suggestions").innerHTML = "";
+        return;
+    }
+
+    fetch("/app/controllers/search-suggestions.php?q=" + encodeURIComponent(query))
+        .then(res => res.json())
+        .then(data => {
+            let html = "";
+
+            data.forEach(book => {
+                html += `<div class="suggest-item" onclick="selectSuggestion('${book.title}')">
+                            ${book.title}
+                         </div>`;
+            });
+
+            document.getElementById("suggestions").innerHTML = html;
+        });
+}
+function selectSuggestion(title) {
+    document.getElementById("search").value = title;
+    document.getElementById("suggestions").innerHTML = "";
+}

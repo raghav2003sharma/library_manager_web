@@ -19,7 +19,7 @@ if (isset($_SESSION['error'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>Books Mania</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="public/styles/user.css">
+    <link rel="stylesheet" href="../../public/styles/user.css">
 </head>
 <body>
 <div class="page-wrapper">
@@ -28,8 +28,14 @@ if (isset($_SESSION['error'])) {
 <div class="logo">📘 Books Mania</div>
 <div id="navLinks" class="nav-links">
 <a href="#" onclick="showPage('home')">Home</a>
+ <?php if(isset($_SESSION['user_id'])): ?>
+        <!-- User is logged in -->
 <a href="#" onclick="showPage('borrow')">Borrowed</a>
 <a href="#" onclick="toggleSettings()">Settings</a>
+   <?php else: ?>
+        <!-- User is NOT logged in -->
+        <a href="index.php?page=login">Login</a>
+    <?php endif; ?>
 </div>
 <div class="menu-icon" onclick="toggleMenu()">
         <i class="fa-solid fa-bars"></i>
@@ -37,7 +43,7 @@ if (isset($_SESSION['error'])) {
 </div>
         <div class="dropdown">
             <a href="#" onclick="showForm()">Change Password</a>
-            <a href="index.php?page=logout">Logout</a>
+            <a href="public/index.php?page=logout">Logout</a>
         </div>
         <div class="pass-modal">
             <div class="form-modal">
@@ -57,8 +63,10 @@ if (isset($_SESSION['error'])) {
 <!-- SEARCH BAR -->
  <div id="home-section">
 <div class="search-bar">
-<input type="text" class="search-input" id="availBooks" placeholder="Search books by title or author..." />
-<button class="search-btn" onclick="searchBooks()">Search</button>
+<input type="text" class="search-input" id="availBooks"  oninput="autoSearch(this.value)" placeholder="Search books by title or author..." />
+<button class="search-btn" onclick="searchBooks()" >Search</button>
+<div id="suggestions" class="suggest-box"></div>
+
 </div>
 
 <div class="avail-books">

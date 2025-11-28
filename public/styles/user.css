@@ -87,6 +87,8 @@ margin: 20px auto;
 max-width: 900px;
 display: flex;
 gap: 10px;
+    position: relative; 
+
 }
 
 
@@ -327,6 +329,27 @@ cursor: not-allowed;
 
 .save-btn:hover {
     background: #005fcc;
+}
+.suggest-box {
+    position: absolute;
+    top: 100%;   /* appear below input */
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.suggest-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggest-item:hover {
+    background: #eee;
 }
 
 /* Fade animation */
