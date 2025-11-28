@@ -56,6 +56,7 @@ function fetchAvailableBooks(category="all",query="",page=1,append=false){
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-card');
             bookDiv.innerHTML = `
+                <a  href="/public/index.php?page=view-book&id=${book.id}">
                 <img src="${book.cover_image}" />
                 <div class="title">${book.title}</div>
             <div class="author">${book.author}</div>
@@ -65,6 +66,7 @@ function fetchAvailableBooks(category="all",query="",page=1,append=false){
                 <a href="${book.preview_link?book.preview_link:'#'}" target="_blank"> ${book.preview_link?"Preview":"no preview"}
                 </a>
             </div>
+                </a>
             `;
             booksContainer.appendChild(bookDiv);
         })
