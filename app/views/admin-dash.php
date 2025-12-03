@@ -33,6 +33,8 @@ $page = $_GET['main-page'] ?? 'dashboard';
 <script src="../../public/js/manage-users.js"></script>
 <script src="../../public/js/manage-books.js"></script>
 <script src="../../public/js/borrow-record.js"></script>
+<script src="../../public/js/reservation.js"></script>
+
 
 <script> 
      <?php if (!empty($success)) : ?>
@@ -43,7 +45,23 @@ $page = $_GET['main-page'] ?? 'dashboard';
             alert("<?= $error ?>");
         <?php endif; ?>
 </script>
+
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    let links = document.querySelectorAll(".sidebar a");
+    let current = window.location.href;
+
+    links.forEach(link => {
+        if (current.includes(link.getAttribute("href"))) {
+            link.classList.add("select");
+        }
+    });
+});
+    function addActive(element) {
+        var links = document.querySelectorAll('.sidebar a');
+        links.forEach(link => link.classList.remove('select'));
+        element.classList.add('select');
+    }
     function toggleSettings() {
         var settingsDiv = document.querySelector('.settings');
         if (settingsDiv.style.display === 'block') {

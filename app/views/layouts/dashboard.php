@@ -16,35 +16,45 @@ require_once "../config/db.php";
 <div class="card">
   <div class="card-icon">
 <h3>Total Users</h3>
-<i class="fa-regular fa-user"></i>
-  </div>
+<i class="fa-solid fa-users"></i>  </div>
 <p><?= $total_users ?></p>
 </div>
 <div class="card">
   <div class="card-icon">
 <h3>Total Books</h3>
-<i class="fa-solid fa-book"></i>
-  </div>
+<i class="fa-solid fa-layer-group"></i>  </div>
 <p><?= $total_books ?></p>
 </div>
 <div class="card">
+    <div class="card-icon">
+
 <h3>Borrowed Books</h3>
+<i class="fa-solid fa-address-book"></i>
+    </div>
+
 <p><?= $borrowed_books ?></p>
 </div>
 <div class="card">
+    <div class="card-icon">
 <h3>Over due books</h3>
+<i class="fa-solid fa-calendar-days"></i>
+    </div>
+
 <p><?=$overdue_books?></p>
+    
 </div>
 </div>
 
-
+<div class="form-container">
 <!-- Borrow Record Form -->
 <div class="form-box">
 <h2>Enter Borrow Record</h2>
 <form id="borrow-form" method="post" action="../app/controllers/borrow-book.php">
-<input name="b-email" type="text" placeholder="Enter User email" />
+<input id="borrow-email"  name="b-email" type="text" placeholder="Enter User email" />
 
-<input name="b-title" type="text" placeholder="Enter Book title" />
+<input name="b-title" list="book-suggestions" placeholder=" Book title" />
+<datalist id="book-suggestions" class="suggestions-box"></datalist>
+
 <label>Borrow Date</label>
 <input name="b-date" type="date" />
 
@@ -58,13 +68,11 @@ require_once "../config/db.php";
 <div class="form-box" >
 <h2>Enter Return Record</h2>
 <form id=return-form method="post" action="../app/controllers/return-book.php">
-<input type="text" name="r-email" placeholder="Enter User email" />
-
-<input type="text" name="r-title" placeholder="Enter Book title" />
-
+<input type="text" id="return-email"name="r-email" placeholder="Enter User email" />
+<input list="return-suggestions" name="r-title" placeholder=" Book title" />
+<datalist id="return-suggestions" class="suggestions-box"></datalist>
 <label>Return Date</label>
 <input name="r-date" type="date" />
-
 <button type="submit">Submit Return Record</button>
 </form>
 </div>
@@ -77,4 +85,5 @@ require_once "../config/db.php";
 
     <button type="submit">Submit</button>
 </form>
+</div>
 </div>

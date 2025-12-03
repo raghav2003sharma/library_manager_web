@@ -94,7 +94,6 @@ try {
     $stmt5 = $conn->prepare($sql5);
     $stmt5->bind_param("i", $book_id);
     $stmt5->execute();
-
     $conn->commit();
     $_SESSION['success'] = "Borrow record added successfully.";
 

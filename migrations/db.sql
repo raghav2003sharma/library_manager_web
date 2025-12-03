@@ -43,3 +43,15 @@ ALTER TABLE `books` ADD `description` TEXT NULL DEFAULT NULL AFTER `author`;
 -- cache preview-link in books table
 ALTER TABLE books 
 ADD COLUMN preview_link TEXT NULL,
+
+CREATE TABLE reservations ( id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, book_id INT NOT NULL, status ENUM('pending','approved','rejected','borrrowed','expired') DEFAULT 'pending',borrrow_date DATE NOT NULL reserved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE, FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE );
+CREATE TABLE contact_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
+    name VARCHAR(100),
+    email VARCHAR(150),
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('unread', 'read', 'replied') DEFAULT 'unread'
+);
+ALTER TABLE `contact_messages` ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;

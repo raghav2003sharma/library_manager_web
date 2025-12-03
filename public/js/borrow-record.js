@@ -6,6 +6,9 @@ const searchHistory = document.getElementById("searchHistory");
 const nextBorrow = document.getElementById("nextBorrow");
 const prevPage = document.getElementById("prevPage");
 const nextPage = document.getElementById("nextPage");
+const returnEmailInput = document.getElementById("return-email");
+const returnSuggestions = document.getElementById("return-suggestions");
+
  if(searchBorrow){
     searchBorrow.addEventListener("keyup", () => {
         let query = searchBorrow.value.trim();
@@ -35,7 +38,14 @@ function borrowPage(step){
   .then(res => res.json())
   .then(data => {
       borrowTable.innerHTML = "";
-
+    if (data.records.length === 0) {
+                borrowTable.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align:center;padding:15px;">No records found.</td>
+                    </tr>
+                `;
+                return;
+            }
       data.records.forEach(book => {
           borrowTable.innerHTML += `
           <tr>
@@ -76,6 +86,14 @@ function historyPage(step){
   .then(res => res.json())
   .then(data => {
       borrowHistory.innerHTML = "";
+ if (data.records.length === 0) {
+                borrowHistory.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No records found.</td>
+                    </tr>
+                `;
+                return;
+            }
 
       data.records.forEach(book => {
           borrowHistory.innerHTML += `
@@ -101,3 +119,51 @@ function historyPage(step){
     }
   });
 }
+function fetchUserBooks(email){
+    fetch(`../app/controllers/book-autosuggestions.php?email=${encodeURIComponent(email)}&type=borrow`)
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById("book-suggestions");
+            list.innerHTML = "";
+
+            data.forEach(book => {
+                const option = document.createElement("option");
+                option.value = book.title;
+                list.appendChild(option);
+            });
+        })
+        .catch(err => console.error("Error fetching books:", err));
+
+}
+//autosuggestionfor borrow form
+document.getElementById("borrow-email").addEventListener("blur", function() {
+    const email = this.value.trim();
+    if (email !== "") {
+        fetchUserBooks(email);
+    }
+});
+
+returnEmailInput.addEventListener("blur", function () {
+    const email = this.value.trim();
+
+    if (email.length < 3) {
+        returnSuggestions.innerHTML = "";
+        return;
+    }
+
+    fetch(`../app/controllers/book-autosuggestions.php?email=${encodeURIComponent(email)}&type=return`)
+        .then(res => res.json())
+        .then(data => {
+            returnSuggestions.innerHTML = "";
+
+            data.forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.title;
+                returnSuggestions.appendChild(option);
+
+            });
+        })
+        .catch((err) => {
+              console.error("Error fetching books:", err);
+        });
+})

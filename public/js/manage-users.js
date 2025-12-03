@@ -34,6 +34,15 @@ fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}`)
   .then(data => {
 
       table.innerHTML = "";
+       if (data.users.length === 0) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No users found.</td>
+                    </tr>
+                `;
+                return;
+            }
+
       data.users.forEach(user => {
           table.innerHTML += `
           <tr>
@@ -43,8 +52,8 @@ fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}`)
               <td>${user.role}</td>
               <td>${user.created_at}</td>
                 <td>
-                        <button class="btn-edit" onclick="openEditModal('${user.user_id}','${user.name}','${user.email}','${user.role}')">Edit</button>
-                        <button class="btn-delete" onclick="openDeleteModal('${user.user_id}')">Delete</button>
+                        <button class="btn-edit" onclick="openEditModal('${user.user_id}','${user.name}','${user.email}','${user.role}')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn-delete" onclick="openDeleteModal('${user.user_id}')"><i class="fa-solid fa-trash"></i></button>
                     </td>
           </tr>`;
       });

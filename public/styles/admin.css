@@ -44,12 +44,17 @@ overflow-y: auto;
 }
 /* Sidebar */
 .sidebar {
+    display: flex;
+    flex-direction: column;
 width: 250px;
 background: #1e1e2d;
 color: #fff;
 padding: 20px;
 }
 
+.upper-side{
+    flex:1;
+}
 
 .sidebar h2 {
 text-align: center;
@@ -58,14 +63,21 @@ margin-bottom: 30px;
 
 
 .sidebar a {
-display: block;
+display: flex;
+align-items: center;
+justify-content: center;
+gap:10px;
 padding: 12px;
 margin: 8px 0;
 color: #cfcfcf;
 text-decoration: none;
-background: #2a2a3d;
+background-color: #2a2a3d;
 border-radius: 5px;
 }
+
+/* .sidebar a i{
+    height:30px;
+} */
 .settings{
     display:none;
     padding-left:10px;
@@ -86,7 +98,8 @@ background: #3b3b57;
 }
 .section-title {
 font-size: 22px;
-margin-bottom: 15px;
+margin-top:10px;
+margin-bottom: 20px;
 font-weight: bold;
 }
 .cards {
@@ -474,8 +487,32 @@ background: #3c57d6;
     from { opacity: 0; transform: translate(-50%, -48%); }
     to   { opacity: 1; transform: translate(-50%, -50%); }
 }
-
-
+.sidebar a.select{
+    background-color: #3b3b57;
+    color:white;
+    font-weight:bold;
+}
+.reserve-filters {
+   max-width: 1000px;
+margin: 10px auto 25px;
+display: flex;
+gap: 12px;
+justify-content: flex-start;
+/* flex-wrap: wrap; */
+}
+.filter-btn {
+   padding: 6px 18px;
+border-radius: 20px;
+background: #e8e8e8;
+cursor: pointer;
+font-size: 14px;
+color:black;
+border: 1px solid #ccc;
+}
+.filter-btn.active {
+    background: #1d3bbb;
+    color: #fff;
+}
 
 
 #change-pass-form {
@@ -557,4 +594,8 @@ background: #3c57d6;
     width: 50px;
     height: auto;
     border-radius: 4px;
+}
+.form-container{
+    display: flex;
+    gap:10px;
 }

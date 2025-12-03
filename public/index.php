@@ -20,6 +20,10 @@ if ($page === 'user-home') {
     require_once "../app/views/user-dash.php";
     exit;
 }
+if($page === 'view-book'){
+    require_once "../app/views/view-book.php";
+    exit;
+}
 if($page === 'logout'){
     require_once "../app/controllers/logout.php";
     exit;

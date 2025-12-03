@@ -27,6 +27,14 @@ fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}`)
   .then(res => res.json())
   .then(data => {
       booksTable.innerHTML = "";
+     if (data.books.length === 0) {
+                booksTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No books found.</td>
+                    </tr>
+                `;
+                return;
+            }
 
       data.books.forEach(book => {
           booksTable.innerHTML += `
@@ -39,8 +47,8 @@ fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}`)
               <td>${book.created_at}</td>
               <td><img src="${book.cover_image}"/></td>
                 <td>
-                    <button class="btn-edit" onclick="openEditBook('${book.book_id}','${book.title}','${book.author}','${book.category}','${book.stock}','${book.cover_image}')">Edit</button>
-                    <button class="btn-delete" onclick="openDeleteBook('${book.book_id}')">Delete</button>
+                    <button class="btn-edit" onclick="openEditBook('${book.book_id}','${book.title}','${book.author}','${book.category}','${book.stock}','${book.cover_image}')"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn-delete" onclick="openDeleteBook('${book.book_id}')"><i class="fa-solid fa-trash"></i></button>
                 </td>
           </tr>`;
       });

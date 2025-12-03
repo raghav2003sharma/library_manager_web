@@ -20,13 +20,22 @@ function toggleSettings(){
 }
 fetchAvailableBooks();
 fetchBorrowedBooks();
+fetchReservations();
+function clearSearch(){
+    document.getElementById("suggestions").style.display = "none";
+    document.getElementById("search-inp").value = "";
+    isLoading = false;
+    hasMore = true;
+   
+    fetchAvailableBooks();
+}
 function loadCategory(button,category){
     currentCategory = category;  
-    currentPage = 1;             // reset to page 1
+    currentPage = 1;             
     hasMore = true;             
     isLoading = false;
     document.querySelectorAll('.filter-btn').forEach(btn => {
-                                                    btn.classList.remove('active');
+        btn.classList.remove('active');
     });
     button.classList.add('active');
 }
@@ -53,19 +62,15 @@ function fetchAvailableBooks(category="all",query="",page=1,append=false){
             }
         // data.length === 0 && (booksContainer.innerHTML = '<p>No books available in this category.</p>');
         data.forEach(book => {
-            const bookDiv = document.createElement('div');
+            const bookDiv = document.createElement('div');// how do i pass book id here
             bookDiv.classList.add('book-card');
             bookDiv.innerHTML = `
-                <a  href="/public/index.php?page=view-book&id=${book.id}">
+                <a style="text-decoration:none;color:black;" href="/public/index.php?page=view-book&id=${book.book_id}"> 
                 <img src="${book.cover_image}" />
                 <div class="title">${book.title}</div>
             <div class="author">${book.author}</div>
-            <div class="category-tag">${book.category}</div>
+            <div class="category-tag">${book.category}</div>    
             <div class="availability available">Available(${book.stock})</div>
-            <div  class="preview-link">
-                <a href="${book.preview_link?book.preview_link:'#'}" target="_blank"> ${book.preview_link?"Preview":"no preview"}
-                </a>
-            </div>
                 </a>
             `;
             booksContainer.appendChild(bookDiv);
@@ -83,6 +88,11 @@ window.addEventListener('scroll', () => {
         fetchAvailableBooks(currentCategory,currentQuery, currentPage, true);
     }
 });
+document.getElementById('reservation-filter').addEventListener('change', function () {
+    const filterValue = this.value;  
+
+    fetchReservations(filterValue);
+});
 function fetchBorrowedBooks(){
     fetch('/app/controllers/fetch-borrowed.php',{
          
@@ -93,6 +103,10 @@ function fetchBorrowedBooks(){
     .then(data => {
         const borrowedContainer = document.getElementById('borrow');
         borrowedContainer.innerHTML = '';
+        if (!data || data.length === 0) {
+            borrowedContainer.innerHTML = '<p>No borrowed records found.</p>';
+            return;
+        }
         data.forEach(book => {
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-card');
@@ -108,6 +122,42 @@ function fetchBorrowedBooks(){
         })
     })
 }
+
+function fetchReservations(filter = 'pending', page = 1, search = ''){
+     fetch(`/app/controllers/user-reservations.php?filter=${filter}&page=${page}&q=${encodeURIComponent(search)}`, {
+        method: "GET",
+        credentials: "include"
+    })
+    .then(response => response.json())
+    .then(data => {
+        const reservationSection = document.getElementById('reserves');
+        reservationSection.innerHTML = ''; 
+
+        if (!data.reservations || data.reservations.length === 0) {
+            reservationSection.innerHTML = '<p>No reservations found.</p>';
+            return;
+        }
+
+        data.reservations.forEach(res => {
+            const bookDiv = document.createElement('div');
+            bookDiv.classList.add('book-card');
+            bookDiv.innerHTML = `
+                <img src="${res.cover_image}" alt="${res.title}" />
+                <div class="title">${res.title}</div>
+                <div class="status">Status: ${res.status}</div>
+                ${res.borrow_date ? `<div class="due-date">Borrow-date: ${res.borrow_date}</div>` : ''}
+                
+            `;
+            reservationSection.appendChild(bookDiv);
+        });
+
+    })
+    .catch(err => {
+        console.error(err);
+    });
+
+
+}
 function showForm(){
     const form = document.querySelector(".pass-modal");
     if(form.style.display === "none" || form.style.display === ""){
@@ -120,7 +170,7 @@ function closeChangePass(){
     document.querySelector(".pass-modal").style.display = "none";
 }
 function searchBooks(){
-    const query = document.getElementById("availBooks").value.trim();
+    const query = document.getElementById("search-inp").value.trim();
       currentPage = 1;
     hasMore = true;
     isLoading = false;
@@ -131,18 +181,54 @@ function searchBooks(){
 function showAvailable() {
   document.getElementById("home-section").style.display = "block";
     document.getElementById("borrowed-section").style.display = "none";
+     document.getElementById("about-us").style.display = "none";
+    document.getElementById("contact").style.display = "none";
+            document.getElementById("reservation-section").style.display = "none";
+
+
 }
 
 function showBorrowed() {
     document.getElementById("home-section").style.display = "none";
     document.getElementById("borrowed-section").style.display = "block";
+     document.getElementById("about-us").style.display = "none";
+    document.getElementById("contact").style.display = "none";
+            document.getElementById("reservation-section").style.display = "none";
+
+
 }
 function showPage(page) {
     localStorage.setItem("activePage", page);
 
     if (page === "home") showAvailable();
     if (page === "borrow") showBorrowed();
+    if(page === "about") {
+         document.getElementById("home-section").style.display = "none";
+    document.getElementById("borrowed-section").style.display = "none";
+    document.getElementById("contact").style.display = "none";
+    document.getElementById("about-us").style.display = "block";
+            document.getElementById("reservation-section").style.display = "none";
+
+
+    }
+    if(page==="contact"){
+         document.getElementById("home-section").style.display = "none";
+    document.getElementById("borrowed-section").style.display = "none";
+    document.getElementById("about-us").style.display = "none";
+    document.getElementById("contact").style.display = "block";
+        document.getElementById("reservation-section").style.display = "none";
+
+    }
+    if(page==="reservation"){
+         document.getElementById("home-section").style.display = "none";
+    document.getElementById("borrowed-section").style.display = "none";
+    document.getElementById("about-us").style.display = "none";
+    document.getElementById("contact").style.display = "none";
+    document.getElementById("reservation-section").style.display = "block";
+    }
     if (page === "settings") toggleSettings();
+   
+   
 }
 function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("active");
@@ -168,6 +254,48 @@ function autoSearch(query) {
         });
 }
 function selectSuggestion(title) {
-    document.getElementById("search").value = title;
+    document.getElementById("search-inp").value = title;
     document.getElementById("suggestions").innerHTML = "";
 }
+
+function openReserveForm() {
+    document.getElementById("reserveModal").style.display = "flex";
+}
+
+function closeReserveForm() {
+    document.getElementById("reserveModal").style.display = "none";
+}
+
+function confirmReserve() {
+    return confirm("Are you sure you want to reserve this book?");
+}
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch("/app/controllers/contact-form.php", {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+    })
+    .then(res => res.json())
+    .then(data => {
+        const msg = document.getElementById("contact-message");
+
+        if (data.success) {
+            
+            msg.innerHTML = `<div style="color:green;" class="success">! ${data.message}</div>`;
+            this.reset(); // Clear form
+            
+        } else {
+            msg.innerHTML = `<div style="color:red;" class="error">! ${data.message}</div>`;
+                    this.reset(); // Clear form
+
+        }
+          setTimeout(() => {
+            msg.innerHTML = "";
+    }, 3000);
+
+    });
+});

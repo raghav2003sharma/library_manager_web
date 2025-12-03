@@ -13,6 +13,7 @@ unset($_SESSION['success']);
     <link rel="stylesheet" href="../../public/styles/auth.css">
 </head>
 <body>
+    
      <div class="container">
         <h1 class="frm-heading">Sign in</h1>
         <form class="main-frm"action="../app/controllers/login.php" method="POST">

@@ -37,9 +37,9 @@ function getBookPreview($conn,$bookId,$title,$preview_link_db) {
 
 $category = isset($_GET['category']) ? $_GET['category'] : null;
 if($category === "all" || $category === null){
-    $sql = "SELECT book_id, title, author, category, stock, cover_image,preview_link FROM books WHERE stock > 0 AND (title LIKE ? OR author LIKE ?) LIMIT ? OFFSET ?";
+    $sql = "SELECT book_id, title, author, category,description, stock, cover_image,preview_link FROM books WHERE stock > 0 AND (title LIKE ? OR author LIKE ?) LIMIT ? OFFSET ?";
 } else {
-    $sql = "SELECT book_id, title, author, category, stock, cover_image,preview_link FROM books WHERE stock > 0 AND category = ? AND (title LIKE ? OR author LIKE ?) LIMIT ? OFFSET ?";
+    $sql = "SELECT book_id, title, author, category,description, stock, cover_image,preview_link FROM books WHERE stock > 0 AND category = ? AND (title LIKE ? OR author LIKE ?) LIMIT ? OFFSET ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssii", $category, $search, $search, $limit, $offset);
     $stmt->execute();

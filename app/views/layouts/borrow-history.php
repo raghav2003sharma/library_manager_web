@@ -8,7 +8,7 @@
     </div>
 <div class="table-wrapper">
 
-    <table class="users-table">
+    <table id="historyTable"class="users-table">
         <thead>
             <tr>
                 <th>User Name</th>
