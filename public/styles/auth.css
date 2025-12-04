@@ -67,3 +67,31 @@ body {
 .redirect-txt a:hover {
     text-decoration: underline;
 }
+/* Home Button */
+.home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding:10px;
+    margin-left:9px;
+}
+
+.home-btn a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #2c2c2c;
+    font-weight: 500;
+}
+a p{
+    font-weight: 600;
+    font-size: 24px;
+}
+.home-btn a:hover {
+    color: #000;
+}
+.home-icon{
+
+}

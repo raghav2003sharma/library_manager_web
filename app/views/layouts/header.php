@@ -28,7 +28,7 @@ if (isset($_SESSION['error'])) {
 <div class="page-wrapper">
 <!-- NAVBAR -->
 <div class="navbar">
-<div class="logo" onclick="showPage('home')"> <img src="uploads/book_logo.png" alt="Logo" class="logo-img"><span> Books Mania </span></div>
+<div class="logo" onclick="showPage('home')"> <img src="/public/uploads/book_logo.png" alt="Logo" class="logo-img"><span> Books Mania </span></div>
 <div id="navLinks" class="nav-links">
 <!-- <a href="#" >Home</a> -->
  <?php if(isset($_SESSION['user_id'])): ?>
@@ -39,6 +39,8 @@ if (isset($_SESSION['error'])) {
    <?php else: ?>
         <!-- User is NOT logged in -->
         <a href="index.php?page=login">Login</a>
+        <a href="index.php?page=register">Register</a>
+
     <?php endif; ?>
 </div>
 <div class="menu-icon" onclick="toggleMenu()">
