@@ -288,3 +288,72 @@ header {
 .res-actions .confirm:hover {
     background: #059669;
 }
+.card-actions {
+    
+    display: flex;
+    gap: 6px;
+}
+
+.card-actions button {
+    border: none;
+    background: #f5f5f5;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.edit-date-modal{
+     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.modal {
+     display: none; /* hidden by default */
+    position: fixed;
+    width: 320px;
+    background: #fff;
+    padding: 18px 22px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 999;
+    animation: fadeIn 0.2s ease-in-out;
+}
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-cancel {
+    width:fit-content;
+    padding: 8px 16px;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-delete {
+        width:fit-content;
+    padding: 8px 16px;
+    background: #e63946;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

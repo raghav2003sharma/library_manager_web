@@ -56,7 +56,10 @@ padding: 20px;
 .upper-side{
     flex:1;
 }
-
+.bottom-side{
+    padding:5px;
+    border-top:.5px solid #474747;
+}
 .sidebar h2 {
 text-align: center;
 margin-bottom: 30px;
@@ -258,9 +261,10 @@ background: #3c57d6;
 /* Pagination */
 .pagination {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 18px;
+    margin-right:10px;
     gap: 15px;
 }
 

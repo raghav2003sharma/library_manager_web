@@ -76,12 +76,16 @@ require_once "../config/db.php";
 <button type="submit">Submit Return Record</button>
 </form>
 </div>
+<!-- pay fine  -->
 <div class="form-box" >
 <h2>Pay fine </h2>
 <form id="fineForm" method="POST" action="../app/controllers/pay-fine.php">
-    <input type="email" name="email" placeholder="User Email" required>
-    <input type="text" name="title" placeholder="Book Title"required>
-    <input type="number" step="0.01" placeholder="fine amount paid" name="amount" required>
+    <input type="email"id="fine-email" name="email" placeholder="User Email" required>
+    <input list="fine-suggestions" id="fine-book"name="title" placeholder="Book Title"required>
+    <datalist id="fine-suggestions" class="suggestions-box"></datalist>
+
+    <input type="number" id="fine-amount" step="0.01" placeholder="fine amount paid" name="amount" required>
+
 
     <button type="submit">Submit</button>
 </form>

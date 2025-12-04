@@ -35,7 +35,7 @@ $totalPages = ceil($total / $limit);
 // ----------------------
 // FETCH CURRENT PAGE DATA
 // ----------------------
-$sql = "SELECT r.id, r.status, r.borrow_date, b.title, b.cover_image
+$sql = "SELECT r.id, r.status, r.borrow_date,r.reserved_at,b.book_id, b.title, b.cover_image
         FROM reservations r
         JOIN books b ON r.book_id = b.book_id
         WHERE r.user_id = ? 
@@ -51,11 +51,13 @@ $reservations = [];
 while ($row = $result->fetch_assoc()) {
     $reservations[] = [
         "id" => $row["id"],
+        "book_id"=>$row["book_id"],
         "status" => $row["status"],
         "title" => $row["title"],
         "cover_image" => $row["cover_image"],
         "borrow_date" => $row["borrow_date"] ?? '',
-        "due_date" => $row["due_date"] ?? ''
+        "due_date" => $row["due_date"] ?? '',
+        "reserved_at"=>$row["reserved_at"] ?? ''
     ];
 }
 

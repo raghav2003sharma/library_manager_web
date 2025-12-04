@@ -38,8 +38,8 @@ if (isset($_SESSION['error'])) {
 <a href="#" onclick="toggleSettings()">Settings</a>
    <?php else: ?>
         <!-- User is NOT logged in -->
-        <a href="index.php?page=login">Login</a>
-        <a href="index.php?page=register">Register</a>
+        <a href="?page=login">Login</a>
+        <a href="?page=register">Register</a>
 
     <?php endif; ?>
 </div>

@@ -8,7 +8,10 @@ const prevPage = document.getElementById("prevPage");
 const nextPage = document.getElementById("nextPage");
 const returnEmailInput = document.getElementById("return-email");
 const returnSuggestions = document.getElementById("return-suggestions");
-
+const fineEmail = document.getElementById("fine-email");
+const fineBook = document.getElementById("fine-book");
+const fineSuggestions = document.getElementById("fine-suggestions");
+const fineAmount = document.getElementById("fine-amount");
  if(searchBorrow){
     searchBorrow.addEventListener("keyup", () => {
         let query = searchBorrow.value.trim();
@@ -167,3 +170,39 @@ returnEmailInput.addEventListener("blur", function () {
               console.error("Error fetching books:", err);
         });
 })
+let fineData = [];
+
+// Load book suggestions for fine amount
+fineEmail.addEventListener("blur", function () {
+    const email = this.value.trim();
+
+    if (email.length < 3) {
+        fineSuggestions.innerHTML = "";
+        return;
+    }
+
+    fetch(`../app/controllers/book-autosuggestions.php?email=${encodeURIComponent(email)}&type=fine`)
+        .then(res => res.json())
+        .then(data => {
+               fineData = data; 
+            fineSuggestions.innerHTML = "";
+
+            data.forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.title;
+                fineSuggestions.appendChild(option);
+            });
+        })
+        .catch(err => console.error("Error:", err));
+})
+fineBook.addEventListener("change", function () {
+    const selectedTitle = this.value.trim();
+
+    const book = fineData.find(b => b.title === selectedTitle);
+
+    if (book) {
+        fineAmount.value = book.fine_amount;
+    } else {
+        fineAmount.value = "";
+    }
+});

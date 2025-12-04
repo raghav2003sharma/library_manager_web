@@ -146,6 +146,10 @@ function fetchReservations(filter = 'pending', page = 1, search = ''){
                 <div class="title">${res.title}</div>
                 <div class="status">Status: ${res.status}</div>
                 ${res.borrow_date ? `<div class="due-date">Borrow-date: ${res.borrow_date}</div>` : ''}
+                  <div class="card-actions">
+               ${res.status ==="pending" ?` <button onclick="openEditDate(${res.book_id})"class="edit-btn"><i class="fa-solid fa-pen"></i></button>`:''}
+                <button onclick="deleteReservation(${res.book_id},'${res.status}')"class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                 </div>
                 
             `;
             reservationSection.appendChild(bookDiv);
@@ -158,6 +162,14 @@ function fetchReservations(filter = 'pending', page = 1, search = ''){
 
 
 }
+function deleteReservation(id,status){
+    document.getElementById("reserve_delete_id").value = id;
+    document.getElementById("reserve_status").value = status;
+    document.getElementById("deleteReserveModal").style.display = "flex";
+}
+ function closeDeleteBook() {
+        document.getElementById("deleteReserveModal").style.display = "none";
+    }
 function showForm(){
     const form = document.querySelector(".pass-modal");
     if(form.style.display === "none" || form.style.display === ""){
@@ -268,6 +280,15 @@ function closeReserveForm() {
 
 function confirmReserve() {
     return confirm("Are you sure you want to reserve this book?");
+}
+function openEditDate(id){
+        document.getElementById("editDateModal").style.display = "flex";
+        document.getElementById("hidden-bookid").value = id;
+
+}
+function closeDateForm(){
+            document.getElementById("editDateModal").style.display = "none";
+
 }
 document.getElementById("contactForm").addEventListener("submit", function (e) {
     e.preventDefault();

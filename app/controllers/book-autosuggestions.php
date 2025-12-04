@@ -97,4 +97,54 @@ while ($row = $result->fetch_assoc()) {
 
 echo json_encode($data);
 }
+if ($_GET['type'] === "fine") {
+    $email = $_GET['email'] ?? "";
+
+    if ($email == "") {
+        echo json_encode([]);
+        exit;
+    }
+
+    // Get user_id
+    $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $user = $stmt->get_result()->fetch_assoc();
+
+    if (!$user) {
+        echo json_encode([]);
+        exit;
+    }
+
+    $user_id = $user["user_id"];
+
+    // Fetch books with unpaid fines
+    $sql = "
+        SELECT 
+            b.book_id,
+            b.title,
+            f.fine_amount
+        FROM borrow_records f
+        JOIN books b ON f.book_id = b.book_id
+        WHERE f.user_id = ? AND f.fine_status = 'unpaid'
+    ";
+
+    $stmt2 = $conn->prepare($sql);
+    $stmt2->bind_param("i", $user_id);
+    $stmt2->execute();
+    $result = $stmt2->get_result();
+
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = [
+            "book_id" => $row["book_id"],
+            "title" => $row["title"],
+            "fine_amount" => $row["fine_amount"]
+        ];
+    }
+
+    echo json_encode($data);
+    exit;
+}
+
 ?>
