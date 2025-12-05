@@ -69,4 +69,5 @@ $preview = $book['preview_link'] ?? '';
                                                              <button type="submit" class="confirm">Reserve</button> </div> </form> </div> </div> <!-- <div class="reserve-form" > 
                                                                 <form method="Post" action="../app/controllers/reserve.php" class="footer-content"> <input type="hidden" name="book_id" value="<?= $id ?>"> 
                                                                 <button type="submit" class="rent-btn">Reserve Book</button> </form> </div> --> </div> 
-<?php include "layouts/footer.php"; ?>
+
+ <?php include "layouts/footer.php"; ?>

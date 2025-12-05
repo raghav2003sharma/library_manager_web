@@ -146,6 +146,7 @@ function fetchReservations(filter = 'pending', page = 1, search = ''){
                 <div class="title">${res.title}</div>
                 <div class="status">Status: ${res.status}</div>
                 ${res.borrow_date ? `<div class="due-date">Borrow-date: ${res.borrow_date}</div>` : ''}
+                <div class="due-date">Reserved at: ${res.reserved_at}</div>
                   <div class="card-actions">
                ${res.status ==="pending" ?` <button onclick="openEditDate(${res.book_id})"class="edit-btn"><i class="fa-solid fa-pen"></i></button>`:''}
                 <button onclick="deleteReservation(${res.book_id},'${res.status}')"class="delete-btn"><i class="fa-solid fa-trash"></i></button>
@@ -195,7 +196,7 @@ function showAvailable() {
     document.getElementById("borrowed-section").style.display = "none";
      document.getElementById("about-us").style.display = "none";
     document.getElementById("contact").style.display = "none";
-            document.getElementById("reservation-section").style.display = "none";
+            // document.getElementById("reservation-section").style.display = "none";
 
 
 }
@@ -205,7 +206,7 @@ function showBorrowed() {
     document.getElementById("borrowed-section").style.display = "block";
      document.getElementById("about-us").style.display = "none";
     document.getElementById("contact").style.display = "none";
-            document.getElementById("reservation-section").style.display = "none";
+            // document.getElementById("reservation-section").style.display = "none";
 
 
 }
@@ -219,7 +220,7 @@ function showPage(page) {
     document.getElementById("borrowed-section").style.display = "none";
     document.getElementById("contact").style.display = "none";
     document.getElementById("about-us").style.display = "block";
-            document.getElementById("reservation-section").style.display = "none";
+            // document.getElementById("reservation-section").style.display = "none";
 
 
     }
@@ -228,7 +229,7 @@ function showPage(page) {
     document.getElementById("borrowed-section").style.display = "none";
     document.getElementById("about-us").style.display = "none";
     document.getElementById("contact").style.display = "block";
-        document.getElementById("reservation-section").style.display = "none";
+        // document.getElementById("reservation-section").style.display = "none";
 
     }
     if(page==="reservation"){
@@ -236,7 +237,7 @@ function showPage(page) {
     document.getElementById("borrowed-section").style.display = "none";
     document.getElementById("about-us").style.display = "none";
     document.getElementById("contact").style.display = "none";
-    document.getElementById("reservation-section").style.display = "block";
+    // document.getElementById("reservation-section").style.display = "block";
     }
     if (page === "settings") toggleSettings();
    

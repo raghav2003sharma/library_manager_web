@@ -2,7 +2,7 @@
 session_start();
 require_once "../../config/db.php";
 if(!isset($_SESSION['user_id'])){
-    $_SESSION['error'] = "You must be logged in to reserve a book.";
+    $_SESSION['error'] = "You must be logged in.";
     header("Location: /public/index.php?page=login");
     exit;
 }
@@ -11,7 +11,7 @@ $book_id = $_POST['book_id'] ?? '';
 $date = $_POST['borrow_date'] ?? '';   
 if(empty($book_id) || empty($date)){
     $_SESSION['error'] = "empty fields are not allowed.";
-    header("Location: /public/index.php?page=user-home");
+    header("Location: /public/index.php?page=reserves");
     exit;
 }
 $sql = "UPDATE reservations set borrow_date = ? WHERE book_id = ? AND user_id = ?";
@@ -22,5 +22,5 @@ if($stmt->execute()){
 } else {
     $_SESSION['error'] = "Failed to Edit the borrow date. Please try again.";
 }
-header("Location: /public/index.php?page=user-home");
+header("Location: /public/index.php?page=reserves");
 exit;

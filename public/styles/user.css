@@ -91,6 +91,12 @@ display: flex;
 align-items: center;
 gap: 10px;
 }
+.logo a{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    color:white
+}
 .logo-img{
      max-height: 32px;        /* image matches the .logo height */
     width: auto;         /* keeps aspect ratio */
@@ -418,7 +424,6 @@ cursor: not-allowed;
     background: #eee;
 }
 #about-us{
-        display:none;
        max-width: 900px;
         margin: 40px auto;
         background: white;
@@ -446,7 +451,6 @@ cursor: not-allowed;
     }
     #contact{
         flex:1;
-        display:none;
           max-width: 900px;
         margin: 40px auto;
         background: white;
@@ -498,9 +502,8 @@ cursor: not-allowed;
         background: #003775;
     }
     /* reservation section */
-    #reservation-section{
-        display: none;
-    }
+    /* #reservation-section{
+    } */
     .reservation-controls {
     width: 100%;
     display: flex;

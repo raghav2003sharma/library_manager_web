@@ -1,3 +1,5 @@
+<?php include "layouts/header.php"; ?>
+
 <div id="about-us">
     <h1>About Us</h1>
 
@@ -28,3 +30,6 @@
         as we enjoyed building it.
     </p>
 </div>
+
+
+<?php include "layouts/footer.php"; ?>

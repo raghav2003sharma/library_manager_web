@@ -3,7 +3,7 @@ session_start();
 require_once "../../config/db.php";
 $search = $_GET['q'] ?? ""; 
 $search = "%$search%";
-$limit = 5;
+$limit = 6;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
     $total = $conn->prepare("Select count(*) as total from users WHERE name LIKE ?

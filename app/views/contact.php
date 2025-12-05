@@ -1,3 +1,4 @@
+<?php include "layouts/header.php"; ?>
 
 <div id="contact">
     <h1>Contact Us</h1>
@@ -13,3 +14,7 @@
         <button type="submit">Send Message</button>
     </form>
 </div>
+
+
+
+<?php include "layouts/footer.php"; ?>

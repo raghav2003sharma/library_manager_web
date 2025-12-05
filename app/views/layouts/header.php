@@ -23,18 +23,19 @@ if (isset($_SESSION['error'])) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../../../public/styles/user.css">
     <link rel="stylesheet" href="../../../public/styles/book.css">
+
 </head>
 <body>
 <div class="page-wrapper">
 <!-- NAVBAR -->
 <div class="navbar">
-<div class="logo" onclick="showPage('home')"> <img src="/public/uploads/book_logo.png" alt="Logo" class="logo-img"><span> Books Mania </span></div>
+<div class="logo" > <a href="/public/index.php?page=user-home"><img src="/public/uploads/book_logo.png" alt="Logo" class="logo-img"><span> Books Mania </span></a></div>
 <div id="navLinks" class="nav-links">
-<!-- <a href="#" >Home</a> -->
+<a href="/public/index.php?page=user-home">Dashboard</a>
  <?php if(isset($_SESSION['user_id'])): ?>
         <!-- User is logged in -->
-<a href="#" onclick="showPage('borrow')">Borrowed</a>
-<a href="#" onclick="showPage('reservation')">Reservations</a>
+<a href="/public/index.php?page=borrowed" >Borrowed</a>
+<a href="/public/index.php?page=reserves">Reservations</a>
 <a href="#" onclick="toggleSettings()">Settings</a>
    <?php else: ?>
         <!-- User is NOT logged in -->

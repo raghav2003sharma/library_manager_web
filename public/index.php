@@ -24,6 +24,22 @@ if($page === 'view-book'){
     require_once "../app/views/view-book.php";
     exit;
 }
+if($page === 'contact'){
+       require_once "../app/views/contact.php";
+    exit;
+}
+if($page === 'about'){
+       require_once "../app/views/aboutus.php";
+    exit;
+}
+if($page === 'borrowed'){
+       require_once "../app/views/borrowed.php";
+    exit;
+}
+if($page === 'reserves'){
+    require_once "../app/views/user-reservations.php";
+    exit;
+}
 if($page === 'logout'){
     require_once "../app/controllers/logout.php";
     exit;
