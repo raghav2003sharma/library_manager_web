@@ -314,6 +314,7 @@ cursor: not-allowed;
 .dropdown {
     display: none;
     position: absolute;
+    z-index:999;
     right: 0;
     top: 48px;
     background: #fff;
@@ -531,6 +532,71 @@ cursor: not-allowed;
     border-color: #0066ff;
     box-shadow: 0 0 4px rgba(0, 102, 255, 0.4);
 }
+.edit-user-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.edit-user-box {
+    background: #fff;
+    width: 380px;
+    padding: 25px;
+    border-radius: 10px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.edit-user-box h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#editProfileForm{
+    padding:10px;
+}
+
+#editProfileForm input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+ .edit-profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom:10px;
+} 
+
+.profile-cancel-btn, .profile-save-btn, .profile-delete-btn {
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.profile-cancel-btn {
+    background: #ddd;
+}
+
+.profile-save-btn {
+    background: #3498db;
+    color: white;
+}
+
+.profile-delete-btn {
+    width: 100%;
+    margin-top: 15px;
+    background: #e74c3c;
+    color: white;
+} 
 /* Fade animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
@@ -556,6 +622,7 @@ cursor: not-allowed;
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index:9999;
     }
 
     .nav-links a {

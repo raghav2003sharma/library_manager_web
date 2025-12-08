@@ -22,7 +22,7 @@ unset($_SESSION['success']);
 </div>
      <div class="container">
         <h1 class="frm-heading">Sign in</h1>
-        <form class="main-frm"action="../app/controllers/login.php" method="POST">
+        <form class="main-frm login-form"action="../app/controllers/login.php" method="POST">
             <input type="email" name="email" placeholder="Email" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
             <button type="submit">Submit</button>
@@ -40,7 +40,7 @@ unset($_SESSION['success']);
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("form");
+        const form = document.querySelector(".login-form");
         const email = document.querySelector("input[name='email']");
         const password = document.querySelector("input[name='password']");
 
@@ -50,13 +50,18 @@ unset($_SESSION['success']);
             e.preventDefault();
             return;
         }
-            // Email validation
-            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-            if (!email.value.match(emailPattern)) {
-                 alert("Please enter a valid email address.");
-                 e.preventDefault();
-                 return;
-            }
+           if (email.value.length > 50) {
+    alert("Email too long.");
+    e.preventDefault();
+    return;
+}
+        // 3. Valid email
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email.value.trim())) {
+            alert("Please enter a valid email address.");
+            e.preventDefault();
+            return;
+        }
 
             // Password validation
             if (password.value.length < 6) {
@@ -67,6 +72,5 @@ unset($_SESSION['success']);
         });
     });
     </script>
-
 </body>
 </html>

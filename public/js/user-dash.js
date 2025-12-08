@@ -10,7 +10,16 @@ window.onload = function () {
     if (savedPage === "borrow") showBorrowed();
     if (savedPage === "settings") toggleSettings();
 };
-function toggleSettings(){
+document.addEventListener("click", function (e) {
+    const dropdown = document.getElementById("settingsDropdown");
+
+    // if dropdown is visible AND clicked outside it
+    if (dropdown.style.display === "block" && !dropdown.contains(e.target)) {
+        dropdown.style.display = "none";
+    }
+});
+function toggleSettings(e){
+    e.stopPropagation();
     const dropdown = document.querySelector('.dropdown');
     if(dropdown.style.display === "none" || dropdown.style.display === ""){
         dropdown.style.display = "block";
@@ -57,12 +66,17 @@ function fetchAvailableBooks(category="all",query="",page=1,append=false){
             }
 
             if (data.length === 0) {
-                hasMore = false; // No more data
+                 hasMore = false;
+                if (!append) {
+                    booksContainer.innerHTML = `
+                        <p class="no-books-msg">No books available in this category.</p>
+                    `;
+                }
                 return;
             }
         // data.length === 0 && (booksContainer.innerHTML = '<p>No books available in this category.</p>');
         data.forEach(book => {
-            const bookDiv = document.createElement('div');// how do i pass book id here
+            const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-card');
             bookDiv.innerHTML = `
                 <a style="text-decoration:none;color:black;" href="/public/index.php?page=view-book&id=${book.book_id}"> 
@@ -291,33 +305,48 @@ function closeDateForm(){
             document.getElementById("editDateModal").style.display = "none";
 
 }
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+function showUser(email,name) {
+    const modal = document.getElementById("editUserModal");
+    document.getElementById("editProfileName").value = name;
+    document.getElementById("editProfileEmail").value = email;
 
-    const formData = new FormData(this);
+    modal.style.display = "flex";
+}
+function closeEditUser() {
+    document.getElementById("editUserModal").style.display = "none";
+}
+function confirmDeleteUser() {
+    if (confirm("Are you sure you want to delete your account? This cannot be undone.")) {
+        window.location.href = "../app/controllers/delete-profile.php";
+    }
+}
+// document.getElementById("contactForm").addEventListener("submit", function (e) {
+//     e.preventDefault();
 
-    fetch("/app/controllers/contact-form.php", {
-        method: "POST",
-        body: formData,
-        credentials: "include"
-    })
-    .then(res => res.json())
-    .then(data => {
-        const msg = document.getElementById("contact-message");
+//     const formData = new FormData(this);
 
-        if (data.success) {
+//     fetch("/app/controllers/contact-form.php", {
+//         method: "POST",
+//         body: formData,
+//         credentials: "include"
+//     })
+//     .then(res => res.json())
+//     .then(data => {
+//         const msg = document.getElementById("contact-message");
+
+//         if (data.success) {
             
-            msg.innerHTML = `<div style="color:green;" class="success">! ${data.message}</div>`;
-            this.reset(); // Clear form
+//             msg.innerHTML = `<div style="color:green;" class="success">! ${data.message}</div>`;
+//             this.reset(); // Clear form
             
-        } else {
-            msg.innerHTML = `<div style="color:red;" class="error">! ${data.message}</div>`;
-                    this.reset(); // Clear form
+//         } else {
+//             msg.innerHTML = `<div style="color:red;" class="error">! ${data.message}</div>`;
+//                     this.reset(); // Clear form
 
-        }
-          setTimeout(() => {
-            msg.innerHTML = "";
-    }, 3000);
+//         }
+//           setTimeout(() => {
+//             msg.innerHTML = "";
+//     }, 3000);
 
-    });
-});
+//     });
+// });

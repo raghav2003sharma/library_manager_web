@@ -39,6 +39,15 @@ if ($password !== $confirmPassword) {
     header("Location: /public/index.php?page=register");
     exit;
 }
+ $stm2 = $conn->prepare("Select email from users WHERE email =?");
+ $stm2->bind_param("s",$email);
+ $stm2->execute();
+ $exists = $stm2->get_result();
+ if($exists->num_rows > 0){
+     $_SESSION['error'] = "Email already exists";
+    header("Location: /public/index.php?page=register");
+    exit;
+ }
 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 

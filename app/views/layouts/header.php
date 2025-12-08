@@ -11,6 +11,8 @@ if (isset($_SESSION['error'])) {
     $error = $_SESSION['error'];
     unset($_SESSION['error']);
 }
+$name = $_SESSION['name'];
+$email = $_SESSION['email'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +38,7 @@ if (isset($_SESSION['error'])) {
         <!-- User is logged in -->
 <a href="/public/index.php?page=borrowed" >Borrowed</a>
 <a href="/public/index.php?page=reserves">Reservations</a>
-<a href="#" onclick="toggleSettings()">Settings</a>
+<a href="#" onclick="toggleSettings(event)">Settings</a>
    <?php else: ?>
         <!-- User is NOT logged in -->
         <a href="?page=login">Login</a>
@@ -48,7 +50,8 @@ if (isset($_SESSION['error'])) {
         <i class="fa-solid fa-bars"></i>
     </div>
 </div>
-        <div class="dropdown">
+        <div  id="settingsDropdown" class="dropdown">
+            <a href="#" onclick="showUser('<?= $email ?>','<?= $name ?>')">Edit Profile</a>
             <a href="#" onclick="showForm()">Change Password</a>
             <a href="public/index.php?page=logout">Logout</a>
         </div>
@@ -66,3 +69,24 @@ if (isset($_SESSION['error'])) {
            </form>
             </div>
         </div>
+        <!-- EDIT PROFILE MODAL -->
+<div class="edit-user-modal" id="editUserModal">
+    <div class="edit-user-box">
+        <h1>Edit Profile</h1>
+
+        <form action="../app/controllers/update-profile.php" method="POST" id="editProfileForm">
+            <input type="text" name="username" id="editProfileName" placeholder="Full Name" required>
+            <input type="email" name="email" id="editProfileEmail" placeholder="Email Address" required>
+
+            <div class="edit-profile-actions">
+                <button type="button" class="profile-cancel-btn" onclick="closeEditUser()">Cancel</button>
+                <button type="submit" class="profile-save-btn">Save Changes</button>
+            </div>
+
+            <button type="button" class="profile-delete-btn" onclick="confirmDeleteUser()">
+                <i class="fa-solid fa-trash"></i> Delete Account
+            </button>
+
+        </form>
+    </div>
+</div>

@@ -62,13 +62,17 @@ function borrowPage(step){
        const totalPages = Math.ceil(data.totalRows / 5);
         if(page === 1){
         prevBorrow.disabled = true;
+        prevBorrow.classList.add("disable");
     } else {
         prevBorrow.disabled = false;
+        prevBorrow.classList.remove("disable");
     }
     if(page >= totalPages){
         nextBorrow.disabled = true;
+        nextBorrow.classList.add("disable");
     } else {
         nextBorrow.disabled = false;
+        nextBorrow.classList.remove("disable");
     }
   });
 }
@@ -112,13 +116,17 @@ function historyPage(step){
         const totalPages = Math.ceil(data.totalRows / 5);
         if(page === 1){
         prevPage.disabled = true;
+        prevPage.classList.add("disable");
     } else {
         prevPage.disabled = false;
+        prevPage.classList.remove("disable");
     }
     if(page >= totalPages){
         nextPage.disabled = true;
+        nextPage.classList.add("disable");
     } else {
         nextPage.disabled = false;
+        nextPage.classList.remove("disable");
     }
   });
 }

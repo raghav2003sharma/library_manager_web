@@ -3,7 +3,7 @@
 
     <div class="users-header">
         <button class="btn-add" id="btn-add" type="button" onclick="showAddUserForm()">+ Add User</button>
-        <form action="../app/controllers/add-user.php" method="post" class="add-user-form" id="addUserForm" style="display:none;">
+        <form action="../app/controllers/add-user.php" method="post" class="add-user-form add-user" id="addUserForm" style="display:none;">
             <h3>Add New User</h3>
             <input type="text" name="username" placeholder="username" required>
             <input type="email" name="email"placeholder="email" required>
@@ -57,15 +57,15 @@
 
 
 <!-- EDIT USER MODAL -->
-    <form id="editUserForm" class="editForm" action="../app/controllers/edit-user.php" method="POST">
+    <form id="editUserForm" class="editForm edit-user-form" action="../app/controllers/edit-user.php" method="POST">
         <h3>Edit User</h3>
         <input type="hidden" id="edit_id" name="id">
         <input name="name"type="text" placeholder="username" id="editUsername">
         <input name="email" type="email" placeholder="email" id="editEmail">
         <label>Role</label>
         <select name="role" id="editRole">
-            <option>User</option>
-            <option>Admin</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
         </select>
         <div class="form-actions">
             <button class="btn-save">Save</button>

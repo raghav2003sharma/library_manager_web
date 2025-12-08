@@ -14,6 +14,8 @@
 </div>
 </div>
 <script src="../../../public/js/user-dash.js"></script>
+    <script src="../../../public/js/validation.js"></script>
+
 <script> 
    <?php if (!empty($success)) : ?>
     alert("<?= $success ?>");

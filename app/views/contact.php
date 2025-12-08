@@ -4,8 +4,8 @@
     <h1>Contact Us</h1>
         <div id="contact-message"></div>
 
-    <form id="contactForm" class="contact-frm"  method="POST">
-        <input name="name"type="text" placeholder="Enter your name" required>
+    <form id="contactForm" class="contact-frm contact-form"  method="POST" action="../app/controllers/contact-form.php">
+        <input name="username"type="text" placeholder="Enter your name" required>
 
         <input name="email"type="email" placeholder="Enter your email" required>
 

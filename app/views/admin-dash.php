@@ -19,6 +19,8 @@ $page = $_GET['main-page'] ?? 'dashboard';
 ?>
 <?php include "layouts/sidebar.php"; ?>
 <!-- Main Section -->
+
+
 <div class="main">
 <?php
 
@@ -30,6 +32,7 @@ $page = $_GET['main-page'] ?? 'dashboard';
 <!-- End of Main Section -->
 </div>
 </div>
+
 <script src="../../public/js/manage-users.js"></script>
 <script src="../../public/js/manage-books.js"></script>
 <script src="../../public/js/borrow-record.js"></script>
@@ -38,11 +41,11 @@ $page = $_GET['main-page'] ?? 'dashboard';
 
 <script> 
      <?php if (!empty($success)) : ?>
-            alert("<?= $success ?>");
+        alert(<?= json_encode($success) ?>)
         <?php endif; ?>
         
   <?php if (!empty($error)) : ?>
-            alert("<?= $error ?>");
+                alert(<?= json_encode($error) ?>)
         <?php endif; ?>
 </script>
 
@@ -72,6 +75,35 @@ $page = $_GET['main-page'] ?? 'dashboard';
     }
     </script>
     <script>
+        const changePassword = document.getElementById("change-pass-form");
+        if(changePassword){
+        changePassword.addEventListener("submit",function(e){
+          const currPass =  document.getElementById("current-password");
+           const newPass = document.getElementById("new-password");
+            const confirm = document.getElementById("confirm-password");
+
+            if(!currPass || !newPass || ! confirm){
+                alert("all fields are required");
+                 e.preventDefault();
+                return;
+            }
+              if (currPass.value.length < 6) {
+            alert("current Password must be at least 6 characters long.");
+            e.preventDefault();
+            return;
+        }
+           if (newPass.value.length < 6) {
+            alert("new Password must be at least 6 characters long.");
+            e.preventDefault();
+            return;
+        }
+         if (newPass.value !== confirm.value) {
+            alert("Passwords do not match.");
+            e.preventDefault();
+            return;
+        }
+    })
+}
         function showForm(){
     const form = document.querySelector(".pass-modal");
     if(form.style.display === "none" || form.style.display === ""){

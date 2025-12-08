@@ -74,9 +74,22 @@ function loadReservations(query = "", page = 1, filter = "") {
 
             // Handle pagination
             const totalPages = Math.ceil(data.totalRows / 5);
+            if(page === 1){
+            prevResBtn.disabled = true;
+            prevResBtn.classList.add("disable");
+            }else{
+                            prevResBtn.disabled = false;
+                            prevResBtn.classList.remove("disable")
 
-            prevResBtn.disabled = page === 1;
-            nextResBtn.disabled = page >= totalPages;
+            }  
+             if(page >= totalPages){
+                nextResBtn.disabled = true;
+                nextResBtn.classList.add("disable");
+
+             }else{
+                nextResBtn.disabled = false;
+                nextResBtn.classList.remove("disable");
+             }
         })
         .catch(err => console.error("Fetch Error:", err));
 }

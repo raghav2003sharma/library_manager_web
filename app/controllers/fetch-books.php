@@ -12,7 +12,7 @@ $offset = ($page - 1) * $limit;
     $total->execute();
     $res = $total->get_result();
     $totalRows = $res->fetch_assoc()['total'];
-$sql = "SELECT book_id, title, author, category, stock,cover_image,created_at 
+$sql = "SELECT book_id, title, author,description, category, stock,cover_image,created_at 
         FROM books
         WHERE title LIKE ?
            OR author LIKE ?

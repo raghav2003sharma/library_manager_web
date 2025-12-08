@@ -604,3 +604,8 @@ border: 1px solid #ccc;
     display: flex;
     gap:10px;
 }
+.pagination button.disable{
+ background-color: whitesmoke ;
+    color: #9c9999; 
+    cursor: not-allowed; 
+}

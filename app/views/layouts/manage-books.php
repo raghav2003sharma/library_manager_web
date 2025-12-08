@@ -3,7 +3,7 @@
 <div class="books-section">
 
 <button type="button" onclick="showBookAddForm()" class="btn-add">+ Add Book</button>
-<form action="../app/controllers/add-book.php" enctype="multipart/form-data" method="post" class="add-user-form" id="addBookForm" style="display:none;">
+<form action="../app/controllers/add-book.php" enctype="multipart/form-data" method="post" class="add-user-form " id="addBookForm" style="display:none;">
             <h3>Add New Book</h3>
             <input type="text" name="title" placeholder="book title" required>
             <input type="text" name="author"  placeholder="author" required>
@@ -53,10 +53,12 @@
     <button id="nextBooks" onclick="bookStep(1)">Next</button>
 </div>
  <form style="display:none;" id="editBookForm" enctype="multipart/form-data" class="editForm" action="../app/controllers/edit-book.php" method="POST">
-        <h3>Edit User</h3>
+        <h3>Edit Book</h3>
         <input type="hidden" id="editBook_id" name="book_id">
         <input type="text" name="title" placeholder="book title" id="editTitle"required>
             <input type="text" name="author"  placeholder="author" id="editAuthor"required>
+            <input id="editDescription" type="text" name="description"  placeholder="description" >
+
             <!-- <input type="text" name="category" placeholder="category"id="editCategory" required> -->
              <label for="category"> Edit Category</label>
              <select name="category" id="editCategory" required>
@@ -70,7 +72,7 @@
            <label> Edit Cover Image</label>
             <input type="file" name="cover" id="editCover"  placeholder="cover image" accept="image/*">
         <div class="form-actions">
-            <button class="btn-save">Save</button>
+            <button type="submit"class="btn-save">Save</button>
             <button type="button" class="btn-close" onclick="closeEditBook()">Cancel</button>
         </div>
     </form>

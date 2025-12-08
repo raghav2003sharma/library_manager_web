@@ -42,6 +42,7 @@ if (strlen($password) < 6) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['name'] = $user['name'];
         $_SESSION['role'] = $user['role'];
+        $_SESSION['email'] = $user['email'];
 
         if ($user['role'] === 'admin') {
         header("Location: /public/index.php?page=admin-home");
