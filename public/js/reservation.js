@@ -55,6 +55,7 @@ function loadReservations(query = "", page = 1, filter = "") {
                         <td>${res.username}</td>
                         <td>${res.email}</td>
                         <td>${res.title}</td>
+                        <td>${res.borrow_date}</td>
                         <td>
                             <img src="${res.cover_image}" style="width:50px;height:auto;">
                         </td>

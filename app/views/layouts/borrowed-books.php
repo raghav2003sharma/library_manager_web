@@ -16,6 +16,7 @@
                 <th>Status</th>
                 <th>Borrow Date</th>
                 <th>Due Date</th>
+                <th>Return Book</th>
             </tr>
         </thead>
 

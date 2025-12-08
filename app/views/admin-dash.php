@@ -37,6 +37,7 @@ $page = $_GET['main-page'] ?? 'dashboard';
 <script src="../../public/js/manage-books.js"></script>
 <script src="../../public/js/borrow-record.js"></script>
 <script src="../../public/js/reservation.js"></script>
+<script src="../../public/js/dashboard.js"></script>
 
 
 <script> 

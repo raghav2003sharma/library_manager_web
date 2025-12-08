@@ -17,6 +17,7 @@
     <th>Username</th>
     <th>Email</th>
     <th>Title</th>
+    <th>borrow_date</th>
     <th>Cover-image</th>
     <th>Action</th>
 </tr>

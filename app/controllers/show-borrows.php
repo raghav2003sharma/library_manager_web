@@ -13,7 +13,7 @@ WHERE  br.return_date IS NULL AND (u.name LIKE ? OR b.title LIKE ? )");
     $total->execute();
     $res = $total->get_result();
     $totalRows = $res->fetch_assoc()['total'];
-$sql = "SELECT u.name,b.title, br.borrow_date,
+$sql = "SELECT u.user_id,u.name,b.book_id,b.title, br.borrow_date,
     br.due_date FROM borrow_records br INNER JOIN users u on br.user_id = u.user_id
 INNER JOIN books b ON br.book_id = b.book_id
 WHERE  br.return_date IS NULL AND (u.name LIKE ? OR b.title LIKE ? ) limit ? offset ?";

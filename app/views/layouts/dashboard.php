@@ -44,9 +44,8 @@ require_once "../config/db.php";
     
 </div>
 </div>
-
+<!-- 
 <div class="form-container">
-<!-- Borrow Record Form -->
 <div class="form-box">
 <h2>Enter Borrow Record</h2>
 <form id="borrow-form" method="post" action="../app/controllers/borrow-book.php">
@@ -64,7 +63,6 @@ require_once "../config/db.php";
 </div>
 
 
-<!-- Return Record Form -->
 <div class="form-box" >
 <h2>Enter Return Record</h2>
 <form id=return-form method="post" action="../app/controllers/return-book.php">
@@ -76,7 +74,6 @@ require_once "../config/db.php";
 <button type="submit">Submit Return Record</button>
 </form>
 </div>
-<!-- pay fine  -->
 <div class="form-box" >
 <h2>Pay fine </h2>
 <form id="fineForm" method="POST" action="../app/controllers/pay-fine.php">
@@ -90,4 +87,8 @@ require_once "../config/db.php";
     <button type="submit">Submit</button>
 </form>
 </div>
+</div> -->
+<div class="section-title">Approved Requests - Ready to Borrow Today</div>
+<div class="approved-list" id="approved-list">
+
 </div>

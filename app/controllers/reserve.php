@@ -14,6 +14,13 @@ if(empty($book_id) || empty($date)){
     header("Location: /public/index.php?page=user-home");
     exit;
 }
+$today = date('Y-m-d');
+
+if ($date < $today) {
+    $_SESSION['error'] = "Borrow date cannot be in the past.";
+    header("Location: /public/index.php?page=user-home");
+    exit;
+}
 $sql_check_record = "SELECT id FROM borrow_records 
                      WHERE user_id = ? 
                        AND book_id = ? 

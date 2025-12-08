@@ -40,8 +40,13 @@
 
             //  Stock validation
             const stockValue = parseInt(stock.value);
+            if(stockValue > 100){
+                alert("Stock must not be greater than 100");
+                e.preventDefault();
+                return;
+            }
             if (isNaN(stockValue) || stockValue < 0) {
-                alert("Stock must be a valid number.");
+                alert("Stock must not be a negative number.");
                 e.preventDefault();
                 return;
             }
@@ -83,8 +88,13 @@
 
             //  Stock validation
             const stockValue = parseInt(stock.value);
+            if(stockValue > 100){
+                alert("Stock must not be greater than 100");
+                e.preventDefault();
+                return;
+            }
             if (isNaN(stockValue) || stockValue < 0) {
-                alert("Stock must be a valid number.");
+                alert("Stock must not be negative number.");
                 e.preventDefault();
                 return;
             }

@@ -29,7 +29,7 @@ $totalPages = ceil($total / $limit);
 // ----------------------
 // FETCH CURRENT PAGE DATA
 // ----------------------
-$sql = "SELECT r.id , r.status, u.name AS username, u.email, 
+$sql = "SELECT r.id , r.status,r.borrow_date, u.name AS username, u.email, 
                b.title, b.cover_image
         FROM reservations r
         JOIN users u ON r.user_id = u.user_id
@@ -51,7 +51,8 @@ while ($row = $result->fetch_assoc()) {
         "username"    => $row["username"],
         "email"       => $row["email"],
         "title"       => $row["title"],
-        "cover_image" => $row["cover_image"]
+        "cover_image" => $row["cover_image"],
+        "borrow_date"=>$row["borrow_date"]
     ];
 }
 echo json_encode([

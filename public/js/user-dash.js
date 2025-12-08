@@ -31,11 +31,17 @@ fetchAvailableBooks();
 fetchBorrowedBooks();
 fetchReservations();
 function clearSearch(){
+     const search = document.getElementById("search-inp");
+     const category = document.getElementById("allCategory");
+     if(search.value === "") return;
     document.getElementById("suggestions").style.display = "none";
-    document.getElementById("search-inp").value = "";
+    search.value = "";
     isLoading = false;
     hasMore = true;
-   
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    category.classList.add('active');
     fetchAvailableBooks();
 }
 function loadCategory(button,category){

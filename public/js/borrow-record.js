@@ -57,6 +57,11 @@ function borrowPage(step){
               <td>${book.status}</td>
               <td>${book.borrow_date}</td>
               <td>${book.due_date}</td>
+              <td><form method="post" action="../app/controllers/return-today.php">
+              <input type="hidden" name="user_id" value="${book.user_id}">
+                 <input type="hidden" name="book_id" value="${book.book_id}">
+
+              <button type="submit">Return Book</button></form></td>
           </tr>`;
       });
        const totalPages = Math.ceil(data.totalRows / 5);

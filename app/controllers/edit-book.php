@@ -4,8 +4,7 @@ require_once "../../config/db.php";
 if(
     empty($_POST['title']) ||
     empty($_POST['author']) ||
-    empty($_POST['category']) ||
-        empty($_POST['stock'])
+    empty($_POST['category'])
 ){
     $_SESSION['error'] = "All fields are required.";
     header("Location: /public/index.php?page=admin-home&main-page=manage-books");

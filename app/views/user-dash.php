@@ -17,7 +17,7 @@
 
 <h2 class="section-title">Discover & Reserve Available Books</h2>
 <div class="filters">
-<button class="filter-btn active" onclick="loadCategory(this,'all');fetchAvailableBooks('all')">All Books</button>
+<button id="allCategory"class="filter-btn active" onclick="loadCategory(this,'all');fetchAvailableBooks('all')">All Books</button>
 <button class="filter-btn" onclick="loadCategory(this,'fiction');fetchAvailableBooks('fiction')">Fiction</button>
 <button class="filter-btn" onclick="loadCategory(this,'sci-fi');fetchAvailableBooks('sci-fi')">Sci-Fi</button>
 <button class="filter-btn"onclick="loadCategory(this,'history');fetchAvailableBooks('history')">History</button>
