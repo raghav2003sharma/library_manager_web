@@ -466,7 +466,8 @@ background: #3c57d6;
 .modal-buttons {
     margin-top: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap:10px;
 }
 
 .btn-cancel {
@@ -576,6 +577,7 @@ border: 1px solid #ccc;
 .modal-actions {
     display: flex;
     justify-content: space-between;
+    gap:10px;
     margin-top: 10px;
 }
 
@@ -593,6 +595,7 @@ border: 1px solid #ccc;
 }
 
 .save-btn {
+
     background: #0078ff;
     color: white;
     border: none;
@@ -621,8 +624,8 @@ border: 1px solid #ccc;
 .approved-list {
     margin-top:15px;
     padding:10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   display:flex;
+   flex-wrap: wrap;
     gap: 15px;
     margin: 20px 0;
 }
@@ -632,6 +635,7 @@ border: 1px solid #ccc;
     padding: 15px;
     border-radius: 12px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    max-width:400px;
 }
 
 .approved-card h3 {

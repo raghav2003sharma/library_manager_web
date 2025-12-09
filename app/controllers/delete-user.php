@@ -1,6 +1,8 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+// require_once "../../config/db.php";
+require_once "../models/User.php";
+$user = new User();
 
 if (empty($_POST['id'])) {
     $_SESSION['error'] = "User ID is required.";
@@ -8,10 +10,8 @@ if (empty($_POST['id'])) {
     exit;
 }
 $user_id = $_POST['id'];
-$sql = "DELETE FROM users WHERE user_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
-if ($stmt->execute()) {
+$isDeleted = $user->deleteUser($user_id);
+if ($isDeleted) {
     $_SESSION['success'] = "User deleted successfully.";
 } else {
     $_SESSION['error'] = "Failed to delete user.";

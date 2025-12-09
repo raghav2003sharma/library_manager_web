@@ -1,6 +1,8 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+// require_once "../../config/db.php";
+require_once "../models/User.php";
+$user = new User();
 if (
     empty($_POST['username']) ||
     empty($_POST['email']) ||
@@ -39,10 +41,11 @@ if ($password !== $confirmPassword) {
     header("Location: /public/index.php?page=register");
     exit;
 }
- $stm2 = $conn->prepare("Select email from users WHERE email =?");
- $stm2->bind_param("s",$email);
- $stm2->execute();
- $exists = $stm2->get_result();
+//  $stm2 = $conn->prepare("Select email from users WHERE email =?");
+//  $stm2->bind_param("s",$email);
+//  $stm2->execute();
+//  $exists = $stm2->get_result();
+$exists = $user->getUserByEmail($email);
  if($exists->num_rows > 0){
      $_SESSION['error'] = "Email already exists";
     header("Location: /public/index.php?page=register");
@@ -51,10 +54,12 @@ if ($password !== $confirmPassword) {
 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-$stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $username, $email, $hashedPassword);
+// $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+// $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
-if ($stmt->execute()) {
+$res = $user->register($username,$email,$hashedPassword);
+
+if ($res) {
     $_SESSION['success'] = "Registration successful. Please log in.";
     header("Location: /public/index.php?page=login");
     exit;

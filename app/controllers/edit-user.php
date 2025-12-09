@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once "../../config/db.php";
+require_once "../models/User.php";
+$user = new User();
 
 if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['role'])){
     $_SESSION['error'] = "All fields are required.";
@@ -50,10 +52,11 @@ if ($checkResult->num_rows > 0) {
     header("Location: /public/index.php?page=admin-home&main-page=manage-users");
     exit;
 }
-$sql = "UPDATE users SET name = ?,email=?,role=? WHERE user_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sssi", $name, $email, $role, $user_id);
-if($stmt->execute()){
+// $sql = "UPDATE users SET name = ?,email=?,role=? WHERE user_id = ?";
+// $stmt = $conn->prepare($sql);
+// $stmt->bind_param("sssi", $name, $email, $role, $user_id);
+$result = $user->updateUser($name, $email, $role, $user_id);
+if($result){
     $_SESSION['success'] = "User updated successfully.";
 } else {
     $_SESSION['error'] = "Failed to update user.";

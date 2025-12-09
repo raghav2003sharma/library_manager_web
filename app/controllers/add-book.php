@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/Book.php";
+$book = new Book();
 if(
     empty($_POST['title']) ||
     empty($_POST['author']) ||
@@ -33,14 +34,6 @@ if (strlen($author) < 2 || strlen($author) > 50) {
     exit;
 }
 
-// Allowed categories
-// $validCategories = ['fiction','sci-fi','history','self-help','education'];
-// if (!in_array($category, $validCategories)) {
-//     $_SESSION['error'] = "Invalid category.";
-//     header("Location: /public/index.php?page=admin-home&main-page=manage-books");
-//     exit;
-// }
-
 // Description limit
 if (strlen($desc) > 1000) {
     $_SESSION['error'] = "Description cannot exceed 1000 characters.";
@@ -71,11 +64,16 @@ if ($cover && $cover['error'] === UPLOAD_ERR_OK) {
         exit;
     }
 }
-
-
-$stmt = $conn->prepare("INSERT INTO books (title,author,description,category,stock,cover_image) VALUES (?, ?, ?,?, ?,?)");
-$stmt->bind_param("ssssis",$title, $author,$desc, $category, $stock, $coverImagePath);
-if($stmt->execute()){
+// check if book already exists
+$exists = $book->getBook($title,$author);
+if($exists->num_rows > 0){
+      $_SESSION['error'] = "Same book already exists.";
+    header("Location: /public/index.php?page=admin-home&main-page=manage-books");
+    exit;
+}
+//insert new book 
+$result = $book->addBook($title, $author,$desc, $category, $stock, $coverImagePath);
+if($result){
     $_SESSION['success'] = "Book added successfully.";
     header("Location: /public/index.php?page=admin-home&main-page=manage-books");
     exit;

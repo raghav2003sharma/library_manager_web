@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once "../../config/db.php";
+require_once "../models/Book.php";
+$book = new Book();
 if(
     empty($_POST['title']) ||
     empty($_POST['author']) ||
@@ -74,16 +76,19 @@ if ($cover && $cover['error'] === UPLOAD_ERR_OK) {
         exit;
     }
 }
-if($coverImagePath === null){
-    $stmt = $conn->prepare("UPDATE books SET title = ?,author=?,category=?,stock=?,description=? where book_id=?");
-    $stmt->bind_param("sssisi",$title, $author, $category, $stock,$desc,$id);
-    
+// CHECK IF Book ALREADY EXISTS (BUT NOT FOR CURRENT book)
+$check = $conn->prepare("SELECT book_id FROM books WHERE title = ? AND author=? AND book_id != ?");
+$check->bind_param("ssi", $title,$author,$book_id);
+$check->execute();
+$checkResult = $check->get_result();
+
+if ($checkResult->num_rows > 0) {
+    $_SESSION['error'] = "The same book already exists";
+    header("Location: /public/index.php?page=admin-home&main-page=manage-books");
+    exit;
 }
-else{
-$stmt = $conn->prepare("UPDATE books SET title=?,author=?,category=?,stock=?,cover_image=?,description=? where book_id=?");
-$stmt->bind_param("sssissi",$title, $author, $category, $stock, $coverImagePath,$desc,$id);
-}
-if($stmt->execute()){
+$result = $book->updateBook($title, $author, $category, $stock, $coverImagePath,$desc,$id);
+if($result){
     $_SESSION['success'] = "Book updated successfully.";
     header("Location: /public/index.php?page=admin-home&main-page=manage-books");
     exit;
