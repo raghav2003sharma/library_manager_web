@@ -326,6 +326,7 @@ function confirmDeleteUser() {
         window.location.href = "../app/controllers/delete-profile.php";
     }
 }
+
 // document.getElementById("contactForm").addEventListener("submit", function (e) {
 //     e.preventDefault();
 

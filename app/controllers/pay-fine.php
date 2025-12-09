@@ -2,17 +2,17 @@
 session_start();
 require_once "../../config/db.php";
 if(
-    empty($_POST['email']) ||
-    empty($_POST['title']) ||
-    empty($_POST['amount'])
+    empty($_POST['fine_email']) ||
+    empty($_POST['fine_title']) ||
+    empty($_POST['fine_amount'])
 ){
     $_SESSION['error'] = "All fields are required.";
     header("Location: /public/index.php?page=admin-home&main-page=dashboard");
     exit;
 }
-$email = $_POST['email'];
-$title = $_POST['title'];
-$amount = floatval($_POST['amount']);
+$email = $_POST['fine_email'];
+$title = $_POST['fine_title'];
+$amount = floatval($_POST['fine_amount']);
 // Get user ID
 $sql1 = "SELECT user_id FROM users WHERE email = ?";
 $stmt1 = $conn->prepare($sql1);
@@ -21,7 +21,7 @@ $stmt1->execute();
 $result1 = $stmt1->get_result();
 if ($result1->num_rows === 0) {
     $_SESSION['error'] = "User not found.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
+    header("Location: /public/index.php?page=admin-home&main-page=fines");
     exit;
 }
 $user = $result1->fetch_assoc();
@@ -34,7 +34,7 @@ $stmt2->execute();
 $result2 = $stmt2->get_result();
 if ($result2->num_rows === 0) {
     $_SESSION['error'] = "Book not found.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
+    header("Location: /public/index.php?page=admin-home&main-page=fines");
     exit;
 }
 $book = $result2->fetch_assoc();
@@ -51,11 +51,11 @@ if ($stmt3->execute()) {
     } else {
         $_SESSION['error'] = "No matching unpaid fine record found.";
     }
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
+    header("Location: /public/index.php?page=admin-home&main-page=fines");
     exit;
 } else {
     $_SESSION['error'] = "Error recording fine payment.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
+    header("Location: /public/index.php?page=admin-home&main-page=fines");
     exit;
 }
 ?>

@@ -19,7 +19,7 @@
                                                      <form action="../app/controllers/update-reservation.php" method="POST" onsubmit="return confirmReserve()"> 
                                                         <input type="hidden" name="book_id" id="hidden-bookid" >
                                                          <label>Borrow Date</label>
-                                                          <input type="date" name="borrow_date" required>
+                                                          <input type="date" name="borrow_date" min="<?= date('Y-m-d') ?>"required>
                                                            <div class="res-actions"> 
                                                             <button type="button" class="cancel" onclick="closeDateForm()">Cancel</button>
                                                              <button type="submit" class="confirm">Reserve</button> </div>

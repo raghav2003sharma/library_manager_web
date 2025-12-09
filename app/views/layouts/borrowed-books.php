@@ -1,7 +1,6 @@
-
-<div class="borrow-books">
-
 <div class="section-title">Borrowed Books</div>
+
+
 
     <div class="search-box">
         <input type="text" id="searchBorrow" placeholder="Search user or book...">
@@ -31,5 +30,4 @@
     <button id="prevBorrow" onclick="borrowPage(-1)">Previous</button>
     <span id="pageNumber">1</span>
     <button id="nextBorrow" onclick="borrowPage(1)">Next</button>
-</div>
 </div>

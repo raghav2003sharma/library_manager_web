@@ -20,7 +20,9 @@ session_start();?>
 <a onclick="addActive(this)"href="index.php?page=admin-home&main-page=manage-users"><div class="side-icon"><i class="fa-solid fa-users"></i></div>Manage Users</a>
 <a onclick="addActive(this)" href="index.php?page=admin-home&main-page=manage-books"><div class="side-icon"><i class="fa-solid fa-layer-group"></i></div>Manage Books</a>
 <a onclick="addActive(this)"href="index.php?page=admin-home&main-page=reservations"><div class="side-icon"><i class="fa-solid fa-book-bookmark"></i></div>Reservations</a>
+<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=fines"><div class="side-icon"><i class="fa-solid fa-money-bill"></i></div>Fines</a>
 <a onclick="addActive(this)"href="index.php?page=admin-home&main-page=borrowed-books"><div class="side-icon"><i class="fa-solid fa-address-book"></i></div>Borrowed Books</a>
+
 <a onclick="addActive(this)"href="index.php?page=admin-home&main-page=borrow-history" ><div class="side-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>Borrow History</a>
     </div>
 <div class="bottom-side">

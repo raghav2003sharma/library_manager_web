@@ -9,6 +9,13 @@ if(!isset($_SESSION['user_id'])){
 $user_id = $_SESSION['user_id'];
 $book_id = $_POST['book_id'] ?? '';
 $date = $_POST['borrow_date'] ?? '';   
+$today = date('Y-m-d');
+
+if ($date < $today) {
+    $_SESSION['error'] = "Borrow date cannot be in the past.";
+    header("Location: /public/index.php?page=reserves");
+    exit;
+}
 if(empty($book_id) || empty($date)){
     $_SESSION['error'] = "empty fields are not allowed.";
     header("Location: /public/index.php?page=reserves");

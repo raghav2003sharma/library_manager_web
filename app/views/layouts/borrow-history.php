@@ -1,5 +1,4 @@
 
-<div class="borrow-books">
 
 <div class="section-title">Borrow History</div>
 
@@ -11,12 +10,12 @@
     <table id="historyTable"class="users-table">
         <thead>
             <tr>
-                <th>User Name</th>
-                <th>Book Title</th>
-                <th>Status</th>
-                <th>Borrow Date</th>
-                <th>Due Date</th>
-                <th>Return Date</th>
+                <th class="sortable" data-column="username">User Name <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="title">Book Title <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="status">Status <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="borrow_date">Borrow Date <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="due_date">Due Date <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="return_date">Return Date <i class="fa-solid fa-sort"></i></th>
             </tr>
         </thead>
 
@@ -31,5 +30,4 @@
     <button id="prevPage" onclick="historyPage(-1)">Previous</button>
     <span id="pageNumber">1</span>
     <button id="nextPage" onclick="historyPage(1)">Next</button>
-</div>
 </div>

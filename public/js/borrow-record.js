@@ -12,6 +12,22 @@ const fineEmail = document.getElementById("fine-email");
 const fineBook = document.getElementById("fine-book");
 const fineSuggestions = document.getElementById("fine-suggestions");
 const fineAmount = document.getElementById("fine-amount");
+let sortBy = "borrow_date";
+let sortOrder = "asc";
+document.querySelectorAll(".sortable").forEach(header => {
+    header.addEventListener("click", () => {
+        const column = header.dataset.column;
+
+        if (sortBy === column) {
+            sortOrder = sortOrder === "asc" ? "desc" : "asc";
+        } else {
+            sortBy = column;
+            sortOrder = "asc";
+        }
+
+        loadBorrowHistory(searchHistory.value.trim(), 1, sortBy, sortOrder);
+    });
+});
  if(searchBorrow){
     searchBorrow.addEventListener("keyup", () => {
         let query = searchBorrow.value.trim();
@@ -93,8 +109,8 @@ function historyPage(step){
 
     loadBorrowHistory(searchHistory.value.trim(), newPage);
 }
-    function loadBorrowHistory(query="",page=1){
-    fetch(`../app/controllers/borrow-history.php?q=${query}&page=${page}`)
+    function loadBorrowHistory(query="",page=1, sortBy = "borrow_date", sortOrder = "asc"){
+    fetch(`../app/controllers/borrow-history.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
   .then(res => res.json())
   .then(data => {
       borrowHistory.innerHTML = "";

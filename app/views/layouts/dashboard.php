@@ -4,28 +4,30 @@ require_once "../config/db.php";
       $users =  $conn->query("SELECT COUNT(*) AS total_users FROM users");
       $books = $conn->query("SELECT COUNT(*) AS total_books FROM books");
       $borrowed = $conn->query("SELECT COUNT(*) AS borrowed_books FROM borrow_records WHERE return_date IS NULL");
-      $overdue = $conn->query("SELECT COUNT(*) AS overdue_books FROM borrow_records WHERE return_date IS NULL AND due_date < CURDATE()");
+      // $overdue = $conn->query("SELECT COUNT(*) AS overdue_books FROM borrow_records WHERE return_date IS NULL AND due_date < CURDATE()");
+      $reservations = $conn->query("SELECT COUNT(*) AS reservations FROM reservations WHERE status = 'pending'");
       $total_users = $users->fetch_assoc()['total_users'];
         $total_books = $books->fetch_assoc()['total_books'];
         $borrowed_books = $borrowed->fetch_assoc()['borrowed_books'];
-        $overdue_books = $overdue->fetch_assoc()['overdue_books'];
+        // $overdue_books = $overdue->fetch_assoc()['overdue_books'];
+        $pending_reserves = $reservations->fetch_assoc()['reservations'];
 ?>
 
 <div class="section-title">Dashboard</div>
 <div class="cards">
-<div class="card">
+<a href="index.php?page=admin-home&main-page=manage-users"  class="card">
   <div class="card-icon">
 <h3>Total Users</h3>
 <i class="fa-solid fa-users"></i>  </div>
 <p><?= $total_users ?></p>
-</div>
-<div class="card">
+</a>
+<a href="index.php?page=admin-home&main-page=manage-books" class="card">
   <div class="card-icon">
 <h3>Total Books</h3>
 <i class="fa-solid fa-layer-group"></i>  </div>
 <p><?= $total_books ?></p>
-</div>
-<div class="card">
+</a>
+<a href="index.php?page=admin-home&main-page=borrowed-books"  class="card">
     <div class="card-icon">
 
 <h3>Borrowed Books</h3>
@@ -33,16 +35,16 @@ require_once "../config/db.php";
     </div>
 
 <p><?= $borrowed_books ?></p>
-</div>
-<div class="card">
+</a>
+<a href="index.php?page=admin-home&main-page=reservations"  class="card">
     <div class="card-icon">
-<h3>Over due books</h3>
+<h3>Pending Reservations</h3>
 <i class="fa-solid fa-calendar-days"></i>
     </div>
 
-<p><?=$overdue_books?></p>
+<p><?=$pending_reserves?></p>
     
-</div>
+</a>
 </div>
 <!-- 
 <div class="form-container">
@@ -73,7 +75,14 @@ require_once "../config/db.php";
 <input name="r-date" type="date" />
 <button type="submit">Submit Return Record</button>
 </form>
+</div>-->
+
+<div class="section-title"> Ready to Borrow Today</div>
+<div class="approved-list" id="approved-list">
+
 </div>
+<!-- <div class="form-container">
+
 <div class="form-box" >
 <h2>Pay fine </h2>
 <form id="fineForm" method="POST" action="../app/controllers/pay-fine.php">
@@ -87,8 +96,4 @@ require_once "../config/db.php";
     <button type="submit">Submit</button>
 </form>
 </div>
-</div> -->
-<div class="section-title">Approved Requests - Ready to Borrow Today</div>
-<div class="approved-list" id="approved-list">
-
-</div>
+</div>  -->
