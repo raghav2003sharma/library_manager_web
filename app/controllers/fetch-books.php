@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/Book.php";
+$book = new Book();
 $search = $_GET['q'] ?? ""; 
 $search = "%$search%";
 $limit = 6;
@@ -9,27 +10,9 @@ $offset = ($page - 1) * $limit;
 $sort = $_GET['sort'] ?? "title";
 $order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
 
-    $total = $conn->prepare("Select count(*) as total from books WHERE title LIKE ?
-           OR author LIKE ?");
-    $total->bind_param("ss", $search, $search);
-    $total->execute();
-    $res = $total->get_result();
-    $totalRows = $res->fetch_assoc()['total'];
-$sql = "SELECT book_id, title, author,description, category, stock,cover_image,created_at 
-        FROM books
-        WHERE title LIKE ?
-           OR author LIKE ?
-           OR category LIKE ? ORDER BY $sort $order limit ? OFFSET ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sssii", $search, $search, $search,$limit,$offset);
-$stmt->execute();
-$result = $stmt->get_result();
-$books = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $books[] = $row;
-    }
-}
+   
+$totalRows = $book->getAllBooksCount($search);
+$books = $book->fetchAllBooks( $search,$limit,$offset,$sort, $order);
 echo json_encode(["books"=>$books,"totalRows"=>$totalRows]);
 
 ?>

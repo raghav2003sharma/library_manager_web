@@ -1,6 +1,8 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/User.php";
+$user = new User();
+
 if(!isset($_SESSION['user_id'])){
         $_SESSION['error'] = "You must be logged in first";
  header("Location: /public/index.php?page=login");
@@ -48,14 +50,9 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 
-// Insert into database
-$sql = "INSERT INTO contact_messages (user_id, name, email, message)
-        VALUES (?, ?, ?, ?)";
+$result = $user->addContactMessage($user_id, $name, $email, $message);
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("isss", $user_id, $name, $email, $message);
-
-if ($stmt->execute()) { 
+if ($result) { 
       $_SESSION['success'] = "message sent ! we will contact you soon";
      header("Location: /public/index.php?page=contact");
 } else {

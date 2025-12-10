@@ -1,20 +1,10 @@
 <?php
-require_once "../../config/db.php";
+require_once "../models/Book.php";
+$book = new Book();
 
 $q = $_GET['q'] ?? '';
 
-$sql = "SELECT title FROM books WHERE title LIKE ? LIMIT 10";
-$stmt = $conn->prepare($sql);
-$search = "%$q%";
-$stmt->bind_param("s", $search);
-$stmt->execute();
-
-$result = $stmt->get_result();
-$suggestions = [];
-
-while ($row = $result->fetch_assoc()) {
-    $suggestions[] = $row;
-}
+$suggestions = $book->getBookSuggestions($q);
 
 echo json_encode($suggestions);
 ?>

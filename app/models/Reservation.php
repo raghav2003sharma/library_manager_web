@@ -169,5 +169,125 @@ Class Reservation{
             return false;
         }
     }
+      public function countReservations($filter, $searchLike)
+    {
+        try {
+            $sql = "SELECT COUNT(*) AS total
+                    FROM reservations r
+                    JOIN users u ON r.user_id = u.user_id
+                    JOIN books b ON r.book_id = b.book_id
+                    WHERE r.status = ?
+                    AND (u.name LIKE ? OR u.email LIKE ? OR b.title LIKE ?)";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ssss", $filter, $searchLike, $searchLike, $searchLike);
+            $stmt->execute();
+
+            return $stmt->get_result()->fetch_assoc()['total'];
+
+        }  catch (Exception $e) {
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
+      public function getReservations($filter, $searchLike, $sort, $order, $offset, $limit)
+    {
+        try {
+            $sql = "SELECT r.id, r.status, r.borrow_date, 
+                           u.name AS username, u.email, 
+                           b.title, b.cover_image
+                    FROM reservations r
+                    JOIN users u ON r.user_id = u.user_id
+                    JOIN books b ON r.book_id = b.book_id
+                    WHERE r.status = ?
+                    AND (u.name LIKE ? OR u.email LIKE ? OR b.title LIKE ?)
+                    ORDER BY $sort $order
+                    LIMIT ?, ?";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ssssii", $filter, $searchLike, $searchLike, $searchLike, $offset, $limit);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[] = [
+                    "id"          => $row["id"],
+                    "status"      => $row["status"],
+                    "username"    => $row["username"],
+                    "email"       => $row["email"],
+                    "title"       => $row["title"],
+                    "cover_image" => $row["cover_image"],
+                    "borrow_date" => $row["borrow_date"],
+                ];
+            }
+
+            return $data;
+        }catch (Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+    public function countUserReservations($user_id, $filter, $searchLike)
+    {
+        try {
+            $sql = "SELECT COUNT(*) AS total 
+                    FROM reservations r
+                    JOIN books b ON r.book_id = b.book_id
+                    WHERE r.user_id = ? 
+                      AND r.status = ? 
+                      AND b.title LIKE ?";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("iss", $user_id, $filter, $searchLike);
+            $stmt->execute();
+
+            return $stmt->get_result()->fetch_assoc()['total'];
+
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
+      public function getUserReservations($user_id, $filter, $searchLike, $offset, $limit)
+    {
+        try {
+            $sql = "SELECT r.id, r.status, r.borrow_date, r.reserved_at,
+                           b.book_id, b.title, b.cover_image
+                    FROM reservations r
+                    JOIN books b ON r.book_id = b.book_id
+                    WHERE r.user_id = ? 
+                      AND r.status = ? 
+                      AND b.title LIKE ?
+                    LIMIT ?, ?";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("issii", $user_id, $filter, $searchLike, $offset, $limit);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $data = [];
+
+            while ($row = $result->fetch_assoc()) {
+                $data[] = [
+                    "id"          => $row["id"],
+                    "book_id"     => $row["book_id"],
+                    "status"      => $row["status"],
+                    "title"       => $row["title"],
+                    "cover_image" => $row["cover_image"],
+                    "borrow_date" => $row["borrow_date"] ?? '',
+                    "due_date"    => $row["due_date"] ?? '',
+                    "reserved_at" => $row["reserved_at"] ?? ''
+                ];
+            }
+
+            return $data;
+
+        } catch (Exception $e) {
+            error_log("error in fetching user reservations",$e->getMessage());
+            return [];
+        }
+    }
 }
 ?>

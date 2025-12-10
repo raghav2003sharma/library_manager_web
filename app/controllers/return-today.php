@@ -2,9 +2,6 @@
 session_start();
 require_once "../../config/db.php";
 
-// ---------------------------
-//  Validate required data
-// ---------------------------
 if (empty($_POST['user_id']) ||
     empty($_POST['book_id']) )
 {
@@ -45,9 +42,7 @@ $fine_amount = 0.00;
 $fine_status = "no_fine";
 
 
-// ---------------------------
 //  Late return-> Calculate fine
-// ---------------------------
 if ($returnDateObj > $dueDate) {
 
     $daysLate = $returnDateObj->diff($dueDate)->days;
@@ -57,10 +52,6 @@ if ($returnDateObj > $dueDate) {
 
 $return_date_final = $returnDateObj->format("Y-m-d");
 
-
-// ---------------------------
-// 4. Transaction - update record + stock
-// ---------------------------
 $conn->begin_transaction();
 
 try {

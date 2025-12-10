@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/User.php";
+$user = new User();
 if (
     empty($_POST['cur-pass']) ||
     empty($_POST['new-pass']) ||
@@ -24,10 +25,8 @@ if ($newPassword !== $confirmPassword) {
     header("Location: /public/index.php?page=user-dash");
     exit;
 }
-$stmt = $conn->prepare("SELECT password FROM users WHERE user_id = ?");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$result = $user->verifyCurrentPassword($user_id);
+
 if ($result->num_rows === 0) {
     $_SESSION['error'] = "User not found.";
     header("Location: /public/index.php?page=user-dash");
@@ -39,9 +38,8 @@ if (!password_verify($currentPassword, $userPassword)) {
     exit;
 }
 $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-$updateStmt = $conn->prepare("UPDATE users SET password = ? WHERE user_id = ?");
-$updateStmt->bind_param("si", $hashedPassword, $user_id);
-if ($updateStmt->execute()) {
+$isUpdated = $user->updatePassword( $hashedPassword, $user_id);
+if ($isUpdated) {
     $_SESSION['success'] = "Password changed successfully.";
     header("Location: /public/index.php?page=user-dash");
     exit;

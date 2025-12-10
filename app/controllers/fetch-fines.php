@@ -1,5 +1,6 @@
 <?php
-require_once "../../config/db.php";
+require_once "../models/Borrow.php";
+$borrow = new Borrow();
 
 $q     = $_GET['q'] ?? '';
 $page  = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -32,59 +33,10 @@ if (!empty($q)) {
     $params = [$q, $q, $q, $q];
     $types  = "ssss";
 }
-$countQuery = "
-    SELECT COUNT(*) AS total
-    FROM borrow_records br
-    JOIN users u ON u.user_id = br.user_id
-    JOIN books b ON b.book_id = br.book_id
-    WHERE status='returned' AND fine_status ='unpaid' $searchSQL
-";
 
-$stmt = $conn->prepare($countQuery);
-if (!empty($q)) $stmt->bind_param($types, ...$params);
-$stmt->execute();
-$totalRows = $stmt->get_result()->fetch_assoc()['total'];
+$totalRows = $borrow->countFines($searchSQL,$types,$params);
 
-$sql = "
-    SELECT 
-        f.fine_amount,
-        f.fine_status,
-        f.created_at,
-        b.title,
-        b.author,
-        f.borrow_date,
-        f.return_date,
-        u.name,
-        u.email
-    FROM borrow_records f
-    JOIN users u ON u.user_id = f.user_id
-    JOIN books b ON b.book_id = f.book_id
-    WHERE status='returned' AND fine_status ='unpaid' $searchSQL
-    ORDER BY $sort $order
-    LIMIT $limit OFFSET $offset
-";
-
-$stmt2 = $conn->prepare($sql);
-if (!empty($q)) $stmt2->bind_param($types, ...$params);
-$stmt2->execute();
-$result = $stmt2->get_result();
-
-$fines = [];
-
-while ($row = $result->fetch_assoc()) {
-    $fines[] = [
-        "username"    => $row['name'],
-        "email"       => $row['email'],
-        "title"       => $row['title'],
-        "author"      => $row['author'],
-        "borrow_date" => $row['borrow_date'],
-        "return_date" => $row['return_date'],
-        "amount"      => $row['fine_amount'],
-        "status"      => $row['fine_status'],
-        "created_at"  => $row['created_at']
-    ];
-}
-
+$fines = $borrow->getAllFines($searchSQL,$types,$params,$limit,$offset,$sort,$order);
 
 echo json_encode([
     "fines"     => $fines,

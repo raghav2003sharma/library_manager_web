@@ -41,7 +41,7 @@ while ($row = $res->fetch_assoc()) {
 
 $excludeList = implode(",", $borrowedBooks);
 
-// 3. Fetch available books NOT in borrowed list
+// Fetch available books NOT in borrowed list
 if (!empty($excludeList)) {
     $booksSql = "
         SELECT book_id, title

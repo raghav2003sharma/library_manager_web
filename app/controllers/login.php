@@ -28,10 +28,7 @@ if (strlen($password) < 6) {
     header("Location: /public/index.php?page=register");
     exit;
 }
-//  $stmt = $conn->prepare("SELECT user_id, name, email, password, role FROM users WHERE email = ?");
-//     $stmt->bind_param("s", $email);
-//     $stmt->execute();
-    // $result = $stmt->get_result();
+;
     $result = $auth->getUserByEmail($email);
 
     if ($result->num_rows === 0) {

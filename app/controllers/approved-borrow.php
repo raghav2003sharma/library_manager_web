@@ -1,17 +1,10 @@
 
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/Borrow.php";
+$borrow = new Borrow();
 
-
-$approved_today = $conn->query("
-    SELECT r.*, u.name, u.email, b.title,b.author
-    FROM reservations r
-    JOIN users u ON r.user_id = u.user_id
-    JOIN books b ON r.book_id = b.book_id
-    WHERE r.status = 'approved'
-    AND r.borrow_date = CURDATE()
-");
+$approved_today = $borrow->recordsToBorrow();
 $result = [];
 while ($row = $approved_today->fetch_assoc()) {
     $result[] = $row;

@@ -41,10 +41,7 @@ if ($password !== $confirmPassword) {
     header("Location: /public/index.php?page=register");
     exit;
 }
-//  $stm2 = $conn->prepare("Select email from users WHERE email =?");
-//  $stm2->bind_param("s",$email);
-//  $stm2->execute();
-//  $exists = $stm2->get_result();
+
 $exists = $user->getUserByEmail($email);
  if($exists->num_rows > 0){
      $_SESSION['error'] = "Email already exists";
@@ -54,8 +51,6 @@ $exists = $user->getUserByEmail($email);
 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-// $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-// $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
 $res = $user->register($username,$email,$hashedPassword);
 

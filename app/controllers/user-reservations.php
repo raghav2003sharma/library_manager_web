@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/Reservation.php";
+$reserves = new Reservation();
 
 // Ensure user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -8,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$user_id = $_SESSION['user_id']; // logged-in user
+$user_id = $_SESSION['user_id']; 
 $filter = $_GET['filter'] ?? 'pending';
 $search = $_GET['q'] ?? '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -17,52 +18,13 @@ $offset = ($page - 1) * $limit;
 
 $searchLike = "%" . $search . "%";
 
-// ----------------------
-// COUNT TOTAL RECORDS
-// ----------------------
-$countSql = "SELECT COUNT(*) AS total 
-             FROM reservations r
-             JOIN books b ON r.book_id = b.book_id
-             WHERE r.user_id = ? 
-               AND r.status = ? 
-               AND b.title LIKE ?";
-$countStmt = $conn->prepare($countSql);
-$countStmt->bind_param("iss", $user_id, $filter, $searchLike);
-$countStmt->execute();
-$total = $countStmt->get_result()->fetch_assoc()['total'];
-$totalPages = ceil($total / $limit);
 
-// ----------------------
-// FETCH CURRENT PAGE DATA
-// ----------------------
-$sql = "SELECT r.id, r.status, r.borrow_date,r.reserved_at,b.book_id, b.title, b.cover_image
-        FROM reservations r
-        JOIN books b ON r.book_id = b.book_id
-        WHERE r.user_id = ? 
-          AND r.status = ? 
-          AND b.title LIKE ?
-        LIMIT ?, ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("issii", $user_id, $filter, $searchLike, $offset, $limit);
-$stmt->execute();
-$result = $stmt->get_result();
+$totalRows = $reserves->countUserReservations($user_id, $filter, $searchLike);
 
-$reservations = [];
-while ($row = $result->fetch_assoc()) {
-    $reservations[] = [
-        "id" => $row["id"],
-        "book_id"=>$row["book_id"],
-        "status" => $row["status"],
-        "title" => $row["title"],
-        "cover_image" => $row["cover_image"],
-        "borrow_date" => $row["borrow_date"] ?? '',
-        "due_date" => $row["due_date"] ?? '',
-        "reserved_at"=>$row["reserved_at"] ?? ''
-    ];
-}
+$reservations = $reserves->getUserReservations($user_id, $filter, $searchLike, $offset, $limit);
 
 echo json_encode([
     "reservations" => $reservations,
-    "totalPages" => $totalPages
+    "totalRows" => $totalRows
 ]);
 ?>
