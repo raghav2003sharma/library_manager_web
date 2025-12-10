@@ -3,7 +3,26 @@ const reserveSearch = document.getElementById("reserveSearch");
 const reserveTable = document.getElementById("reserveTableBody");
 const prevResBtn = document.getElementById("resPrevBtn");
 const nextResBtn = document.getElementById("resNextBtn");
+let rSort = "borrow_date";
+let rOrder = "asc";
+document.querySelectorAll(".sortable").forEach(header => {
+    header.addEventListener("click", () => {
+        const column = header.dataset.column;
+        const type = header.dataset.type;
+        const filter = document.querySelector(".filter-btn.active")?.dataset?.filter || "pending";
 
+
+        if (rSort === column) {
+            rOrder = sortOrder === "asc" ? "desc" : "asc";
+        } else {
+            rSort = column;
+            rOrder = "asc";
+        }
+      if(type==="reserves"){
+        loadReservations(reserveSearch.value.trim(),1,filter,rSort,rOrder);
+      }
+    });
+});
 // Auto-load when table exists
 if (reserveTable) {
     loadReservations();
@@ -29,11 +48,11 @@ function resStepChange(step) {
     loadReservations(reserveSearch.value.trim(), newPage);
 }
 
-function loadReservations(query = "", page = 1, filter = "") {
+function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",order="asc") {
     if (!filter) {
         filter = document.querySelector(".filter-btn.active")?.dataset?.filter || "pending";
     }
-    fetch(`../app/controllers/fetch-reserve.php?q=${query}&page=${page}&filter=${filter}`)
+    fetch(`../app/controllers/fetch-reserve.php?q=${query}&page=${page}&filter=${filter}&sort=${sort}&order=${order}`)
         .then(res => res.json())
         .then(data => {
 

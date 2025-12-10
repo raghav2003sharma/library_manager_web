@@ -10,7 +10,18 @@ $offset = ($page - 1) * $limit;
 $searchSQL = "";
 $params    = [];
 $types     = "";
+$sort = $_GET['sort'] ?? "borrow_date";
+if($sort === "username") $sort = "u.name";
+if($sort === "email") $sort = "u.email";
 
+if($sort === "title") $sort = "b.title";
+if($sort === "borrow_date") $sort = "f.borrow_date";
+if($sort === "return_date") $sort = "f.return_date";
+if($sort === "author") $sort = "b.author";
+if($sort === "fine_amount") $sort = "f.fine_amount";
+
+
+$order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
 if (!empty($q)) {
     $searchSQL = " AND (
         u.username LIKE CONCAT('%', ?, '%') OR
@@ -49,7 +60,7 @@ $sql = "
     JOIN users u ON u.user_id = f.user_id
     JOIN books b ON b.book_id = f.book_id
     WHERE status='returned' AND fine_status ='unpaid' $searchSQL
-    ORDER BY f.created_at DESC
+    ORDER BY $sort $order
     LIMIT $limit OFFSET $offset
 ";
 

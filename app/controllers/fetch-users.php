@@ -6,6 +6,8 @@ $search = "%$search%";
 $limit = 6;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
+$sort = $_GET['sort'] ?? "name";
+$order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
     $total = $conn->prepare("Select count(*) as total from users WHERE name LIKE ?
            OR email LIKE ?
            OR role LIKE ?");
@@ -18,7 +20,7 @@ $sql = "SELECT user_id, name, email, role, created_at
         FROM users
         WHERE name LIKE ?
            OR email LIKE ?
-           OR role LIKE ?  limit ? OFFSET ?";
+           OR role LIKE ?  ORDER BY $sort $order limit ? OFFSET ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssii", $search, $search, $search,$limit,$offset);
 $stmt->execute();

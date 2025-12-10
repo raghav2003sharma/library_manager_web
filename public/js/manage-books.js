@@ -4,7 +4,25 @@
     const nextBooks = document.getElementById("nextBooks");
     const addBookForm = document.getElementById("addBookForm");
     const editBookForm = document.getElementById("editBookForm");
+    let bookSort = "title";
+    let bookOrder = "asc";
+document.querySelectorAll(".sortable").forEach(header => {
+    header.addEventListener("click", () => {
+        const column = header.dataset.column;
+        const type = header.dataset.type;
 
+        if (bookSort === column) {
+            bookOrder = bookOrder === "asc" ? "desc" : "asc";
+        } else {
+            bookSort = column;
+            bookOrder = "asc";
+        }
+      if(type==="book"){
+             loadBooks(searchBooks.value.trim(),1,bookSort,bookOrder);
+    
+      }
+    });
+});
     if(addBookForm){
            addBookForm.addEventListener("submit", function (e) {
             const title = document.querySelector("input[name='title']");
@@ -120,8 +138,8 @@
 if(booksTable){
     loadBooks();
 }
-    function loadBooks(query="",page=1){
-fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}`)
+    function loadBooks(query="",page=1,sort="title",order="asc"){
+fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
   .then(res => res.json())
   .then(data => {
       booksTable.innerHTML = "";

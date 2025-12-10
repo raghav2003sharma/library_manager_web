@@ -6,6 +6,14 @@ $search = "%$search%";
 $limit = 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
+$sort = $_GET['sort'] ?? "borrow_date";
+if($sort === "username") $sort = "u.name";
+if($sort === "title") $sort = "b.title";
+if($sort === "borrow_date") $sort = "br.borrow_date";
+if($sort === "due_date") $sort = "br.due_date";
+if($sort === "status") $sort = "br.status";
+
+$order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
  $total = $conn->prepare("Select count(*) as total FROM borrow_records br INNER JOIN users u on br.user_id = u.user_id
 INNER JOIN books b ON br.book_id = b.book_id
 WHERE  br.return_date IS NULL AND (u.name LIKE ? OR b.title LIKE ? )");
@@ -15,8 +23,8 @@ WHERE  br.return_date IS NULL AND (u.name LIKE ? OR b.title LIKE ? )");
     $totalRows = $res->fetch_assoc()['total'];
 $sql = "SELECT u.user_id,u.name,b.book_id,b.title, br.borrow_date,
     br.due_date FROM borrow_records br INNER JOIN users u on br.user_id = u.user_id
-INNER JOIN books b ON br.book_id = b.book_id
-WHERE  br.return_date IS NULL AND (u.name LIKE ? OR b.title LIKE ? ) limit ? offset ?";
+    INNER JOIN books b ON br.book_id = b.book_id
+    WHERE  br.return_date IS NULL AND (u.name LIKE ? OR b.title LIKE ? ) ORDER BY $sort $order limit ? offset ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssii", $search, $search,$limit,$offset);
 $stmt->execute();

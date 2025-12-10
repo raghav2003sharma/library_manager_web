@@ -17,6 +17,7 @@ let sortOrder = "asc";
 document.querySelectorAll(".sortable").forEach(header => {
     header.addEventListener("click", () => {
         const column = header.dataset.column;
+        const type = header.dataset.type;
 
         if (sortBy === column) {
             sortOrder = sortOrder === "asc" ? "desc" : "asc";
@@ -24,8 +25,13 @@ document.querySelectorAll(".sortable").forEach(header => {
             sortBy = column;
             sortOrder = "asc";
         }
+        if(type ==="borrowed"){
+            loadBorrowRecords(searchBorrow.value.trim(), 1, sortBy, sortOrder);
 
+        }
+        if(type==="history"){
         loadBorrowHistory(searchHistory.value.trim(), 1, sortBy, sortOrder);
+        }
     });
 });
  if(searchBorrow){
@@ -52,8 +58,8 @@ function borrowPage(step){
 
     loadBorrowRecords(searchBorrow.value.trim(), newPage);
 }
-    function loadBorrowRecords(query="",page=1){
-    fetch(`../app/controllers/show-borrows.php?q=${query}&page=${page}`)
+    function loadBorrowRecords(query="",page=1,sortBy = "borrow_date", sortOrder = "asc"){
+    fetch(`../app/controllers/show-borrows.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
   .then(res => res.json())
   .then(data => {
       borrowTable.innerHTML = "";

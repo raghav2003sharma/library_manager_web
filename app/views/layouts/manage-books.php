@@ -32,12 +32,12 @@
 <table class="users-table">
     <thead>
         <tr>
-            <th>Book ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Stock</th>
-            <th>Created At</th>
+            <th class="sortable" data-column="book_id" data-type="book">Book ID <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-column="title" data-type="book">Book Title <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-column="author" data-type="book">Author <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-column="category" data-type="book">Category <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-column="stock" data-type="book">Stock <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-column="created_at" data-type="book">Created At <i class="fa-solid fa-sort"></i></th>
             <th>Cover-image</th>
             <th>Actions</th>
         </tr>

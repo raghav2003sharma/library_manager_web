@@ -6,6 +6,9 @@ $search = "%$search%";
 $limit = 6;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
+$sort = $_GET['sort'] ?? "title";
+$order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
+
     $total = $conn->prepare("Select count(*) as total from books WHERE title LIKE ?
            OR author LIKE ?");
     $total->bind_param("ss", $search, $search);
@@ -16,7 +19,7 @@ $sql = "SELECT book_id, title, author,description, category, stock,cover_image,c
         FROM books
         WHERE title LIKE ?
            OR author LIKE ?
-           OR category LIKE ? limit ? OFFSET ?";
+           OR category LIKE ? ORDER BY $sort $order limit ? OFFSET ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssii", $search, $search, $search,$limit,$offset);
 $stmt->execute();

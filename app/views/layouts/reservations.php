@@ -13,12 +13,12 @@
 <table id="reserveTable" class="users-table">
     <thead>
 <tr>
-    <th>id</th>
-    <th>Username</th>
-    <th>Email</th>
-    <th>Title</th>
-    <th>borrow_date</th>
-    <th>Cover-image</th>
+    <th class="sortable" data-column="id"  data-type="reserves"> id <i class="fa-solid fa-sort"></i></th>
+    <th  class="sortable" data-column="username"  data-type="reserves">User Name <i class="fa-solid fa-sort"></i></th>  
+     <th class="sortable" data-column="email"  data-type="reserves">Email <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="title" data-type="reserves">Book Title <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-column="borrow_date" data-type="reserves">Borrow Date <i class="fa-solid fa-sort"></i></th>
+    <th >Cover-image </th>
     <th>Action</th>
 </tr>
     </thead>

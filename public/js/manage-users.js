@@ -1,7 +1,12 @@
+const usersInput = document.getElementById("userSearch");
+const table = document.getElementById("userTableBody");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
-
-userForm =document.querySelector(".add-user");
-editUserForm = document.querySelector(".edit-user-form");
+const userForm =document.querySelector(".add-user");
+const editUserForm = document.querySelector(".edit-user-form");
+    let userSort = "name";
+    let userOrder = "asc";
 if(userForm){
  userForm.addEventListener("submit", function (e) {
           const username = document.querySelector("input[name='username']");
@@ -104,6 +109,23 @@ if (email.value.length > 50) {
 
 })
 }
+document.querySelectorAll(".sortable").forEach(header => {
+    header.addEventListener("click", () => {
+        const column = header.dataset.column;
+        const type = header.dataset.type;
+
+        if (userSort === column) {
+            userOrder = userOrder === "asc" ? "desc" : "asc";
+        } else {
+            userSort = column;
+            userOrder = "asc";
+        }
+      if(type==="user"){
+         loadUsers(usersInput.value.trim(),1,userSort,userOrder);
+    
+      }
+    });
+});
 function openEditModal(id,username, email, role) {
         document.getElementById("editUserForm").style.display = "block";
     document.getElementById("editUsername").value = username;
@@ -117,10 +139,7 @@ function showAddUserForm() {
 function hideAddUserForm() {
     document.getElementById('addUserForm').style.display = 'none';
 }
-const usersInput = document.getElementById("userSearch");
-const table = document.getElementById("userTableBody");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
+
 if(table){
     loadUsers();
 }
@@ -140,8 +159,8 @@ function stepChange(step){// on clicking next or previous
     loadUsers(usersInput.value.trim(), newPage);
 
 }
-function loadUsers(query="",page=1){
-fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}`)
+function loadUsers(query="",page=1,sort="name",order="asc"){
+fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
   .then(res => res.json())
   .then(data => {
 

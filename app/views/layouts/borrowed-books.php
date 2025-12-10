@@ -10,11 +10,11 @@
     <table class="users-table">
         <thead>
             <tr>
-                <th>User Name</th>
-                <th>Book Title</th>
-                <th>Status</th>
-                <th>Borrow Date</th>
-                <th>Due Date</th>
+                <th  class="sortable" data-column="username"  data-type="borrowed">User Name <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="title" data-type="borrowed">Book Title <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="status" data-type="borrowed">Status <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="borrow_date" data-type="borrowed">Borrow Date <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="due_date" data-type="borrowed">Due Date <i class="fa-solid fa-sort"></i></th>
                 <th>Return Book</th>
             </tr>
         </thead>

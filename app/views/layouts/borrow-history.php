@@ -10,12 +10,12 @@
     <table id="historyTable"class="users-table">
         <thead>
             <tr>
-                <th class="sortable" data-column="username">User Name <i class="fa-solid fa-sort"></i></th>
-                <th class="sortable" data-column="title">Book Title <i class="fa-solid fa-sort"></i></th>
-        <th class="sortable" data-column="status">Status <i class="fa-solid fa-sort"></i></th>
-        <th class="sortable" data-column="borrow_date">Borrow Date <i class="fa-solid fa-sort"></i></th>
-        <th class="sortable" data-column="due_date">Due Date <i class="fa-solid fa-sort"></i></th>
-                <th class="sortable" data-column="return_date">Return Date <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="username" data-type="history">User Name <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="title"data-type="history">Book Title <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="status"data-type="history">Status <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="borrow_date"data-type="history">Borrow Date <i class="fa-solid fa-sort"></i></th>
+        <th class="sortable" data-column="due_date"data-type="history">Due Date <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="return_date"data-type="history">Return Date <i class="fa-solid fa-sort"></i></th>
             </tr>
         </thead>
 

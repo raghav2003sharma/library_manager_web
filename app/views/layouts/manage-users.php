@@ -31,12 +31,12 @@
         <table class="users-table" id="usersTable">
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
+                    <th class="sortable" data-column="user_id"  data-type="user">User ID <i class="fa-solid fa-sort"></i></th>
+                    <th class="sortable" data-column="name"  data-type="user">Username<i class="fa-solid fa-sort"></i></th>
+                    <th class="sortable" data-column="email"  data-type="user">Email <i class="fa-solid fa-sort"></i></th>
+                    <th class="sortable" data-column="role"  data-type="user">Role <i class="fa-solid fa-sort"></i></th>
+                    <th class="sortable" data-column="created_at"  data-type="user">Created At <i class="fa-solid fa-sort"></i></th>
+                    <th >Actions</th>
                 </tr>
             </thead>
 

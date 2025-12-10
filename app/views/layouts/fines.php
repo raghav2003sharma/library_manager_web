@@ -11,13 +11,13 @@
         <table class="users-table" id="finesTable">
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Book Title</th>
-                    <th>Author</th>
-                    <th>Borrow Date</th>
-                    <th>Return Date</th>
-                    <th>Fine Amount</th>
+                    <th  class="sortable" data-column="username"  data-type="fines">User Name <i class="fa-solid fa-sort"></i></th>  
+                    <th class="sortable" data-column="email"  data-type="fines">Email <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="title" data-type="fines">Book Title <i class="fa-solid fa-sort"></i></th>
+                    <th class="sortable" data-column="author" data-type="fines">Author <i class="fa-solid fa-sort"></i></th>
+             <th class="sortable" data-column="borrow_date" data-type="fines">Borrow Date <i class="fa-solid fa-sort"></i></th>
+                <th class="sortable" data-column="return_date" data-type="fines">Return Date <i class="fa-solid fa-sort"></i></th>
+                    <th class="sortable" data-column="fine_amount" data-type="fines">Fine Amount <i class="fa-solid fa-sort"></i></th>
                     <th>Actions</th>
                 </tr>
             </thead>

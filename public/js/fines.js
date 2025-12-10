@@ -3,10 +3,25 @@ const finesTable = document.getElementById("fineTableBody");
 const fineSearch = document.getElementById("fineSearch");
 const prevFineBtn = document.getElementById("prevFineBtn");
 const nextFineBtn = document.getElementById("nextFineBtn");
-
-// Pagination State
+let fineSort = "borrow_date";
+let fineOrder = "asc";
 let finePage = 1;
+document.querySelectorAll(".sortable").forEach(header => {
+    header.addEventListener("click", () => {
+        const column = header.dataset.column;
+        const type = header.dataset.type;
 
+        if (fineSort === column) {
+            fineOrder = fineOrder === "asc" ? "desc" : "asc";
+        } else {
+            fineSort = column;
+            fineOrder = "asc";
+        }
+      if(type==="fines"){
+        loadFines(fineSearch.value.trim(),1,fineSort,fineOrder);
+      }
+    });
+});
 // Initial Load
 if (finesTable) {
     loadFines();
@@ -30,8 +45,8 @@ function changeFinePage(step) {
 }
 
 // Fetch Fines
-function loadFines(query = "", page = 1) {
-    fetch(`../app/controllers/fetch-fines.php?q=${query}&page=${page}`)
+function loadFines(query = "", page = 1,sort="borrow_date",order="asc") {
+    fetch(`../app/controllers/fetch-fines.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
         .then(res => res.json())
         .then(data => {
             finesTable.innerHTML = "";
