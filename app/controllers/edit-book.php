@@ -1,12 +1,13 @@
 <?php
 session_start();
-require_once "../../config/db.php";
 require_once "../models/Book.php";
 $book = new Book();
 if(
     empty($_POST['title']) ||
     empty($_POST['author']) ||
-    empty($_POST['category'])
+    empty($_POST['category'])||
+        empty($_POST['book_id'])
+
 ){
     $_SESSION['error'] = "All fields are required.";
     header("Location: /public/index.php?page=admin-home&main-page=manage-books");
@@ -38,13 +39,7 @@ if (strlen($author) < 2 || strlen($author) > 50) {
     exit;
 }
 
-// Allowed categories
-// $validCategories = ['fiction','sci-fi','history','self-help','education'];
-// if (!in_array($category, $validCategories)) {
-//     $_SESSION['error'] = "Invalid category.";
-//     header("Location: /public/index.php?page=admin-home&main-page=manage-books");
-//     exit;
-// }
+
 
 // Description limit
 if (strlen($desc) > 1000) {
@@ -56,6 +51,11 @@ if (strlen($desc) > 1000) {
 // Stock validation
 if (!is_numeric($_POST['stock']) || $stock < 0) {
     $_SESSION['error'] = "Stock must be a valid non-negative number.";
+    header("Location: /public/index.php?page=admin-home&main-page=manage-books");
+    exit;
+}
+if($stock > 100){
+      $_SESSION['error'] = "Stock must not be greater than 100.";
     header("Location: /public/index.php?page=admin-home&main-page=manage-books");
     exit;
 }
@@ -77,11 +77,8 @@ if ($cover && $cover['error'] === UPLOAD_ERR_OK) {
     }
 }
 // CHECK IF Book ALREADY EXISTS (BUT NOT FOR CURRENT book)
-$check = $conn->prepare("SELECT book_id FROM books WHERE title = ? AND author=? AND book_id != ?");
-$check->bind_param("ssi", $title,$author,$book_id);
-$check->execute();
-$checkResult = $check->get_result();
-
+$checkResult = $book->getOtherBooks($title,$author,$id);
+error_log($checkResult->num_rows);
 if ($checkResult->num_rows > 0) {
     $_SESSION['error'] = "The same book already exists";
     header("Location: /public/index.php?page=admin-home&main-page=manage-books");

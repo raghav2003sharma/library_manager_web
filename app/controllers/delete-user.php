@@ -1,6 +1,5 @@
 <?php
 session_start();
-// require_once "../../config/db.php";
 require_once "../models/User.php";
 $user = new User();
 
@@ -10,7 +9,8 @@ if (empty($_POST['id'])) {
     exit;
 }
 $user_id = $_POST['id'];
-$isDeleted = $user->deleteUser($user_id);
+
+$isDeleted = $user->deleteUserCompletely($user_id);
 if ($isDeleted) {
     $_SESSION['success'] = "User deleted successfully.";
 } else {

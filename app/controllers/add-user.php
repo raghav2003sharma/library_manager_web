@@ -45,10 +45,6 @@ if (strlen($email) > 50) {
     exit;
 }
 //  Check if email exists
-// $checkEmail = $conn->prepare("SELECT email FROM users WHERE email = ? LIMIT 1");
-// $checkEmail->bind_param("s", $email);
-// $checkEmail->execute();
-// $checkEmailResult = $checkEmail->get_result();
 $checkEmailResult = $user->getUserByEmail($email);
 
 if ($checkEmailResult->num_rows > 0) {
@@ -57,8 +53,7 @@ if ($checkEmailResult->num_rows > 0) {
     exit;
 }
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-// $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
-// $stmt->bind_param("ssss", $username, $email, $hashedPassword, $role);
+
 $result = $user->addUser($username, $email, $hashedPassword, $role);
 if($result){
     $_SESSION['success'] = "User added successfully.";

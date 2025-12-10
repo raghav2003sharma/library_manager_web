@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/User.php";
+$user = new User();
 
 // Must be logged in
 if (!isset($_SESSION['user_id'])) {
@@ -9,27 +10,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-// DELETE reservations
-$stmt1 = $conn->prepare("DELETE FROM reservations WHERE user_id=?");
-$stmt1->bind_param("i", $user_id);
-$stmt1->execute();
+$isDeleted = $user->deleteUserCompletely($user_id);
 
-
-// DELETE borrow records
-$stmt2 = $conn->prepare("DELETE FROM borrow_records WHERE user_id=?");
-$stmt2->bind_param("i", $user_id);
-$stmt2->execute();
-
-
-// DELETE contact messages
-$stmt3 = $conn->prepare("DELETE FROM contact_messages WHERE user_id=?");
-$stmt3->bind_param("i", $user_id);
-$stmt3->execute();
-// Delete user
-$sql = $conn->prepare("DELETE FROM users WHERE user_id=?");
-$sql->bind_param("i", $user_id);
-
-if ($sql->execute()) {
+if ($isDeleted) {
 session_unset();
 session_destroy();
 $_SESSION['success'] ="user deleted successfully";

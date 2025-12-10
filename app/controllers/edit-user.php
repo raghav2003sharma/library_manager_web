@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once "../../config/db.php";
 require_once "../models/User.php";
 $user = new User();
 
@@ -42,19 +41,13 @@ if (strlen($email) > 50) {
     exit;
 }
 // CHECK IF EMAIL ALREADY EXISTS (BUT NOT FOR CURRENT USER)
-$check = $conn->prepare("SELECT user_id FROM users WHERE email = ? AND user_id != ?");
-$check->bind_param("si", $email, $user_id);
-$check->execute();
-$checkResult = $check->get_result();
+$checkResult = $user->getOtherUsersByEmail($email, $user_id);
 
 if ($checkResult->num_rows > 0) {
     $_SESSION['error'] = "This email is already used by another account.";
     header("Location: /public/index.php?page=admin-home&main-page=manage-users");
     exit;
 }
-// $sql = "UPDATE users SET name = ?,email=?,role=? WHERE user_id = ?";
-// $stmt = $conn->prepare($sql);
-// $stmt->bind_param("sssi", $name, $email, $role, $user_id);
 $result = $user->updateUser($name, $email, $role, $user_id);
 if($result){
     $_SESSION['success'] = "User updated successfully.";

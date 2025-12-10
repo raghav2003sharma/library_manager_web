@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../models/Reservation.php";
+$reservations = new Reservation();
 header("Content-Type: application/json");
 $input = json_decode(file_get_contents("php://input"), true);
 
@@ -12,11 +13,8 @@ if(!isset($input['id'])){
     exit;
 }
 $id = $input['id'];
-error_log($id);
-$sql = "UPDATE reservations SET status = 'approved' WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
-if($stmt->execute()){
+$isApprove = $reservations->approveReservation($id);
+if($isApprove){
    
     echo json_encode([
         "success" => true,

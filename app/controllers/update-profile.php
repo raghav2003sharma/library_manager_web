@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../../config/db.php";
-
+require_once "../models/User.php";
+$user = new User();
 if (!isset($_SESSION['user_id'])) {
     header("Location: /public/index.php?page=login");
     exit;
@@ -25,21 +25,16 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 // CHECK IF EMAIL ALREADY EXISTS (BUT NOT FOR CURRENT USER)
-$check = $conn->prepare("SELECT user_id FROM users WHERE email = ? AND user_id != ?");
-$check->bind_param("si", $email, $user_id);
-$check->execute();
-$checkResult = $check->get_result();
-
+$checkResult = $user->getOtherUsersByEmail($email, $user_id);
 if ($checkResult->num_rows > 0) {
     $_SESSION['error'] = "This email is already used by another account.";
     header("Location: /public/index.php?page=user-home");
     exit;
 }
 
-$update = $conn->prepare("UPDATE users SET name = ?, email = ? WHERE user_id = ?");
-$update->bind_param("ssi", $name, $email, $user_id);
 
-if ($update->execute()) {
+$update = $user->updateUser($name, $email,"user", $user_id);
+if ($update) {
     $_SESSION['name'] = $name;
     $_SESSION['email'] = $email;
 

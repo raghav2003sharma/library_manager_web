@@ -16,7 +16,7 @@ $limit = 7;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
  $total = $conn->prepare("Select count(*) as total FROM borrow_records br INNER JOIN users u on br.user_id = u.user_id
-INNER JOIN books b ON br.book_id = b.book_id WHERE u.name LIKE ? OR b.title LIKE ?");
+                INNER JOIN books b ON br.book_id = b.book_id WHERE u.name LIKE ? OR b.title LIKE ?");
     $total->bind_param("ss", $search, $search);
     $total->execute();
     $res = $total->get_result();
