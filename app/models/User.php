@@ -34,7 +34,9 @@ class User {
             if (!$stmt) throw new Exception($this->conn->error);
 
             $stmt->bind_param("sss", $username, $email, $hashedPassword);
-            return $stmt->execute();
+            $stmt->execute();
+            return $this->conn->insert_id;
+
 
         } catch (Exception $e) {
             error_log($e->getMessage());

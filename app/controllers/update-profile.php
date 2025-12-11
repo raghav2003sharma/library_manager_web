@@ -1,10 +1,11 @@
 <?php
 session_start();
+require_once "../helpers/helpers.php";
 require_once "../models/User.php";
 $user = new User();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /public/index.php?page=login");
-    exit;
+       redirect("/public/index.php?page=login","error","You must be logged in first");
+
 }
 
 $user_id = $_SESSION['user_id'];
@@ -13,23 +14,19 @@ $email = trim($_POST['email'] ?? '');
 
 // BASIC VALIDATION
 if ($name === '' || $email === '') {
-    $_SESSION['error'] = "Name and Email are required.";
-    header("Location: /public/index.php?page=user-home");
-    exit;
+     redirectBack( "error", "Name and Email are required.");
 }
 
 // EMAIL FORMAT VALIDATION
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $_SESSION['error'] = "Invalid email format.";
-    header("Location: /public/index.php?page=user-home");
-    exit;
+    redirectBack( "error", "Invalid email format.");
+
 }
 // CHECK IF EMAIL ALREADY EXISTS (BUT NOT FOR CURRENT USER)
 $checkResult = $user->getOtherUsersByEmail($email, $user_id);
 if ($checkResult->num_rows > 0) {
-    $_SESSION['error'] = "This email is already used by another account.";
-    header("Location: /public/index.php?page=user-home");
-    exit;
+     redirectBack( "error", "This email is already used by another account.");
+
 }
 
 
@@ -37,13 +34,9 @@ $update = $user->updateUser($name, $email,"user", $user_id);
 if ($update) {
     $_SESSION['name'] = $name;
     $_SESSION['email'] = $email;
+        redirectBack( "success", "Profile updated successfully!");
 
-    $_SESSION['success'] = "Profile updated successfully!";
 } else {
-    $_SESSION['error'] = "Failed to update profile.";
+    redirectBack( "error", "Failed to update profile");
 }
-
-header("Location: /public/index.php?page=user-home");
-exit;
-
 ?>

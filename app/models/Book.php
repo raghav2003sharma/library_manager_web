@@ -28,6 +28,18 @@ Class Book{
             return false;
         }
    }
+   public function getBookByTitle($title){
+    try{
+        $sql2 = "SELECT book_id FROM books WHERE title = ?";
+        $stmt2 = $this->conn->prepare($sql2);
+        $stmt2->bind_param("s", $title);
+        $stmt2->execute();
+        return $stmt2->get_result();
+    }catch (Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+   }
    public function addBook($title, $author,$desc, $category, $stock, $coverImagePath){
          try {
             $stmt = $this->conn->prepare(

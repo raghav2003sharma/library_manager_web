@@ -1,13 +1,13 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../helpers/helpers.php";
+require_once "../models/Borrow.php";
+$borrow = new Borrow();
 
 if (empty($_POST['user_id']) ||
     empty($_POST['book_id']) )
 {
-    $_SESSION['error'] = "Missing required return data.";
-    header("Location: /public/index.php?page=admin-home&main-page=borrowed-books");
-    exit;
+     redirectBack( "error", "user and book ids are required.");
 }
 $today = date('Y-m-d');
 
@@ -19,21 +19,10 @@ $returnDateObj = new DateTime($return_date);
 
 
 //  Fetch active borrow record
-$sql = $conn->prepare("
-    SELECT borrow_date, due_date, return_date, fine_status 
-    FROM borrow_records
-    WHERE user_id = ? 
-      AND book_id = ? 
-      AND return_date IS NULL
-");
-$sql->bind_param("ii", $user_id, $book_id);
-$sql->execute();
-$record = $sql->get_result()->fetch_assoc();
 
+$record = $borrow->getActiveReturn($user_id, $book_id);
 if (!$record) {
-    $_SESSION['error'] = "No active borrow record found.";
-    header("Location: /public/index.php?page=admin-home&main-page=borrowed-books");
-    exit;
+     redirectBack( "error", "No active borrow record found.");
 }
 
 $dueDate = new DateTime($record['due_date']);
@@ -52,41 +41,7 @@ if ($returnDateObj > $dueDate) {
 
 $return_date_final = $returnDateObj->format("Y-m-d");
 
-$conn->begin_transaction();
-
-try {
-
-    // Update borrow record
-    $update = $conn->prepare("
-        UPDATE borrow_records
-        SET return_date = ?, 
-            status = 'returned',
-            fine_amount = ?, 
-            fine_status = ?
-        WHERE user_id = ? AND book_id = ? AND return_date IS NULL
-    ");
-    $update->bind_param(
-        "sdsii",
-        $return_date_final,
-        $fine_amount,
-        $fine_status,
-        $user_id,
-        $book_id
-    );
-    $update->execute();
-
-    // Increase stock
-    $stock = $conn->prepare("UPDATE books SET stock = stock + 1 WHERE book_id = ?");
-    $stock->bind_param("i", $book_id);
-    $stock->execute();
-
-    $conn->commit();
-    $_SESSION['success'] = "Return processed successfully.";
-
-} catch (Exception $e) {
-    $conn->rollback();
-    $_SESSION['error'] = "Failed to process return.";
-}
+$borrow->returnBook( $return_date_final, $fine_amount, $fine_status,$user_id,$book_id);
 
 header("Location: /public/index.php?page=admin-home&main-page=borrowed-books");
 exit;

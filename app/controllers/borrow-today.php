@@ -1,14 +1,15 @@
 <?php
 session_start();
-require_once "../../config/db.php";
+require_once "../helpers/helpers.php";
+require_once "../models/Borrow.php";
+$borrow = new Borrow();
 
 if (empty($_POST['user_id']) ||
     empty($_POST['book_id']) ||
     empty($_POST['borrow_date'])
 ) {
-    $_SESSION['error'] = "All fields are required.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
-    exit;
+    redirectBack( "error", "All fields are required.");
+
 }
 
 $user_id = $_POST['user_id'];
@@ -18,63 +19,41 @@ $borrow_date = $_POST['borrow_date'];
 // --- Date validation ---
 $today = date('Y-m-d');
 if ($borrow_date < $today) {
-    $_SESSION['error'] = "Borrow date cannot be in the past.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
-    exit;
+            redirectBack( "error", "Borrow date cannot be in the past.");
 }
 
 // --- Check book availability ---
-$sqlBook = "SELECT stock FROM books WHERE book_id = ?";
-$stmtBook = $conn->prepare($sqlBook);
-$stmtBook->bind_param("i", $book_id);
-$stmtBook->execute();
-$resultBook = $stmtBook->get_result();
+
+$resultBook = $borrow->getBookStock($book_id);
 
 if ($resultBook->num_rows === 0) {
-    $_SESSION['error'] = "Book not found.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
-    exit;
+            redirectBack( "error", "Book not found.");
 }
-
 $book = $resultBook->fetch_assoc();
-
 if ($book['stock'] <= 0) {
-    $_SESSION['error'] = "Book is out of stock.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
-    exit;
+            redirectBack( "error", "Book is out of stock.");
 }
 
 // --- Check previous borrow records ---
-$sqlBorrow = "SELECT * FROM borrow_records WHERE user_id = ? AND book_id = ?";
-$stmtBorrow = $conn->prepare($sqlBorrow);
-$stmtBorrow->bind_param("ii", $user_id, $book_id);
-$stmtBorrow->execute();
-$resultBorrow = $stmtBorrow->get_result();
 
-$borrowLimit = 0;
-while ($row = $resultBorrow->fetch_assoc()) {
-    $borrowLimit++;
+$resultSame = $borrow->checkDuplicateBorrow($user_id, $book_id);
+if ($resultSame->num_rows > 0) {
+            redirectBack( "error", "User already borrowed this book and has not returned it.");
+}
+// check for fine
+$resultFine = $borrow->checkUserFine($user_id);
 
-    if ($row['return_date'] === null) {
-        $_SESSION['error'] = "User already borrowed this book and has not returned it.";
-        header("Location: /public/index.php?page=admin-home&main-page=dashboard");
-        exit;
-    }
+if ($resultFine->num_rows > 0) {
+            redirectBack( "error", "User has unpaid fines.");
+}
+// check for borrow limit
+$countResult = $borrow->borrowCount($user_id);
 
-    if ($row['fine_status'] === 'unpaid') {
-        $_SESSION['error'] = "User has unpaid fines.";
-        header("Location: /public/index.php?page=admin-home&main-page=dashboard");
-        exit;
-    }
+if ($countResult['total'] >= 5) {
+            redirectBack( "error", "User reached the borrow limit of 5 books.");
 }
 
-if ($borrowLimit > 5) {
-    $_SESSION['error'] = "User reached the borrow limit of 5 books.";
-    header("Location: /public/index.php?page=admin-home&main-page=dashboard");
-    exit;
-}
-
-// --- Due date (14 days) ---
+//  Due date (14 days)
 $borrowDateObj = new DateTime($borrow_date);
 $dueDateObj = clone $borrowDateObj;
 $dueDateObj->modify('+14 days');
@@ -82,37 +61,8 @@ $dueDateObj->modify('+14 days');
 $due_date = $dueDateObj->format('Y-m-d');
 $status = "borrowed";
 
-// --- Transaction: insert + decrease stock ---
-$conn->begin_transaction();
-
-try {
-    // Insert borrow record
-    $sqlInsert = "INSERT INTO borrow_records 
-                  (user_id, book_id, borrow_date, due_date, status)
-                  VALUES (?, ?, ?, ?, ?)";
-    $stmtInsert = $conn->prepare($sqlInsert);
-    $stmtInsert->bind_param("iisss", $user_id, $book_id, $borrow_date, $due_date, $status);
-    $stmtInsert->execute();
-
-    // Reduce stock
-    $sqlStock = "UPDATE books SET stock = stock - 1 WHERE book_id = ?";
-    $stmtStock = $conn->prepare($sqlStock);
-    $stmtStock->bind_param("i", $book_id);
-    $stmtStock->execute();
-     $updateReservation = $conn->prepare("
-        UPDATE reservations 
-        SET status = 'borrowed'
-        WHERE user_id = ? AND book_id = ? AND status = 'approved'
-    ");
-    $updateReservation->bind_param("ii", $user_id, $book_id);
-    $updateReservation->execute();
-    $conn->commit();
-    $_SESSION['success'] = "Book borrowed successfully!";
-} catch (Exception $e) {
-    $conn->rollback();
-    $_SESSION['error'] = "Failed to borrow book.";
-}
-
+// Transaction: insert + decrease stock 
+$borrow->addBorrowRecord($user_id, $book_id, $borrow_date, $due_date, $status);
 header("Location: /public/index.php?page=admin-home&main-page=dashboard");
 exit;
 ?>

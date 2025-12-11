@@ -1,6 +1,6 @@
 <?php
 session_start();
-// require_once "../../config/db.php";
+require_once "../helpers/helpers.php";
 require_once "../models/User.php";
 $user = new User();
 if(
@@ -8,60 +8,46 @@ if(
     empty($_POST['email']) ||
     empty($_POST['password'])
 ){
-    $_SESSION['error'] = "All fields are required.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+        redirectBack( "error", "All fields are required.");
+
 }
 $username = trim($_POST['username']);
 $email = trim($_POST['email']);
 $password = $_POST['password'];
 $role = $_POST['role'] ?? 'user';
 if (strlen($username) < 3) {
-    $_SESSION['error'] = "Username must be at least 3 characters long.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+    redirectBack( "error", "Username must be at least 3 characters long.");
+
+   
 }
 
 // Max length
 if (strlen($username) > 30) {
-    $_SESSION['error'] = "Username cannot exceed 30 characters.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+         redirectBack( "error", "Username cannot exceed 30 characters.");
 }
-// Only letters (and optional spaces)
+// Only letters 
 if (!preg_match("/^[A-Za-z ]+$/", $username)) {
-    $_SESSION['error'] = "Username can contain only letters.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+         redirectBack( "error", "Username can contain only letters.");
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $_SESSION['error'] = "Invalid email format.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+         redirectBack( "error", "Invalid email format.");
 }
 if (strlen($email) > 50) {
-    $_SESSION['error'] = "Email is too long.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+         redirectBack( "error", "Email is too long.");
 }
 //  Check if email exists
 $checkEmailResult = $user->getUserByEmail($email);
 
 if ($checkEmailResult->num_rows > 0) {
-    $_SESSION['error'] = "Email already exists.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+     redirectBack( "error", "Email already exists.");
+
 }
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 $result = $user->addUser($username, $email, $hashedPassword, $role);
 if($result){
-    $_SESSION['success'] = "User added successfully.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+         redirectBack( "success", "User added successfully.");
 } else {
-    $_SESSION['error'] = "Error adding user.";
-    header("Location: /public/index.php?page=admin-home&main-page=manage-users");
-    exit;
+         redirectBack( "error", "Error adding user.");
 }
 ?>

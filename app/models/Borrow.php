@@ -219,5 +219,158 @@ while ($row = $result->fetch_assoc()) {
             return [];
         }
     }
+    public function getBookStock($book_id){
+        try{
+            $sqlBook = "SELECT stock FROM books WHERE book_id = ?";
+            $stmtBook = $this->conn->prepare($sqlBook);
+            $stmtBook->bind_param("i", $book_id);
+            $stmtBook->execute();
+            return $stmtBook->get_result();
+        }catch (Exception $e) {
+            error_log("book stock Fetch Error: " . $e->getMessage());
+            return 0;
+        }
+    }
+    public function checkDuplicateBorrow($user_id, $book_id){
+        try{
+            $sqlBorrowSame = "SELECT * FROM borrow_records 
+                  WHERE user_id = ? AND book_id = ? AND return_date IS NULL";
+            $stmtSame = $this->conn->prepare($sqlBorrowSame);
+            $stmtSame->bind_param("ii", $user_id, $book_id);
+            $stmtSame->execute();
+            return $stmtSame->get_result();
+        }catch (Exception $e) {
+            error_log("book stock Fetch Error: " . $e->getMessage());
+            return 0;
+        }
+    }
+    public function checkUserFine($user_id){
+        try{
+                $sqlFine = "SELECT * FROM borrow_records 
+            WHERE user_id = ? AND fine_status = 'unpaid'";
+            $stmtFine = $this->conn->prepare($sqlFine);
+            $stmtFine->bind_param("i", $user_id);
+            $stmtFine->execute();
+            return $stmtFine->get_result();
+        }catch (Exception $e) {
+            error_log("fine check  Error: " . $e->getMessage());
+            return 0;
+        }
+    }
+    public function borrowCount($user_id){
+        try{
+            $sqlBorrowCount = "SELECT COUNT(*) AS total 
+                   FROM borrow_records 
+                   WHERE user_id = ? AND return_date IS NULL";
+            $stmtCount = $this->conn->prepare($sqlBorrowCount);
+            $stmtCount->bind_param("i", $user_id);
+            $stmtCount->execute();
+            return $stmtCount->get_result()->fetch_assoc();
+        }catch (Exception $e) {
+            error_log("book count Fetch Error: " . $e->getMessage());
+            return 0;
+        }
+    }
+    public function addBorrowRecord($user_id, $book_id, $borrow_date, $due_date, $status){
+            $this->conn->begin_transaction();
+
+try {
+    // Insert borrow record
+    $sqlInsert = "INSERT INTO borrow_records 
+                  (user_id, book_id, borrow_date, due_date, status)
+                  VALUES (?, ?, ?, ?, ?)";
+    $stmtInsert = $this->conn->prepare($sqlInsert);
+    $stmtInsert->bind_param("iisss", $user_id, $book_id, $borrow_date, $due_date, $status);
+    $stmtInsert->execute();
+
+    // Reduce stock
+    $sqlStock = "UPDATE books SET stock = stock - 1 WHERE book_id = ?";
+    $stmtStock = $this->conn->prepare($sqlStock);
+    $stmtStock->bind_param("i", $book_id);
+    $stmtStock->execute();
+     $updateReservation = $this->conn->prepare("
+        UPDATE reservations 
+        SET status = 'borrowed'
+        WHERE user_id = ? AND book_id = ? AND status = 'approved'
+    ");
+    $updateReservation->bind_param("ii", $user_id, $book_id);
+    $updateReservation->execute();
+    $this->conn->commit();
+    $_SESSION['success'] = "Book borrowed successfully!";
+} catch (Exception $e) {
+    $this->conn->rollback();
+     error_log("error in borrow transaction: " . $e->getMessage());
+
+    $_SESSION['error'] = "Failed to borrow book.";
+}
+    }
+    public function getActiveReturn($user_id, $book_id){
+        try{
+            $sql = $this->conn->prepare("
+            SELECT borrow_date, due_date, return_date, fine_status 
+            FROM borrow_records
+            WHERE user_id = ? 
+            AND book_id = ? 
+            AND return_date IS NULL
+            ");
+        $sql->bind_param("ii", $user_id, $book_id);
+        $sql->execute();
+        return $sql->get_result()->fetch_assoc();
+        }catch (Exception $e) {
+            error_log("error in get Active records to return: " . $e->getMessage());
+            return [];
+        }
+    }
+    public function returnBook( $return_date_final, $fine_amount, $fine_status,$user_id,$book_id){
+            $this->conn->begin_transaction();
+
+        try {
+             // Update borrow record
+                $update = $this->conn->prepare("
+                 UPDATE borrow_records
+                 SET return_date = ?, 
+                     status = 'returned',
+                     fine_amount = ?, 
+                     fine_status = ?
+                    WHERE user_id = ? AND book_id = ? AND return_date IS NULL
+            ");
+            $update->bind_param( "sdsii",
+                $return_date_final,
+                $fine_amount,
+                $fine_status,
+                $user_id,
+                $book_id
+    );
+        $update->execute();
+
+    // Increase stock
+    $stock = $this->conn->prepare("UPDATE books SET stock = stock + 1 WHERE book_id = ?");
+    $stock->bind_param("i", $book_id);
+    $stock->execute();
+
+    $this->conn->commit();
+    $_SESSION['success'] = "Return processed successfully.";
+
+} catch (Exception $e) {
+    $this->conn->rollback();
+     error_log("error in retuning transaction: " . $e->getMessage());
+    $_SESSION['error'] = "Failed to process return.";
+}
+        
+    }
+    public function payFine($user_id, $book_id, $amount){
+        try{
+            $sql3  = "UPDATE borrow_records 
+          SET fine_status = 'paid'
+          WHERE user_id = ? AND book_id = ? AND fine_amount = ? AND fine_status = 'unpaid'";
+        $stmt3 = $this->conn->prepare($sql3);
+        $stmt3->bind_param("iid", $user_id, $book_id, $amount);
+         $stmt3->execute();
+          return $stmt3->affected_rows;
+        }catch (Exception $e) {
+            error_log("error in pay fine: " . $e->getMessage());
+            return 0;
+        }
+    }
 }
 ?>
