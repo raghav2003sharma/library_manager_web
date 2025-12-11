@@ -3,6 +3,8 @@ const reserveSearch = document.getElementById("reserveSearch");
 const reserveTable = document.getElementById("reserveTableBody");
 const prevResBtn = document.getElementById("resPrevBtn");
 const nextResBtn = document.getElementById("resNextBtn");
+const pageSpan = document.getElementById("resPageNumber");
+
 let rSort = "borrow_date";
 let rOrder = "asc";
 document.querySelectorAll(".sortable").forEach(header => {
@@ -19,6 +21,7 @@ document.querySelectorAll(".sortable").forEach(header => {
             rOrder = "asc";
         }
       if(type==="reserves"){
+        pageSpan.textContent ="1";
         loadReservations(reserveSearch.value.trim(),1,filter,rSort,rOrder);
       }
     });
@@ -38,7 +41,6 @@ if (reserveSearch) {
 
 // Pagination step change
 function resStepChange(step) {
-    const pageSpan = document.getElementById("resPageNumber");
     const currentPage = parseInt(pageSpan.textContent);
     const newPage = currentPage + step;
 
@@ -58,14 +60,7 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
 
             reserveTable.innerHTML = "";
 
-            if (data.reservations.length === 0) {
-                reserveTable.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:15px;">No reservations found.</td>
-                    </tr>
-                `;
-                return;
-            }
+           
 
             data.reservations.forEach(res => {
                 reserveTable.innerHTML += `
@@ -90,6 +85,14 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
                         </td>
                     </tr>
                 `;
+                 if (data.reservations.length === 0) {
+                reserveTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No reservations found.</td>
+                    </tr>
+                `;
+                return;
+            }
             });
 
             // Handle pagination

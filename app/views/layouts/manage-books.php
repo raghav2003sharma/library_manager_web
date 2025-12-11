@@ -49,7 +49,7 @@
 
 <div class="pagination">
     <button id="prevBooks" onclick="bookStep(-1)">Previous</button>
-    <span id="pageNumber">1</span>
+    <span id="bookpageNumber">1</span>
     <button id="nextBooks" onclick="bookStep(1)">Next</button>
 </div>
  <form style="display:none;" id="editBookForm" enctype="multipart/form-data" class="editForm" action="../app/controllers/edit-book.php" method="POST">

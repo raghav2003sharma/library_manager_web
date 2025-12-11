@@ -4,6 +4,8 @@
     const nextBooks = document.getElementById("nextBooks");
     const addBookForm = document.getElementById("addBookForm");
     const editBookForm = document.getElementById("editBookForm");
+    const bookpageNumber = document.getElementById("bookpageNumber");
+
     let bookSort = "title";
     let bookOrder = "asc";
 document.querySelectorAll(".sortable").forEach(header => {
@@ -18,6 +20,8 @@ document.querySelectorAll(".sortable").forEach(header => {
             bookOrder = "asc";
         }
       if(type==="book"){
+            bookpageNumber.textContent = "1";
+
              loadBooks(searchBooks.value.trim(),1,bookSort,bookOrder);
     
       }
@@ -125,11 +129,10 @@ document.querySelectorAll(".sortable").forEach(header => {
       });
     }
     function bookStep(step){
-         const pageNumberSpan = document.getElementById("pageNumber");
-    const currentPage = parseInt(pageNumberSpan.textContent);
+    const currentPage = parseInt(bookpageNumber.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
-    pageNumberSpan.textContent = newPage;
+    bookpageNumber.textContent = newPage;
     
 
     loadBooks(searchBooks.value.trim(), newPage);
@@ -143,14 +146,7 @@ fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&o
   .then(res => res.json())
   .then(data => {
       booksTable.innerHTML = "";
-     if (data.books.length === 0) {
-                booksTable.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:15px;">No books found.</td>
-                    </tr>
-                `;
-                return;
-            }
+    
 
       data.books.forEach(book => {
           booksTable.innerHTML += `
@@ -175,8 +171,7 @@ fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&o
                 </td>
           </tr>`;
       });
-      console.log("total rows",data.totalRows);
-       const totalPages = Math.ceil(data.totalRows / 5);
+       const totalPages = Math.ceil(data.totalRows / data.limit);
         if(page === 1){
         prevBooks.disabled = true;
                 prevBooks.classList.add("disable");
@@ -189,13 +184,21 @@ fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&o
     }
     if(page >= totalPages){
         nextBooks.disabled = true;
-                nextBooks.classList.add("disable");
+        nextBooks.classList.add("disable");
 
     } else {
         nextBooks.disabled = false;
                 nextBooks.classList.remove("disable");
 
     }
+    if (data.books.length === 0) {
+                booksTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No books found.</td>
+                    </tr>
+                `;
+                return;
+            }
   });
 }
   function showBookAddForm(){

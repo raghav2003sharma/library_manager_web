@@ -2,6 +2,8 @@ const usersInput = document.getElementById("userSearch");
 const table = document.getElementById("userTableBody");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
+const pageNumberSpan = document.getElementById("userpageNumber");
+
 
 const userForm =document.querySelector(".add-user");
 const editUserForm = document.querySelector(".edit-user-form");
@@ -14,14 +16,12 @@ if(userForm){
             const password = document.querySelector("input[name='password']");
             const role = document.querySelector("select[name='role']");
 
-        // 1. Check empty fields
         if (!username.value.trim() || !email.value.trim() || !password.value.trim() || !role.value.trim()) {
             alert("All fields are required.");
             e.preventDefault();
             return;
         }
 
-        // 2. Username length < 3
         if (username.value.trim().length < 3) {
             alert("Username must be at least 3 characters long.");
             e.preventDefault();
@@ -44,7 +44,6 @@ if (email.value.length > 50) {
     e.preventDefault();
     return;
 }
-        // 3. Valid email
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email.value.trim())) {
             alert("Please enter a valid email address.");
@@ -52,7 +51,6 @@ if (email.value.length > 50) {
             return;
         }
 
-        // 4. Password length >= 6
         if (password.value.length < 6) {
             alert("Password must be at least 6 characters long.");
             e.preventDefault();
@@ -121,6 +119,8 @@ document.querySelectorAll(".sortable").forEach(header => {
             userOrder = "asc";
         }
       if(type==="user"){
+            pageNumberSpan.textContent = "1";
+
          loadUsers(usersInput.value.trim(),1,userSort,userOrder);
     
       }
@@ -150,7 +150,6 @@ usersInput.addEventListener("keyup", () => {
 });
 }
 function stepChange(step){// on clicking next or previous
-    const pageNumberSpan = document.getElementById("pageNumber");
     const currentPage = parseInt(pageNumberSpan.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
@@ -165,14 +164,7 @@ fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&o
   .then(data => {
 
       table.innerHTML = "";
-       if (data.users.length === 0) {
-                table.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:15px;">No users found.</td>
-                    </tr>
-                `;
-                return;
-            }
+       
 
       data.users.forEach(user => {
           table.innerHTML += `
@@ -188,14 +180,15 @@ fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&o
                     </td>
           </tr>`;
       });
-        const totalPages = Math.ceil(data.totalRows / 5);
+        const totalPages = Math.ceil(data.totalRows / data.limit);
+        console.log(totalPages,page);
         if(page === 1){
         prevBtn.disabled = true;
         prevBtn.classList.add("disable");
 
     } else {
         prevBtn.disabled = false;
-                prevBtn.classList.remove("disable");
+        prevBtn.classList.remove("disable");
 
     }
     if(page >= totalPages){
@@ -206,6 +199,14 @@ fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&o
         nextBtn.classList.remove("disable");
 
     }
+    if (data.users.length === 0) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No users found.</td>
+                    </tr>
+                `;
+                return;
+            }
   });
 
 }

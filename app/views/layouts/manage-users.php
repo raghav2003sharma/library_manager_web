@@ -49,7 +49,7 @@
     <!-- Pagination -->
     <div class="pagination">
         <button id="prevBtn" onclick="stepChange(-1)">Previous</button>
-        <span id="pageNumber">1</span>
+        <span id="userpageNumber">1</span>
         <button id="nextBtn" onclick="stepChange(1)">Next</button>
     </div>
 

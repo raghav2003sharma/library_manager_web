@@ -13,6 +13,6 @@ $order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
    
 $totalRows = $book->getAllBooksCount($search);
 $books = $book->fetchAllBooks( $search,$limit,$offset,$sort, $order);
-echo json_encode(["books"=>$books,"totalRows"=>$totalRows]);
+echo json_encode(["books"=>$books,"totalRows"=>$totalRows,"limit"=>$limit]);
 
 ?>

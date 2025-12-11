@@ -3,9 +3,10 @@ const finesTable = document.getElementById("fineTableBody");
 const fineSearch = document.getElementById("fineSearch");
 const prevFineBtn = document.getElementById("prevFineBtn");
 const nextFineBtn = document.getElementById("nextFineBtn");
+const finepage =document.getElementById("finePageNumber");
+
 let fineSort = "borrow_date";
 let fineOrder = "asc";
-let finePage = 1;
 document.querySelectorAll(".sortable").forEach(header => {
     header.addEventListener("click", () => {
         const column = header.dataset.column;
@@ -18,6 +19,7 @@ document.querySelectorAll(".sortable").forEach(header => {
             fineOrder = "asc";
         }
       if(type==="fines"){
+        finepage.textContent = "1";
         loadFines(fineSearch.value.trim(),1,fineSort,fineOrder);
       }
     });
@@ -30,18 +32,18 @@ if (finesTable) {
 // Search Trigger
 if (fineSearch) {
     fineSearch.addEventListener("keyup", () => {
-        finePage = 1;
-        loadFines(fineSearch.value.trim(), finePage);
+        loadFines(fineSearch.value.trim());
     });
 }
 
 // Pagination Handler
 function changeFinePage(step) {
-    const newPage = finePage + step;
-    if (newPage < 1) return;
+      const currentPage = parseInt(finepage.textContent);
+    const newPage = currentPage + step;
+    if(newPage < 1) return; 
+    pagenumber.textContent = newPage;
 
-    finePage = newPage;
-    loadFines(fineSearch.value.trim(), finePage);
+    loadFines(fineSearch.value.trim(), newPage);
 }
 
 // Fetch Fines
@@ -51,34 +53,7 @@ function loadFines(query = "", page = 1,sort="borrow_date",order="asc") {
         .then(data => {
             finesTable.innerHTML = "";
 
-            // No data
-            if (data.fines.length === 0) {
-                finesTable.innerHTML = `
-                    <tr>
-                        <td colspan="8" style="text-align:center;padding:15px;">No fines found.</td>
-                    </tr>
-                `;
-                  // Pagination Logic
-            const totalPages = Math.ceil(data.totalRows / 5);
-
-            if (page === 1) {
-                prevFineBtn.disabled = true;
-                prevFineBtn.classList.add("disable");
-            } else {
-                prevFineBtn.disabled = false;
-                prevFineBtn.classList.remove("disable");
-            }
-
-            if (page >= totalPages) {
-                nextFineBtn.disabled = true;
-                nextFineBtn.classList.add("disable");
-            } else {
-                nextFineBtn.disabled = false;
-                nextFineBtn.classList.remove("disable");
-            }
-                return;
-            }
-
+            
             // Render rows
             data.fines.forEach(fine => {
                 finesTable.innerHTML += `
@@ -124,7 +99,14 @@ function loadFines(query = "", page = 1,sort="borrow_date",order="asc") {
                 nextFineBtn.classList.remove("disable");
             }
 
-            document.getElementById("finePageNumber").textContent = page;
+            if (data.fines.length === 0) {
+                finesTable.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align:center;padding:15px;">No fines found.</td>
+                    </tr>
+                `;
+            }
+
         });
 }
 

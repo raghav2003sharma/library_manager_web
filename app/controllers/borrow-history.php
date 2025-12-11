@@ -24,6 +24,6 @@ $totalRows = $borrow->getBorrowHistoryCount($search);
 $record = $borrow->getBorrowHistory($search, $sort, $order, $limit, $offset);
 
 
-echo json_encode(["records"=>$record,"totalRows"=>$totalRows]);
+echo json_encode(["records"=>$record,"totalRows"=>$totalRows,"limit"=>$limit]);
 ?>
 

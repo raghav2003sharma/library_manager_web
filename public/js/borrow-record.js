@@ -12,6 +12,10 @@ const fineEmail = document.getElementById("fine-email");
 const fineBook = document.getElementById("fine-book");
 const fineSuggestions = document.getElementById("fine-suggestions");
 const fineAmount = document.getElementById("fine-amount");
+    const historyPagenumber = document.getElementById("historypageNumber");
+        const borrowpage = document.getElementById("borrowPage");
+
+
 let sortBy = "borrow_date";
 let sortOrder = "asc";
 document.querySelectorAll(".sortable").forEach(header => {
@@ -26,10 +30,12 @@ document.querySelectorAll(".sortable").forEach(header => {
             sortOrder = "asc";
         }
         if(type ==="borrowed"){
+                borrowpage.textContent = "1";
             loadBorrowRecords(searchBorrow.value.trim(), 1, sortBy, sortOrder);
 
         }
         if(type==="history"){
+            historyPagenumber.textContent ="1";
         loadBorrowHistory(searchHistory.value.trim(), 1, sortBy, sortOrder);
         }
     });
@@ -50,11 +56,10 @@ if(borrowTable){
     loadBorrowRecords();
 }
 function borrowPage(step){
-    const pageNumber = document.getElementById("pageNumber");
-    const currentPage = parseInt(pageNumber.textContent);
+    const currentPage = parseInt( borrowpage.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
-    pageNumber.textContent = newPage;
+    borrowpage.textContent = newPage;
 
     loadBorrowRecords(searchBorrow.value.trim(), newPage);
 }
@@ -86,7 +91,7 @@ function borrowPage(step){
               <button type="submit">Return Book</button></form></td>
           </tr>`;
       });
-       const totalPages = Math.ceil(data.totalRows / 5);
+       const totalPages = Math.ceil(data.totalRows / data.limit);
         if(page === 1){
         prevBorrow.disabled = true;
         prevBorrow.classList.add("disable");
@@ -107,11 +112,10 @@ if(borrowHistory){
     loadBorrowHistory();
 }
 function historyPage(step){
-    const pageNumberSpan = document.getElementById("pageNumber");
-    const currentPage = parseInt(pageNumberSpan.textContent);
+    const currentPage = parseInt(historyPagenumber.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
-    pageNumberSpan.textContent = newPage;
+    historyPagenumber.textContent = newPage;
 
     loadBorrowHistory(searchHistory.value.trim(), newPage);
 }
@@ -140,7 +144,7 @@ function historyPage(step){
                 <td>${book.return_date ? book.return_date : '-'}</td>
           </tr>`;
       });
-        const totalPages = Math.ceil(data.totalRows / 5);
+        const totalPages = Math.ceil(data.totalRows / data.limit);
         if(page === 1){
         prevPage.disabled = true;
         prevPage.classList.add("disable");

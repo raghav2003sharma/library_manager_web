@@ -22,7 +22,7 @@ $totalRows = $borrow->getActiveBorrowCount($search);
 $records = $borrow->getActiveBorrowRecords($search, $sort, $order, $limit, $offset);
 
 
-echo json_encode(["records"=>$records,"totalRows"=>$totalRows]);
+echo json_encode(["records"=>$records,"totalRows"=>$totalRows,"limit"=>$limit]);
 ?>
 
 

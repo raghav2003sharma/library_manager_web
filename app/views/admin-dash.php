@@ -2,7 +2,7 @@
 session_start();
 // Protect admin access
 if ($_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: index.php?page=login");
     exit;
 }
 $success = "";

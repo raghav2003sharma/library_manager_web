@@ -641,4 +641,10 @@ cursor: not-allowed;
     .nav-links.active {
         display: flex;
     }
+    .footer-links a {
+        font-size:small;
+    }
+    .dropdown{
+        z-index:9999;
+    }
 }

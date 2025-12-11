@@ -28,6 +28,6 @@
 </div>
 <div class="pagination">
     <button id="prevPage" onclick="historyPage(-1)">Previous</button>
-    <span id="pageNumber">1</span>
+    <span id="historypageNumber">1</span>
     <button id="nextPage" onclick="historyPage(1)">Next</button>
 </div>

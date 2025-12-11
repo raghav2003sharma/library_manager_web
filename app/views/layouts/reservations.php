@@ -1,6 +1,6 @@
 
 
-<h2>Reservations</h2>
+<div class="section-title">Reservations</div>
 <div class="reserve-filters">
      <button class="filter-btn active" data-filter="pending" onclick="setFilter(this)">Pending</button>
     <button class="filter-btn" data-filter="approved" onclick="setFilter(this)">Approved</button>
@@ -27,6 +27,6 @@
 </div>
 <div class="pagination">
  <button id="resPrevBtn" onclick="resStepChange(-1)">Previous</button>
-        <span id="pageNumber">1</span>
+        <span id="resPageNumber">1</span>
         <button id="resNextBtn" onclick="resStepChange(1)">Next</button>
 </div>

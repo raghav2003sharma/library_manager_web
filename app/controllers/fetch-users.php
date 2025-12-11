@@ -12,6 +12,6 @@ $order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
 $totalRows = $user->getUserCount($search);
 
 $users = $user->fetchAllUsers($search,$limit,$offset,$sort, $order);
-echo json_encode(["users"=>$users,"totalRows"=>$totalRows]);
+echo json_encode(["users"=>$users,"totalRows"=>$totalRows,"limit"=>$limit]);
 
 ?>

@@ -28,6 +28,6 @@
 </div>
 <div class="pagination">
     <button id="prevBorrow" onclick="borrowPage(-1)">Previous</button>
-    <span id="pageNumber">1</span>
+    <span id="borrowPage">1</span>
     <button id="nextBorrow" onclick="borrowPage(1)">Next</button>
 </div>
