@@ -1,13 +1,19 @@
 <?php
+require_once 'env_loader.php';
+loadEnv(__DIR__ . '/../../.env');
 class Database {
- private   $host = "localhost";
-private $username = "root";
- private $password = "Raghav123!";
-private $dbname = "Library_manager_db";
+ private   $host ;
+private $username;
+ private $password;
+private $dbname;
 
     public $conn;
 
     public function __construct() {
+          $this->host     = $_ENV['host'];
+        $this->username = $_ENV['username'];
+        $this->password = $_ENV['password'];
+        $this->dbname   = $_ENV['dbname'];
         $this->conn = new mysqli(
             $this->host,
             $this->username,
