@@ -12,7 +12,7 @@ unset($_SESSION['success']);
     <title>Document</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../../public/styles/auth.css">
+    <link rel="stylesheet" href="/public/styles/auth.css">
 </head>
 <body>
     <div class="home-btn">
@@ -22,7 +22,7 @@ unset($_SESSION['success']);
 </div>
      <div class="container">
         <h1 class="frm-heading">Sign in</h1>
-        <form class="main-frm login-form"action="../app/controllers/login.php" method="POST">
+        <form class="main-frm login-form"action="../app/controllers/auth/login.php" method="POST">
             <input type="email" name="email" placeholder="Email" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
             <button type="submit">Submit</button>

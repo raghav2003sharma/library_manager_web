@@ -41,7 +41,7 @@ if($page === 'reserves'){
     exit;
 }
 if($page === 'logout'){
-    require_once "../app/controllers/logout.php";
+    require_once "../app/controllers/auth/logout.php";
     exit;
 }
 

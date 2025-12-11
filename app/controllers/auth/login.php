@@ -4,8 +4,8 @@ session_set_cookie_params([
     'samesite' => 'Lax'
 ]);
 session_start();
-require_once "../helpers/helpers.php";
-require_once "../models/User.php";
+require_once "../../helpers/helpers.php";
+require_once "../../models/User.php";
 $auth = new User();
 if (
     empty($_POST['email']) ||

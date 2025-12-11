@@ -1,8 +1,9 @@
 <?php include "layouts/header.php"; ?>
 <?php
-require_once "../config/db.php";
+require_once "../app/configs/dbconfig.php";
+ $db = new Database();
 $id = $_GET['id'] ?? '';
-$stmt = $conn->prepare("SELECT * FROM books WHERE book_id=? LIMIT 1");
+$stmt = $db->conn->prepare("SELECT * FROM books WHERE book_id=? LIMIT 1");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $book = $stmt->get_result()->fetch_assoc();

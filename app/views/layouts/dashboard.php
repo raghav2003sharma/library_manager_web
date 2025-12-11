@@ -1,11 +1,11 @@
 <?php
-require_once "../config/db.php";
-
-      $users =  $conn->query("SELECT COUNT(*) AS total_users FROM users");
-      $books = $conn->query("SELECT COUNT(*) AS total_books FROM books");
-      $borrowed = $conn->query("SELECT COUNT(*) AS borrowed_books FROM borrow_records WHERE return_date IS NULL");
+require_once "../app/configs/dbconfig.php";
+ $db = new Database();
+      $users =  $db->conn->query("SELECT COUNT(*) AS total_users FROM users");
+      $books = $db->conn->query("SELECT COUNT(*) AS total_books FROM books");
+      $borrowed = $db->conn->query("SELECT COUNT(*) AS borrowed_books FROM borrow_records WHERE return_date IS NULL");
       // $overdue = $conn->query("SELECT COUNT(*) AS overdue_books FROM borrow_records WHERE return_date IS NULL AND due_date < CURDATE()");
-      $reservations = $conn->query("SELECT COUNT(*) AS reservations FROM reservations WHERE status = 'pending'");
+      $reservations = $db->conn->query("SELECT COUNT(*) AS reservations FROM reservations WHERE status = 'pending'");
       $total_users = $users->fetch_assoc()['total_users'];
         $total_books = $books->fetch_assoc()['total_books'];
         $borrowed_books = $borrowed->fetch_assoc()['borrowed_books'];

@@ -10,7 +10,7 @@ unset($_SESSION['error']);
     <title>Document</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../../public/styles/auth.css">
+    <link rel="stylesheet" href="/public/styles/auth.css">
 </head>
 <body>
      <div class="home-btn">
@@ -21,7 +21,7 @@ unset($_SESSION['error']);
     <div class="container">
         
         <h1 class="frm-heading">Become a Member</h1>
-        <form class="main-frm register-form"action="../app/controllers/register.php" method="POST">
+        <form class="main-frm register-form"action="../app/controllers/auth/register.php" method="POST">
             <input type="text" name="username" placeholder="Username" required><br>
             <input type="text" name="email" placeholder="Email" required><br>
             <input type="password" name="password" placeholder="Password" required><br>

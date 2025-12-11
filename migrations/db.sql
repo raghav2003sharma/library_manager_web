@@ -7,7 +7,7 @@
     author VARCHAR(255) NOT NULL,
     category VARCHAR(100),
     stock INT DEFAULT 0,
-    cover_image VARCHAR(255),         -- path or filename
+    cover_image VARCHAR(255),         
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -15,7 +15,7 @@ CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,    -- hashed password
+    password VARCHAR(255) NOT NULL,    
     role ENUM('admin','librarian','student','user') DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -33,7 +33,6 @@ CREATE TABLE borrow_records (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    -- Foreign Keys
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE
 );
