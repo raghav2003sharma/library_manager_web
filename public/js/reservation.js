@@ -15,7 +15,7 @@ document.querySelectorAll(".sortable").forEach(header => {
 
 
         if (rSort === column) {
-            rOrder = sortOrder === "asc" ? "desc" : "asc";
+            rOrder = rOrder === "asc" ? "desc" : "asc";
         } else {
             rSort = column;
             rOrder = "asc";

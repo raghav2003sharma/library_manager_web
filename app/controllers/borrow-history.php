@@ -14,7 +14,7 @@ if($sort === "status") $sort = "br.status";
 $order = ($_GET['order'] === 'desc') ? 'DESC' : 'ASC';
 $search = $_GET['q'] ?? ""; 
 $search = "%$search%";
-$limit = 7;
+$limit = 8;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
  

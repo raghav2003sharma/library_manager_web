@@ -1,5 +1,8 @@
 <?php
-session_start();?>
+session_start();
+$name = $_SESSION['name'];
+$email = $_SESSION['email'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,13 +31,13 @@ session_start();?>
 <div class="bottom-side">
 <a onclick="addActive(this);toggleSettings()"href="#" ><div class="side-icon"><i class="fa-solid fa-gear"></i> </div> Settings</a>
 <div class="settings" >
-    <!-- <a href="#">edit profile</a> -->
+    <a href="#"onclick="showEditForm('<?= $name?>','<?= $email?>')">Edit Profile</a>
     <a href="#" onclick="showForm()">Change Password</a>
 </div>
 <a href="index.php?page=logout"><div class="side-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div> Logout</a>
 </div>
 </div>
-<div class="pass-modal">
+<div id="pass-modal" >
             <div class="form-modal">
                 <h1>Change Password</h1>
         <form action="../app/controllers/change-password.php" method="post" id="change-pass-form">
@@ -48,3 +51,24 @@ session_start();?>
            </form>
             </div>
         </div>
+             <!-- EDIT PROFILE MODAL -->
+<div class="edit-user-modal" id="editUserModal">
+    <div class="edit-user-box">
+        <h1>Edit Profile</h1>
+
+        <form action="../app/controllers/update-profile.php" method="POST" id="editProfileForm">
+            <input type="text" name="username" id="editProfileName" placeholder="Full Name" required>
+            <input type="email" name="email" id="editProfileEmail" placeholder="Email Address" required>
+
+            <div class="edit-profile-actions">
+                <button type="button" class="profile-cancel-btn" onclick="closeEditUser()">Cancel</button>
+                <button type="submit" class="profile-save-btn">Save Changes</button>
+            </div>
+
+            <button type="button" class="profile-delete-btn" onclick="confirmDeleteUser()">
+                <i class="fa-solid fa-trash"></i> Delete Account
+            </button>
+
+        </form>
+    </div>
+</div>

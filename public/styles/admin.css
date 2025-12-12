@@ -536,31 +536,30 @@ border: 1px solid #ccc;
     flex-direction: column;
     gap: 10px;
 }
-.pass-modal{
-      position: fixed;
+
+#pass-modal{
+        display: none;
+         position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.6);
-    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
-      background: #fff;
-    width: 380px;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
-    animation: fadeIn 0.3s ease;
+    z-index: 9998;
+        
+
 }
 .form-modal{
-      background: #fff;
+     background: #fff;
     width: 380px;
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
     animation: fadeIn 0.3s ease;
+    z-index: 9999;
+   
 }
 .form-modal h1{
     text-align: center;
@@ -667,3 +666,70 @@ border: 1px solid #ccc;
 .sortable:hover {
     color: #007bff;
 }
+/* edit profile admin */
+.edit-user-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.edit-user-box {
+    background: #fff;
+    width: 380px;
+    padding: 25px;
+    border-radius: 10px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.edit-user-box h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#editProfileForm{
+    padding:10px;
+}
+
+#editProfileForm input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+ .edit-profile-actions {
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+    margin-top: 15px;
+    margin-bottom:10px;
+} 
+
+.profile-cancel-btn, .profile-save-btn, .profile-delete-btn {
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.profile-cancel-btn {
+    background: #ddd;
+}
+
+.profile-save-btn {
+    background: #3498db;
+    color: white;
+}
+
+.profile-delete-btn {
+    width: 100%;
+    margin-top: 15px;
+    background: #e74c3c;
+    color: white;
+} 

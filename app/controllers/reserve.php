@@ -1,7 +1,6 @@
 <?php 
 session_start();
 require_once "../helpers/helpers.php";
-require_once "../../config/db.php";
 require_once "../models/Reservation.php";
 $reservations = new Reservation();
 
@@ -20,7 +19,11 @@ $today = date('Y-m-d');
 if ($date < $today) {
     redirectBack( "error", "Borrow date cannot be in the past.");
 }
+$reservationNumber = $reservations->countPendingReservations($user_id);
+if($reservationNumber >=5){
+        redirectBack( "error", "Your reservation limit of 5 has been reached !");
 
+}
 $existingRecord = $reservations->getBorrowRecords($user_id, $book_id, $date);
 // change reservation for existing record to expiry or borrowed
 $reservations->updateReservationStatus($existingRecord,$user_id,$book_id);

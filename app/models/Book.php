@@ -221,14 +221,21 @@ $books = [];
             return [];
         }
 }
-public function getBookSuggestions($q){
+public function getBookSuggestions($q,$c){
     try{
-
-    $sql = "SELECT title FROM books WHERE title LIKE ? LIMIT 10";
+        if($c==="all"){
+             $sql = "SELECT title FROM books WHERE title LIKE ? LIMIT 10";
     $stmt = $this->conn->prepare($sql);
     $search = "%$q%";
     $stmt->bind_param("s", $search);
     $stmt->execute();
+        }else{
+    $sql = "SELECT title FROM books WHERE title LIKE ? AND category =? LIMIT 10";
+    $stmt = $this->conn->prepare($sql);
+    $search = "%$q%";
+    $stmt->bind_param("ss", $search,$c);
+    $stmt->execute();
+        }
 
     $result = $stmt->get_result();
     $suggestions = [];

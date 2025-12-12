@@ -76,9 +76,9 @@ $page = $_GET['main-page'] ?? 'dashboard';
             settingsDiv.style.display = 'block';
         }
     }
-    </script>
-    <script>
+    
         const changePassword = document.getElementById("change-pass-form");
+        const profileForm = document.getElementById("editProfileForm");
         if(changePassword){
         changePassword.addEventListener("submit",function(e){
           const currPass =  document.getElementById("current-password");
@@ -108,15 +108,78 @@ $page = $_GET['main-page'] ?? 'dashboard';
     })
 }
         function showForm(){
-    const form = document.querySelector(".pass-modal");
+    const form = document.getElementById("pass-modal");
     if(form.style.display === "none" || form.style.display === ""){
         form.style.display = "flex";
     } else {
         form.style.display = "none";
     }
 }
+    if(profileForm){
+    profileForm.addEventListener("submit",function(e){
+   const name = document.getElementById("editProfileName");
+   const email = document.getElementById("editProfileEmail");
+
+        if (!name.value.trim() || !email.value.trim() ) {
+            alert("All fields are required.");
+            e.preventDefault();
+            return;
+        }
+
+        if (name.value.trim().length < 3) {
+            alert("Username must be at least 3 characters long.");
+            e.preventDefault();
+            return;
+        }
+if (name.value.length > 30) {
+    alert("Username too long.");
+    e.preventDefault();
+    return;
+}
+const usernamePattern = /^[A-Za-z]+$/;
+
+if (!usernamePattern.test(name.value.trim())) {
+    alert("Username can contain only letters.");
+    e.preventDefault();
+    return;
+}
+if (email.value.length > 50) {
+    alert("Email too long.");
+    e.preventDefault();
+    return;
+}
+ const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email.value.trim())) {
+            alert("Please enter a valid email address.");
+            e.preventDefault();
+            return;
+        }
+   
+    })
+}
+    function showEditForm(name,email){
+          document.getElementById("editProfileName").value = name;
+        document.getElementById("editProfileEmail").value = email;
+
+    const form = document.getElementById("editUserModal");
+    if(form.style.display === "none" || form.style.display === ""){
+        form.style.display = "flex";
+    } else {
+        form.style.display = "none";
+    }
+}
+
 function closeChangePass(){
-    document.querySelector(".pass-modal").style.display = "none";
+    document.getElementById("pass-modal").style.display = "none";
+}
+function closeEditUser(){
+        document.getElementById("editUserModal").style.display = "none";
+
+}
+function confirmDeleteUser() {
+    if (confirm("Are you sure you want to delete your account? This cannot be undone.")) {
+        window.location.href = "../app/controllers/delete-profile.php";
+    }
 }
     </script>
 </body>

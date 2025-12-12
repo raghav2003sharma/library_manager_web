@@ -260,6 +260,7 @@ Class Reservation{
                     WHERE r.user_id = ? 
                       AND r.status = ? 
                       AND b.title LIKE ?
+                      ORDER BY r.borrow_date DESC
                     LIMIT ?, ?";
 
             $stmt = $this->conn->prepare($sql);
@@ -287,6 +288,19 @@ Class Reservation{
         } catch (Exception $e) {
             error_log("error in fetching user reservations",$e->getMessage());
             return [];
+        }
+    }
+    public function countPendingReservations($user_id){
+        try{
+            $stmt = $this->conn->prepare("SELECT id from reservations WHERE user_id = ? AND status = 'pending'");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            return $stmt->get_result()->num_rows;
+
+
+        }   catch (Exception $e) {
+            error_log($e->getMessage());
+            return 0;
         }
     }
 }

@@ -1,5 +1,5 @@
 let currentPage = 1;
-let isLoading = false;
+let isLoading = false;// for preventing double requests on scroll
 let hasMore = true;
 let currentCategory = "all";
 let currentQuery = "";
@@ -34,7 +34,7 @@ function clearSearch(){
      const search = document.getElementById("search-inp");
      const category = document.getElementById("allCategory");
      if(search.value === "") return;
-    document.getElementById("suggestions").style.display = "none";
+    document.getElementById("suggestions").innerHTML = "";
     search.value = "";
     isLoading = false;
     hasMore = true;
@@ -80,7 +80,6 @@ function fetchAvailableBooks(category="all",query="",page=1,append=false){
                 }
                 return;
             }
-        // data.length === 0 && (booksContainer.innerHTML = '<p>No books available in this category.</p>');
         data.forEach(book => {
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-card');
@@ -204,6 +203,7 @@ function closeChangePass(){
 }
 function searchBooks(){
     const query = document.getElementById("search-inp").value.trim();
+
       currentPage = 1;
     hasMore = true;
     isLoading = false;
@@ -267,12 +267,13 @@ function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("active");
 }
 function autoSearch(query) {
+
     if (query.length < 1) {
         document.getElementById("suggestions").innerHTML = "";
         return;
     }
 
-    fetch("/app/controllers/search-suggestions.php?q=" + encodeURIComponent(query))
+    fetch(`/app/controllers/search-suggestions.php?q=${encodeURIComponent(query)}&category=${currentCategory}`)
         .then(res => res.json())
         .then(data => {
             let html = "";
@@ -282,7 +283,7 @@ function autoSearch(query) {
                             ${book.title}
                          </div>`;
             });
-
+            console.log(html);
             document.getElementById("suggestions").innerHTML = html;
         });
 }
@@ -327,33 +328,3 @@ function confirmDeleteUser() {
     }
 }
 
-// document.getElementById("contactForm").addEventListener("submit", function (e) {
-//     e.preventDefault();
-
-//     const formData = new FormData(this);
-
-//     fetch("/app/controllers/contact-form.php", {
-//         method: "POST",
-//         body: formData,
-//         credentials: "include"
-//     })
-//     .then(res => res.json())
-//     .then(data => {
-//         const msg = document.getElementById("contact-message");
-
-//         if (data.success) {
-            
-//             msg.innerHTML = `<div style="color:green;" class="success">! ${data.message}</div>`;
-//             this.reset(); // Clear form
-            
-//         } else {
-//             msg.innerHTML = `<div style="color:red;" class="error">! ${data.message}</div>`;
-//                     this.reset(); // Clear form
-
-//         }
-//           setTimeout(() => {
-//             msg.innerHTML = "";
-//     }, 3000);
-
-//     });
-// });
