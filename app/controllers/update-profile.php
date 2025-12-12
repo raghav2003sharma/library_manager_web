@@ -30,7 +30,7 @@ if ($checkResult->num_rows > 0) {
 }
 
 
-$update = $user->updateUser($name, $email,"user", $user_id);
+$update = $user->updateUser($name, $email, $user_id);
 if ($update) {
     $_SESSION['name'] = $name;
     $_SESSION['email'] = $email;
