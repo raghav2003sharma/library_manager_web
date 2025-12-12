@@ -30,11 +30,17 @@ unset($_SESSION['error']);
         </form>
         <p class="redirect-txt">Already have an account? <a href="?page=login">Login here</a></p>
     </div>
+    <div id="custom-alert" class="alert-box"></div>
+
     <script src="../../public/js/validation.js"></script>
     <script>
   <?php if (!empty($error)) : ?>
-            alert("<?= $error ?>");
+            //alert("");
+            showAlert("<?= $error ?>", "error");
+
         <?php endif; ?>
+       
+
 </script>
 </body>
 </html>

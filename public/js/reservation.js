@@ -60,7 +60,14 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
 
             reserveTable.innerHTML = "";
 
-           
+            if (data.reservations.length === 0) {
+                reserveTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No reservations found.</td>
+                    </tr>
+                `;
+                return;
+            }
 
             data.reservations.forEach(res => {
                 reserveTable.innerHTML += `
@@ -85,14 +92,7 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
                         </td>
                     </tr>
                 `;
-                 if (data.reservations.length === 0) {
-                reserveTable.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:15px;">No reservations found.</td>
-                    </tr>
-                `;
-                return;
-            }
+                
             });
 
             // Handle pagination

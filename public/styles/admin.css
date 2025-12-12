@@ -110,7 +110,7 @@ font-weight: bold;
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 gap: 20px;
-padding:7px;
+padding:15px;
 margin-bottom:10px;
 }
 .card {
@@ -733,3 +733,26 @@ border: 1px solid #ccc;
     background: #e74c3c;
     color: white;
 } 
+.alert-box {
+  position: fixed;
+  top: 20px;
+  right: 50%;
+  padding: 15px 20px;
+  background: #333;
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  display: none;
+  z-index: 9999;
+  animation: fadeInOut 4s;
+}
+
+.alert-success { background: #28a745; }
+.alert-error   { background: #dc3545; }
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}

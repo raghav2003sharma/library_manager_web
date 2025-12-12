@@ -32,7 +32,44 @@ $page = $_GET['main-page'] ?? 'dashboard';
 <!-- End of Main Section -->
 </div>
 </div>
+    <div id="custom-alert" class="alert-box"></div>
 
+<script> 
+    // if (!empty($success)) : ?>
+        //alert(// json_encode($success) )
+        //endif; ?>
+      function showAlert(message, type) {
+    const alertBox = document.getElementById("custom-alert");
+    alertBox.innerHTML = message;
+    alertBox.className = "alert-box alert-" + type;
+    alertBox.style.display = "block";
+
+    setTimeout(() => {
+        alertBox.style.display = "none";
+    }, 3500);
+}   
+  <?php if (!empty($error)) : ?>
+                //alert()
+
+        Toastify({
+    text: <?= json_encode($error) ?>,
+    gravity: "top",
+    position: "center",
+    backgroundColor: "#a75028ff",
+    duration: 2500
+}).showToast();
+        <?php endif; ?>
+             <?php if (!empty($success)) : ?>
+
+        Toastify({
+    text: <?= json_encode($success) ?>,
+    gravity: "top",
+    position: "center",
+    backgroundColor: "#28a745",
+    duration: 2500
+}).showToast();
+        <?php endif; ?>
+</script>
 <script src="../../public/js/manage-users.js"></script>
 <script src="../../public/js/manage-books.js"></script>
 <script src="../../public/js/borrow-record.js"></script>
@@ -41,16 +78,6 @@ $page = $_GET['main-page'] ?? 'dashboard';
 <script src="../../public/js/fines.js"></script>
 
 
-
-<script> 
-     <?php if (!empty($success)) : ?>
-        alert(<?= json_encode($success) ?>)
-        <?php endif; ?>
-        
-  <?php if (!empty($error)) : ?>
-                alert(<?= json_encode($error) ?>)
-        <?php endif; ?>
-</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -86,22 +113,22 @@ $page = $_GET['main-page'] ?? 'dashboard';
             const confirm = document.getElementById("confirm-password");
 
             if(!currPass || !newPass || ! confirm){
-                alert("all fields are required");
+            showAlert("All fields are required.", "error");
                  e.preventDefault();
                 return;
             }
               if (currPass.value.length < 6) {
-            alert("current Password must be at least 6 characters long.");
+                showAlert("current Password must be at least 6 characters long.", "error");
             e.preventDefault();
             return;
         }
            if (newPass.value.length < 6) {
-            alert("new Password must be at least 6 characters long.");
+                showAlert("new Password must be at least 6 characters long.", "error");
             e.preventDefault();
             return;
         }
          if (newPass.value !== confirm.value) {
-            alert("Passwords do not match.");
+             showAlert("Confirm Password do not match.", "error");
             e.preventDefault();
             return;
         }
@@ -121,36 +148,36 @@ $page = $_GET['main-page'] ?? 'dashboard';
    const email = document.getElementById("editProfileEmail");
 
         if (!name.value.trim() || !email.value.trim() ) {
-            alert("All fields are required.");
+            showAlert("All fields are required.", "error");
             e.preventDefault();
             return;
         }
 
         if (name.value.trim().length < 3) {
-            alert("Username must be at least 3 characters long.");
+             showAlert("Username must be at least 3 characters long.", "error");
             e.preventDefault();
             return;
         }
 if (name.value.length > 30) {
-    alert("Username too long.");
+    showAlert("Username too long.", "error");
     e.preventDefault();
     return;
 }
 const usernamePattern = /^[A-Za-z]+$/;
 
 if (!usernamePattern.test(name.value.trim())) {
-    alert("Username can contain only letters.");
+        showAlert("Username can contain only letters..", "error");
     e.preventDefault();
     return;
 }
 if (email.value.length > 50) {
-    alert("Email too long.");
+            showAlert("Email too long.", "error");
     e.preventDefault();
     return;
 }
  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email.value.trim())) {
-            alert("Please enter a valid email address.");
+                        showAlert("Please enter a valid email address.", "error");
             e.preventDefault();
             return;
         }

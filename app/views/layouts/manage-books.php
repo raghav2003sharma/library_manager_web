@@ -19,7 +19,9 @@
             </select>
            <input type="number" name="stock"  placeholder="stock" required>
            <label>Cover Image</label>
-            <input type="file" name="cover"  placeholder="cover image" accept="image/*">
+            <input id ="imageInput"type="file" name="cover"  placeholder="cover image" accept="image/*" onchange="previewImage(event)">
+            <img id="preview" src="" alt="Image Preview" style="display:none; width:150px; margin-top:10px;">
+
             <div class="form-actions">
                 <button type="submit" class="btn-save">Save</button>
                 <button type="button" class="btn-close" onclick="hideBookAddForm()">Cancel</button>
@@ -70,7 +72,8 @@
             </select>
            <input type="number" name="stock"  placeholder="stock"id="editStock" required>
            <label> Edit Cover Image</label>
-            <input type="file" name="cover" id="editCover"  placeholder="cover image" accept="image/*">
+            <input type="file" name="cover" id="editCover"  placeholder="cover image" accept="image/*" onchange="editPreview(event)">
+                <img id="edit-preview" src="" alt="Image Preview" style="display:none; width:150px; margin-top:10px;">
         <div class="form-actions">
             <button type="submit"class="btn-save">Save</button>
             <button type="button" class="btn-close" onclick="closeEditBook()">Cancel</button>

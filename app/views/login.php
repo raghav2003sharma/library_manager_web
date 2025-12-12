@@ -29,48 +29,69 @@ unset($_SESSION['success']);
         </form>
         <p class="redirect-txt">Don't have an account? <a href="?page=register">Signup here</a></p>
     </div>
+        <div id="custom-alert" class="alert-box"></div>
+
 <script>
   <?php if (!empty($success)) : ?>
-            alert("<?= $success ?>");
+            showAlert("<?= $success ?>","success");
         <?php endif; ?>
         
   <?php if (!empty($error)) : ?>
-            alert("<?= $error ?>");
+            showAlert("<?= $error ?>","error");
         <?php endif; ?>
-</script>
-<script>
+
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector(".login-form");
         const email = document.querySelector("input[name='email']");
         const password = document.querySelector("input[name='password']");
 
         form.addEventListener("submit", function (e) {
+            console.log("hi")
               if ( !email.value.trim() || !password.value.trim()) {
-            alert("All fields are required.");
+            showAlert("All fields are required.", "error");
             e.preventDefault();
             return;
         }
            if (email.value.length > 50) {
-    alert("Email too long.");
+                        showAlert("Email too long.", "error");
+    // alert("Email too long.");
     e.preventDefault();
     return;
-}
-        // 3. Valid email
+    }
+        //  Valid email
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email.value.trim())) {
-            alert("Please enter a valid email address.");
+             showAlert("Please enter a valid email address.", "error");
+
+            // alert("Please enter a valid email address.");
             e.preventDefault();
             return;
         }
 
             // Password validation
             if (password.value.length < 6) {
-                alert("Password must be at least 6 characters long.");
+              showAlert("Password must be at least 6 characters long.", "error");
+
+                // alert("Password must be at least 6 characters long.");
                  e.preventDefault();
                  return;
             }
         });
+        
     });
+     function showAlert(message, type) {
+    const alertBox = document.getElementById("custom-alert");
+    alertBox.innerHTML = message;
+    alertBox.className = "alert-box alert-" + type;
+    alertBox.style.display = "block";
+
+    setTimeout(() => {
+        alertBox.style.display = "none";
+    }, 3500);
+}
+   
+
+
     </script>
 </body>
 </html>

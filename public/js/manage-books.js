@@ -37,25 +37,25 @@ document.querySelectorAll(".sortable").forEach(header => {
             const cover = document.querySelector("input[name='cover']");
 
             if (!title.value.trim() || !author.value.trim() || !category.value.trim() || !stock.value.trim()) {
-                alert("Title, author, category, and stock are required.");
+                showAlert("Title, author, category, and stock are required.","error");
                 e.preventDefault();
                 return;
             }
 
             if (title.value.length < 2 || title.value.length > 100) {
-                alert("Title must be between 2 and 100 characters.");
+                showAlert("Title must be between 2 and 100 characters.","error");
                 e.preventDefault();
                 return;
             }
 
             if (author.value.length < 2 || author.value.length > 50) {
-                alert("Author name must be between 2 and 50 characters.");
+                showAlert("Author name must be between 2 and 50 characters.","error");
                 e.preventDefault();
                 return;
             }
 
             if (description.value && description.value.length > 1000) {
-                alert("Description cannot exceed 1000 characters.");
+                showAlert("Description cannot exceed 1000 characters.","error");
                 e.preventDefault();
                 return;
             }
@@ -63,12 +63,12 @@ document.querySelectorAll(".sortable").forEach(header => {
             //  Stock validation
             const stockValue = parseInt(stock.value);
             if(stockValue > 100){
-                alert("Stock must not be greater than 100");
+                showAlert("Stock must not be greater than 100","error");
                 e.preventDefault();
                 return;
             }
             if (isNaN(stockValue) || stockValue < 0) {
-                alert("Stock must not be a negative number.");
+                showAlert("Stock must not be a negative number.","error");
                 e.preventDefault();
                 return;
             }
@@ -85,25 +85,25 @@ document.querySelectorAll(".sortable").forEach(header => {
 
 
             if (!title.value.trim() || !author.value.trim() || !category.value.trim() || !stock.value.trim()) {
-                alert("Title, author, category, and stock are required.");
+                showAlert("Title, author, category, and stock are required.","error");
                 e.preventDefault();
                 return;
             }
 
             if (title.value.length < 2 || title.value.length > 100) {
-                alert("Title must be between 2 and 100 characters.");
+                showAlert("Title must be between 2 and 100 characters.","error");
                 e.preventDefault();
                 return;
             }
 
             if (author.value.length < 2 || author.value.length > 50) {
-                alert("Author name must be between 2 and 50 characters.");
+                showAlert("Author name must be between 2 and 50 characters.","error");
                 e.preventDefault();
                 return;
             }
 
             if (description.value && description.value.length > 1000) {
-                alert("Description cannot exceed 1000 characters.");
+                showAlert("Description cannot exceed 1000 characters.","error");
                 e.preventDefault();
                 return;
             }
@@ -111,12 +111,12 @@ document.querySelectorAll(".sortable").forEach(header => {
             //  Stock validation
             const stockValue = parseInt(stock.value);
             if(stockValue > 100){
-                alert("Stock must not be greater than 100");
+                showAlert("Stock must not be greater than 100","error");
                 e.preventDefault();
                 return;
             }
             if (isNaN(stockValue) || stockValue < 0) {
-                alert("Stock must not be negative number.");
+                showAlert("Stock must not be a negative number.","error");
                 e.preventDefault();
                 return;
             }
@@ -236,3 +236,32 @@ fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&o
     function closeDeleteBook() {
         document.getElementById("deleteBookModal").style.display = "none";
     }
+    function previewImage(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById("preview");
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    } else {
+        preview.src = "";
+        preview.style.display = "none";
+    }
+}
+function editPreview(event){
+    const file = event.target.files[0];
+    const preview = document.getElementById("edit-preview");
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    } else {
+        preview.src = "";
+        preview.style.display = "none";
+    }
+}
+function clearImage() {
+    document.getElementById("imageInput").value = "";
+    document.getElementById("preview").src = "";
+    document.getElementById("preview").style.display = "none";
+}

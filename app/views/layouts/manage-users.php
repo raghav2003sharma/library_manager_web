@@ -5,8 +5,8 @@
         <button class="btn-add" id="btn-add" type="button" onclick="showAddUserForm()">+ Add User</button>
         <form action="../app/controllers/add-user.php" method="post" class="add-user-form add-user" id="addUserForm" style="display:none;">
             <h3>Add New User</h3>
-            <input type="text" name="username" placeholder="username" required>
-            <input type="email" name="email"placeholder="email" required>
+            <input type="text" id="add-name" name="username" placeholder="username" required>
+            <input type="email" id="add-email" name="email"placeholder="email" required>
             <input type="password" name="password"placeholder="password" required>
             <label>Role</label>
             <select  name="role">
