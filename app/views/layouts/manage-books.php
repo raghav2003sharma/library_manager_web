@@ -50,9 +50,9 @@
 </table>
 
 <div class="pagination">
-    <button id="prevBooks" onclick="bookStep(-1)">Previous</button>
+    <button id="prevBooks" onclick="bookStep(-1)"><i class="fa-solid fa-chevron-left"></i></button>
     <span id="bookpageNumber">1</span>
-    <button id="nextBooks" onclick="bookStep(1)">Next</button>
+    <button id="nextBooks" onclick="bookStep(1)"><i class="fa-solid fa-angle-right"></i></button>
 </div>
  <form style="display:none;" id="editBookForm" enctype="multipart/form-data" class="editForm" action="../app/controllers/edit-book.php" method="POST">
         <h3>Edit Book</h3>

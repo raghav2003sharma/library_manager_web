@@ -1,17 +1,19 @@
-function loadApprovedBorrow() {
+const todayPage = document.getElementById("todayPage");
+const todayPrev = document.getElementById("prevToday");
+const todayNext = document.getElementById("nextToday");
+document.addEventListener("DOMContentLoaded", loadApprovedBorrow());
 
-    fetch("../app/controllers/approved-borrow.php")
+function loadApprovedBorrow(page=1) {
+
+    fetch(`../app/controllers/approved-borrow.php?page=${page}`)
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById("approved-list");
             container.innerHTML = ""; 
 
-            if (data.length === 0) {
-                container.innerHTML = `<p class="empty">No approved requests today</p>`;
-                return;
-            }
+          
 
-            data.forEach(req => {
+            data.records.forEach(req => {
                 const card = document.createElement("div");
                 card.classList.add("approved-card");
 
@@ -31,10 +33,40 @@ function loadApprovedBorrow() {
 
                 container.appendChild(card);
             });
+              const totalPages = Math.ceil(data.totalRows /data.limit);
+        if(page === 1){
+        todayPrev.disabled = true;
+                todayPrev.classList.add("disable");
+
+
+    } else {
+        todayPrev.disabled = false;
+        todayPrev.classList.remove("disable");
+
+    }
+    if(page >= totalPages){
+        todayNext.disabled = true;
+        todayNext.classList.add("disable");
+
+    } else {
+        todayNext.disabled = false;
+        todayNext.classList.remove("disable");
+
+    }
+      if (data.records.length === 0) {
+                container.innerHTML = `<p class="empty">No approved requests today</p>`;
+                return;
+            }
         })
         .catch(err => {
             console.error("Error loading approved requests:", err);
         });
 }
+function borrowTodayPage(step){
+    const currentPage = parseInt(todayPage.textContent);
+    const newPage = currentPage + step;
+    if(newPage < 1) return; 
+    todayPage.textContent = newPage;
 
-document.addEventListener("DOMContentLoaded", loadApprovedBorrow);
+    loadApprovedBorrow(newPage);
+}

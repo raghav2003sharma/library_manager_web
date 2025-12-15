@@ -27,7 +27,7 @@
 
 </div>
 <div class="pagination">
-    <button id="prevBorrow" onclick="borrowPage(-1)">Previous</button>
+    <button id="prevBorrow" onclick="borrowPage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
     <span id="borrowPage">1</span>
-    <button id="nextBorrow" onclick="borrowPage(1)">Next</button>
+    <button id="nextBorrow" onclick="borrowPage(1)"><i class="fa-solid fa-angle-right"></i></button>
 </div>

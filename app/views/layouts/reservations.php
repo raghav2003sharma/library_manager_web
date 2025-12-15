@@ -26,7 +26,7 @@
 </table>
 </div>
 <div class="pagination">
- <button id="resPrevBtn" onclick="resStepChange(-1)">Previous</button>
+ <button id="resPrevBtn" onclick="resStepChange(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <span id="resPageNumber">1</span>
-        <button id="resNextBtn" onclick="resStepChange(1)">Next</button>
+        <button id="resNextBtn" onclick="resStepChange(1)"><i class="fa-solid fa-angle-right"></i></button>
 </div>

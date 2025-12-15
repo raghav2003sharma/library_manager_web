@@ -3,12 +3,11 @@
 session_start();
 require_once "../models/Borrow.php";
 $borrow = new Borrow();
+$limit = 10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+$total = $borrow->countRecordsToBorrow();
+$records = $borrow->recordsToBorrow($limit,$offset);
 
-$approved_today = $borrow->recordsToBorrow();
-$result = [];
-while ($row = $approved_today->fetch_assoc()) {
-    $result[] = $row;
-}
-
-echo json_encode($result);
+echo json_encode(["records"=>$records,"totalRows"=>$total,"limit"=>$limit]);
 ?>

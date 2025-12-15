@@ -27,7 +27,7 @@
 
 </div>
 <div class="pagination">
-    <button id="prevPage" onclick="historyPage(-1)">Previous</button>
+    <button id="prevPage" onclick="historyPage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
     <span id="historypageNumber">1</span>
-    <button id="nextPage" onclick="historyPage(1)">Next</button>
+    <button id="nextPage" onclick="historyPage(1)"><i class="fa-solid fa-angle-right"></i></button>
 </div>

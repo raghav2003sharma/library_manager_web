@@ -68,12 +68,9 @@ if($exists->num_rows > 0){
 //insert new book 
 $result = $book->addBook($title, $author,$desc, $category, $stock, $coverImagePath);
 if($result){
-                    redirectBack(  "success", "Book added successfully.");
+     redirectBack(  "success", "Book added successfully.");
 
 } else {
-             redirectBack( "error", "Error adding book.");
-
-
-    
+     redirectBack( "error", "Error adding book.");
 }
 ?>

@@ -27,18 +27,46 @@ Class Borrow{
             return [];
         }
     }
-    public function recordsToBorrow(){
+    public function recordsToBorrow($limit,$offset){
         try{
-          return  $this->conn->query("
+            $stmt = $this->conn->prepare("
                 SELECT r.*, u.name, u.email, b.title,b.author
                 FROM reservations r
                  JOIN users u ON r.user_id = u.user_id
                  JOIN books b ON r.book_id = b.book_id
                 WHERE r.status = 'approved'
-                AND r.borrow_date = CURDATE()");
+                AND r.borrow_date = CURDATE() LIMIT ? OFFSET ?");
+            $stmt->bind_param("ii", $limit, $offset);
+            $stmt->execute();
+
+            $data = [];
+            $res = $stmt->get_result();
+
+            while ($row = $res->fetch_assoc()) {
+                $data[] = $row;
+            }
+
+            return $data;
+
         }catch (Exception $e) {
             error_log($e->getMessage());
             return false;
+        }
+    }
+    public function countRecordsToBorrow(){
+        try{
+            $sql = "SELECT COUNT(*) as total
+                FROM reservations r
+                 JOIN users u ON r.user_id = u.user_id
+                 JOIN books b ON r.book_id = b.book_id
+                WHERE r.status = 'approved'
+                AND r.borrow_date = CURDATE()";
+                $result = $this->conn->query($sql);
+                return $result->fetch_assoc()['total'];
+        }
+        catch (Exception $e) {
+            error_log($e->getMessage());
+            return 0;
         }
     }
      public function getBorrowHistoryCount($search) {

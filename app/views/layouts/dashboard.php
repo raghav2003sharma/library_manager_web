@@ -81,6 +81,11 @@ require_once "../app/configs/dbconfig.php";
 <div class="approved-list" id="approved-list">
 
 </div>
+<div class="pagination">
+    <button id="prevToday" onclick="borrowTodayPage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+    <span id="todayPage">1</span>
+    <button id="nextToday" onclick="borrowTodayPage(1)"><i class="fa-solid fa-angle-right"></i></button>
+</div>
 <!-- <div class="form-container">
 
 <div class="form-box" >

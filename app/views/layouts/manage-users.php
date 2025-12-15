@@ -48,9 +48,9 @@
 
     <!-- Pagination -->
     <div class="pagination">
-        <button id="prevBtn" onclick="stepChange(-1)">Previous</button>
+        <button id="prevBtn" onclick="stepChange(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <span id="userpageNumber">1</span>
-        <button id="nextBtn" onclick="stepChange(1)">Next</button>
+        <button id="nextBtn" onclick="stepChange(1)"><i class="fa-solid fa-angle-right"></i></button>
     </div>
 
 </div>
