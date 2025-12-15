@@ -12,8 +12,8 @@ const fineEmail = document.getElementById("fine-email");
 const fineBook = document.getElementById("fine-book");
 const fineSuggestions = document.getElementById("fine-suggestions");
 const fineAmount = document.getElementById("fine-amount");
-    const historyPagenumber = document.getElementById("historypageNumber");
-        const borrowpage = document.getElementById("borrowPage");
+const historyPagenumber = document.getElementById("historypageNumber");
+const borrowpage = document.getElementById("borrowPage");
 
 
 let sortBy = "borrow_date";

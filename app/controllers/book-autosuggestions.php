@@ -1,5 +1,5 @@
 <?php
-require_once "../../config/db.php";
+// require_once "../../config/db.php";
 error_log($_GET['type']);
 if($_GET['type'] === "borrow"){
 $email = $_GET['email'] ?? "";

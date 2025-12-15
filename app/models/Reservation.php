@@ -63,6 +63,19 @@ Class Reservation{
             return false;
         }
     }
+    public function expireReservations(){
+        try{
+             $sql = "UPDATE reservations
+            SET status = 'expired'
+            WHERE status = 'approved'
+              AND borrow_date < CURDATE()";
+
+            $this->conn->query($sql);
+        }catch (Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
     public function getActiveReservations($user_id, $book_id) {
         try {
             $sql = "SELECT * FROM reservations 
@@ -193,7 +206,8 @@ Class Reservation{
       public function getReservations($filter, $searchLike, $sort, $order, $offset, $limit)
     {
         try {
-            $sql = "SELECT r.id, r.status, r.borrow_date, 
+            $this->expireReservations();
+            $sql = "SELECT r.id, r.status, r.borrow_date,
                            u.name AS username, u.email, 
                            b.title, b.cover_image
                     FROM reservations r
@@ -210,8 +224,8 @@ Class Reservation{
 
             $result = $stmt->get_result();
 
-            $data = [];
-            while ($row = $result->fetch_assoc()) {
+            $data = [];    
+            while($row = $result->fetch_assoc()) {
                 $data[] = [
                     "id"          => $row["id"],
                     "status"      => $row["status"],
@@ -253,6 +267,13 @@ Class Reservation{
       public function getUserReservations($user_id, $filter, $searchLike, $offset, $limit)
     {
         try {
+            $expiry = $this->conn->prepare( "UPDATE reservations
+            SET status = 'expired'
+            WHERE status = 'approved'
+              AND borrow_date < CURDATE() AND user_id = ?");
+              $expiry->bind_param("i",$user_id);
+              $expiry->execute();
+
             $sql = "SELECT r.id, r.status, r.borrow_date, r.reserved_at,
                            b.book_id, b.title, b.cover_image
                     FROM reservations r

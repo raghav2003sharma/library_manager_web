@@ -557,7 +557,7 @@ border: 1px solid #ccc;
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
-    animation: fadeIn 0.3s ease;
+    /* animation: fadeIn 0.3s ease; */
     z-index: 9999;
    
 }
@@ -635,7 +635,7 @@ border: 1px solid #ccc;
     padding: 15px;
     border-radius: 12px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    max-width:270px;
+    width:250px;
 }
 
 .approved-card h3 {
@@ -682,7 +682,7 @@ border: 1px solid #ccc;
     width: 380px;
     padding: 25px;
     border-radius: 10px;
-    animation: fadeIn 0.2s ease-in-out;
+    /* animation: fadeIn 0.2s ease-in-out; */
 }
 
 .edit-user-box h1 {
