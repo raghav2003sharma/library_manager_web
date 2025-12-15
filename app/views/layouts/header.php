@@ -26,6 +26,7 @@ $email = $_SESSION['email'];
     <link rel="stylesheet" href="../../../public/styles/user.css">
     <link rel="stylesheet" href="../../../public/styles/book.css">
 
+
 </head>
 <body>
 <div class="page-wrapper">

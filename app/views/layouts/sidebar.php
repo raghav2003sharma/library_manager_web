@@ -21,22 +21,22 @@ $email = $_SESSION['email'];
 <div class="sidebar">
     <div class="upper-side">
 <h2>Admin Panel</h2>
-<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=dashboard" ><div class="side-icon"><i class="fa-solid fa-chart-line"></i></div>Dashboard</a>
-<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=manage-users"><div class="side-icon"><i class="fa-solid fa-users"></i></div>Manage Users</a>
-<a onclick="addActive(this)" href="index.php?page=admin-home&main-page=manage-books"><div class="side-icon"><i class="fa-solid fa-layer-group"></i></div>Manage Books</a>
-<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=reservations"><div class="side-icon"><i class="fa-solid fa-book-bookmark"></i></div>Reservations</a>
-<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=fines"><div class="side-icon"><i class="fa-solid fa-money-bill"></i></div>Fines</a>
-<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=borrowed-books"><div class="side-icon"><i class="fa-solid fa-address-book"></i></div>Borrowed Books</a>
+<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=dashboard" ><div class="side-icon"><i class="fa-solid fa-chart-line"></i></div><span>Dashboard</span></a>
+<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=manage-users"><div class="side-icon"><i class="fa-solid fa-users"></i></div><span>Manage Users</span></a>
+<a onclick="addActive(this)" href="index.php?page=admin-home&main-page=manage-books"><div class="side-icon"><i class="fa-solid fa-layer-group"></i></div><span>Manage Books</span></a>
+<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=reservations"><div class="side-icon"><i class="fa-solid fa-book-bookmark"></i></div><span>Reservations</span></a>
+<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=fines"><div class="side-icon"><i class="fa-solid fa-money-bill"></i></div><span>Fines</span></a>
+<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=borrowed-books"><div class="side-icon"><i class="fa-solid fa-address-book"></i></div><span>Borrowed Books</span></a>
 
-<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=borrow-history" ><div class="side-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>Borrow History</a>
+<a onclick="addActive(this)"href="index.php?page=admin-home&main-page=borrow-history" ><div class="side-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><span>Borrow History</span></a>
     </div>
 <div class="bottom-side">
-<a onclick="addActive(this);toggleSettings()"href="#" ><div class="side-icon"><i class="fa-solid fa-gear"></i> </div> Settings</a>
+<a onclick="addActive(this);toggleSettings()"href="#" ><div class="side-icon"><i class="fa-solid fa-gear"></i> </div> <span>Settings</span></a>
 <div class="settings" >
     <a href="#"onclick="showEditForm('<?= $name?>','<?= $email?>')">Edit Profile</a>
     <a href="#" onclick="showForm()">Change Password</a>
 </div>
-<a href="index.php?page=logout"><div class="side-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div> Logout</a>
+<a href="index.php?page=logout"><div class="side-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div> <span>Logout</span></a>
 </div>
 </div>
 <div id="pass-modal" >

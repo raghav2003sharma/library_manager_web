@@ -14,12 +14,13 @@ unset($_SESSION['success']);
 
     <link rel="stylesheet" href="/public/styles/auth.css">
 </head>
-<body>
-    <div class="home-btn">
+<body> 
+     <div class="home-btn">
     <a href="?page=user-home">
       <div class="home-icon"> <i class="fa-solid fa-house"></i></div> <p>Home</p>
     </a>
 </div>
+
      <div class="container">
         <h1 class="frm-heading">Sign in</h1>
         <form class="main-frm login-form"action="../app/controllers/auth/login.php" method="POST">
