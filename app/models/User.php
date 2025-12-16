@@ -22,7 +22,7 @@ class User {
             return $stmt->get_result();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in getting user by email".$e->getMessage());
             return false;
         }
     }
@@ -39,7 +39,7 @@ class User {
 
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in registering user".$e->getMessage());
             return false;
         }
 
@@ -55,7 +55,7 @@ class User {
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in adding user".$e->getMessage());
             return false;
         }
     }
@@ -70,7 +70,7 @@ class User {
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in updating user ".$e->getMessage());
             return false;
         }
     }
@@ -85,7 +85,7 @@ class User {
             return $stmt->execute();
 
         } catch (Exception $e) {
-             error_log($e->getMessage());
+             error_log("error in deleting user ".$e->getMessage());
             return false;
         }
     }
@@ -101,7 +101,7 @@ class User {
             return $stmt->get_result();
 
         } catch (Exception $e) {
-                         error_log($e->getMessage());
+             error_log("error in getting other users by email". $e->getMessage());
 
             return false;
         }
@@ -117,7 +117,7 @@ class User {
             return $stmt->execute();
 
         } catch (Exception $e) {
-             error_log($e->getMessage());
+             error_log("error in deleting user reservations".$e->getMessage());
 
             return false;
         }
@@ -133,7 +133,7 @@ class User {
             return $stmt->execute();
 
         } catch (Exception $e) {
-                error_log($e->getMessage());
+                error_log("error in deleting user borrow records".$e->getMessage());
 
             return false;
         }
@@ -150,7 +150,7 @@ class User {
             return $stmt->execute();
 
         } catch (Exception $e) {
-                            error_log($e->getMessage());
+             error_log("error in deleting user contact messages".$e->getMessage());
 
             return false;
         }
@@ -189,7 +189,7 @@ class User {
             return $stmt->execute();
         }
     catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in adding contact messages".$e->getMessage());
             return false;
         }
     }
@@ -202,7 +202,7 @@ class User {
             $stmt->execute();
             return $stmt->get_result();
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in verifying current password ".$e->getMessage());
             return false;
         }
     }
@@ -213,7 +213,7 @@ class User {
             $updateStmt->bind_param("si", $hashedPassword, $user_id);
             return $updateStmt->execute();
         }catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in updating password".$e->getMessage());
             return false;
         }
     }
@@ -253,7 +253,7 @@ public function fetchAllUsers($search,$limit,$offset,$sort, $order){
         }
         return $users;
     } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in fetching all users".$e->getMessage());
             return [];
         }
 }

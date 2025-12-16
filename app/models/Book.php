@@ -24,7 +24,7 @@ Class Book{
             return $stmt->get_result();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in getting books".$e->getMessage());
             return false;
         }
    }
@@ -36,7 +36,7 @@ Class Book{
         $stmt2->execute();
         return $stmt2->get_result();
     }catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in getting book by title".$e->getMessage());
             return false;
         }
    }
@@ -54,7 +54,7 @@ Class Book{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in adding book".$e->getMessage());
             return false;
         }
    }
@@ -89,7 +89,7 @@ Class Book{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in upadating book".$e->getMessage());
             return false;
         }
     }
@@ -104,7 +104,7 @@ Class Book{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in deleting book".$e->getMessage());
             return false;
         }
     
@@ -119,7 +119,7 @@ Class Book{
         $check->execute();
         return $check->get_result();
     } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in getting other books".$e->getMessage());
             return false;
         }
     }
@@ -141,7 +141,7 @@ public function fetchAllBooks( $search,$limit,$offset,$sort, $order){
     }
     return $books;
     }catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in fetching all books".$e->getMessage());
             return [];
         }
 }
@@ -154,7 +154,7 @@ public function getAllBooksCount($search){
         $res = $total->get_result();
          return $res->fetch_assoc()['total'];
     }catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in books count".$e->getMessage());
             return 0;
         }
 }
@@ -187,7 +187,7 @@ function getBookPreview($bookId,$title,$preview_link_db) {
         "preview_link" => $previewLink ?? null
     ];
 }catch(Exception $e) {
-            error_log("error in fetching preview",$e->getMessage());
+            error_log("error in fetching preview".$e->getMessage());
             return [];
         }
     }
@@ -217,7 +217,7 @@ $books = [];
     }
     return $books;
 }catch (Exception $e) {
-            error_log( "error in fetching available books",$e->getMessage());
+            error_log( "error in fetching available books".$e->getMessage());
             return [];
         }
 }
@@ -245,7 +245,7 @@ public function getBookSuggestions($q,$c){
     }
     return $suggestions;
     }catch (Exception $e) {
-            error_log( "error in fetching suggestion books",$e->getMessage());
+            error_log( "error in fetching suggestion books".$e->getMessage());
             return [];
         }
 }

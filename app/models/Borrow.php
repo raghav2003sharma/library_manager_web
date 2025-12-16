@@ -23,7 +23,7 @@ Class Borrow{
         }
         return $records;
         } catch (Exception $e) {
-            error_log("Fetch Error: " . $e->getMessage());
+            error_log("Error in getting user Borrowed: " . $e->getMessage());
             return [];
         }
     }
@@ -49,7 +49,7 @@ Class Borrow{
             return $data;
 
         }catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in fetching records to borrow today".$e->getMessage());
             return false;
         }
     }
@@ -65,7 +65,7 @@ Class Borrow{
                 return $result->fetch_assoc()['total'];
         }
         catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in counting records to borrow".$e->getMessage());
             return 0;
         }
     }
@@ -84,7 +84,7 @@ Class Borrow{
             return $stmt->get_result()->fetch_assoc()['total'];
 
         } catch (Exception $e) {
-            error_log("Count Error: " . $e->getMessage());
+            error_log("borrow history Count Error: " . $e->getMessage());
             return 0; 
         }
     }
@@ -113,7 +113,7 @@ Class Borrow{
             return $data;
 
         } catch (Exception $e) {
-            error_log("Fetch Error: " . $e->getMessage());
+            error_log("Error in getting borrowing history: " . $e->getMessage());
             return [];
         }
     }

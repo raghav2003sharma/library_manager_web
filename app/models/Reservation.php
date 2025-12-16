@@ -24,7 +24,7 @@ Class Reservation{
             return $stmt->get_result();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in getting borrow records".$e->getMessage());
             return false;
         }
     }
@@ -59,7 +59,7 @@ Class Reservation{
             return $stmt_expire->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in updating reservation status ".$e->getMessage());
             return false;
         }
     }
@@ -72,7 +72,7 @@ Class Reservation{
 
             $this->conn->query($sql);
         }catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in expiring reservations".$e->getMessage());
             return false;
         }
     }
@@ -92,7 +92,7 @@ Class Reservation{
             return $stmt->get_result();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in getting active reservations".$e->getMessage());
             return false;
         }
     }
@@ -108,7 +108,7 @@ Class Reservation{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in adding reservations".$e->getMessage());
             return false;
         }
     }
@@ -126,7 +126,7 @@ Class Reservation{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in deleting reservations".$e->getMessage());
             return false;
         }
     }
@@ -143,7 +143,7 @@ Class Reservation{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in approving reservations".$e->getMessage());
             return false;
         }
     }
@@ -160,7 +160,7 @@ Class Reservation{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in rejecting reservations".$e->getMessage());
             return false;
         }
     }
@@ -178,7 +178,7 @@ Class Reservation{
             return $stmt->execute();
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in updating reservation borrow date".$e->getMessage());
             return false;
         }
     }
@@ -199,7 +199,7 @@ Class Reservation{
             return $stmt->get_result()->fetch_assoc()['total'];
 
         }  catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in count reservations".$e->getMessage());
             return 0;
         }
     }
@@ -239,7 +239,7 @@ Class Reservation{
 
             return $data;
         }catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in geting reservations".$e->getMessage());
             return [];
         }
     }
@@ -260,7 +260,7 @@ Class Reservation{
             return $stmt->get_result()->fetch_assoc()['total'];
 
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in counting user reservations".$e->getMessage());
             return 0;
         }
     }
@@ -307,7 +307,7 @@ Class Reservation{
             return $data;
 
         } catch (Exception $e) {
-            error_log("error in fetching user reservations",$e->getMessage());
+            error_log("error in fetching user reservations".$e->getMessage());
             return [];
         }
     }
@@ -320,7 +320,7 @@ Class Reservation{
 
 
         }   catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log("error in counting pending reservations ".$e->getMessage());
             return 0;
         }
     }
