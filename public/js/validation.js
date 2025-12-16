@@ -5,10 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {// executes after the
     const profileForm = document.getElementById("editProfileForm");
    if(registerForm){
     registerForm.addEventListener("submit", function (e) {
-          const username = document.querySelector("input[name='username']");
-            const email = document.querySelector("input[name='email']");
-            const password = document.querySelector("input[name='password']");
-            const confirmPassword = document.querySelector("input[name='confirm_password']");
+          const username = document.getElementById("reg-name");
+            const email = document.getElementById("reg-email");
+            const password = document.getElementById("reg-pass");
+            const confirmPassword = document.getElementById("reg-confirm");
+                    console.log(username.value,email.value,password.value,confirmPassword.value);
 
         //  Check empty fields
         if (!username.value.trim() || !email.value.trim() || !password.value.trim() || !confirmPassword.value.trim()) {

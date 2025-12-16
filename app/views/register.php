@@ -1,7 +1,7 @@
-<?php
-$error = $_SESSION['error'] ?? '';
-unset($_SESSION['error']);
-?>
+<!-- 
+// $error = $_SESSION['error'] ?? '';
+// unset($_SESSION['error']);
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,23 +17,45 @@ unset($_SESSION['error']);
     <a href="?page=user-home">
       <div class="home-icon"> <i class="fa-solid fa-house"></i></div> <p>Home</p>
     </a>
-</div>
-    <div class="container">
+</div> -->
+<?php include "layouts/header.php"; ?>
+
+    <div class="auth-container">
+    <div class="auth-inside-container">
         
-        <h1 class="frm-heading">Become a Member</h1>
+        <h1 class="auth-frm-heading">Become a Member</h1>
         <form class="main-frm register-form"action="../app/controllers/auth/register.php" method="POST">
-            <input type="text" name="username" placeholder="Username" required><br>
-            <input type="text" name="email" placeholder="Email" required><br>
-            <input type="password" name="password" placeholder="Password" required><br>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" required><br>
+            <input type="text" id="reg-name"name="username" placeholder="Username" required><br>
+            <input type="text" id="reg-email" name="email" placeholder="Email" required><br>
+           <div class="auth-pass"> 
+            <input type="password" id="reg-pass" name="password" placeholder="Password" required>
+            <span class="eye" style="background-color:none;" onclick="togglePassword(this)"><i class="fa-solid fa-eye-slash"></i></span></div>
+            <div class="auth-pass"> 
+                <input type="password" id="reg-confirm" name="confirm_password" placeholder="Confirm Password" required>
+              <span class="eye" style="background-color:none;" onclick="togglePassword(this)"><i class="fa-solid fa-eye-slash"></i></span></div>
             <button type="submit">Register</button>
         </form>
         <p class="redirect-txt">Already have an account? <a href="?page=login">Login here</a></p>
     </div>
+    </div>
     <div id="custom-alert" class="alert-box"></div>
+<script>
+   function togglePassword(eye) {
+    const input = eye.previousElementSibling;
+    const icon = eye.querySelector("i");
 
-    <script src="../../public/js/validation.js"></script>
-    <script>
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    }
+}
+    </script>
+    <!-- <script>
         function showAlert(message, type) {
     const alertBox = document.getElementById("custom-alert");
     alertBox.innerHTML = message;
@@ -44,13 +66,12 @@ unset($_SESSION['error']);
         alertBox.style.display = "none";
     }, 3500);
 }
-  <?php if (!empty($error)) : ?>
-            //alert("");
-            showAlert("<?= $error ?>", "error");
-
-        <?php endif; ?>
+ 
        
 
-</script>
+</script> -->
+    <?php include "layouts/footer.php"; ?>
+
+<!-- 
 </body>
-</html>
+</html> -->

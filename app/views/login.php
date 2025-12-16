@@ -1,9 +1,9 @@
-<?php
-$error = $_SESSION['error'] ?? '';
-unset($_SESSION['error']);
-$success = $_SESSION['success'] ?? '';
-unset($_SESSION['success']);
-?>
+<!-- 
+// $error = $_SESSION['error'] ?? '';
+// unset($_SESSION['error']);
+// $success = $_SESSION['success'] ?? '';
+// unset($_SESSION['success']);
+// 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,35 +19,47 @@ unset($_SESSION['success']);
     <a href="?page=user-home">
       <div class="home-icon"> <i class="fa-solid fa-house"></i></div> <p>Home</p>
     </a>
-</div>
+</div> -->
+<?php include "layouts/header.php"; ?>
 
-     <div class="container">
-        <h1 class="frm-heading">Sign in</h1>
+    <div class="auth-container">
+     <div class="auth-inside-container">
+        <h1 class="auth-frm-heading">Sign in</h1>
         <form class="main-frm login-form"action="../app/controllers/auth/login.php" method="POST">
-            <input type="email" name="email" placeholder="Email" required><br>
-            <input type="password" name="password" placeholder="Password" required><br>
-            <button type="submit">Submit</button>
+            <input type="email" id="login-email" name="email" placeholder="Email" required><br>
+            <div class="auth-pass"> 
+
+            <input type="password" id="login-pass" name="password" placeholder="Password" required>
+            <span class="eye" style="background-color:none;" onclick="togglePassword(this)"><i class="fa-solid fa-eye-slash"></i></span>
+        </div>
+            <button type="submit" >Submit</button>
         </form>
         <p class="redirect-txt">Don't have an account? <a href="?page=register">Signup here</a></p>
     </div>
         <div id="custom-alert" class="alert-box"></div>
-
+    </div>
 <script>
-  <?php if (!empty($success)) : ?>
-            showAlert("<?= $success ?>","success");
-        <?php endif; ?>
-        
-  <?php if (!empty($error)) : ?>
-            showAlert("<?= $error ?>","error");
-        <?php endif; ?>
 
+   function togglePassword(eye) {
+    const input = eye.previousElementSibling;
+    const icon = eye.querySelector("i");
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    }
+}
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector(".login-form");
-        const email = document.querySelector("input[name='email']");
-        const password = document.querySelector("input[name='password']");
+        const email = document.getElementById("login-email");
+        const password = document.getElementById("login-pass");
 
         form.addEventListener("submit", function (e) {
-            console.log("hi")
               if ( !email.value.trim() || !password.value.trim()) {
             showAlert("All fields are required.", "error");
             e.preventDefault();
@@ -80,19 +92,12 @@ unset($_SESSION['success']);
         });
         
     });
-     function showAlert(message, type) {
-    const alertBox = document.getElementById("custom-alert");
-    alertBox.innerHTML = message;
-    alertBox.className = "alert-box alert-" + type;
-    alertBox.style.display = "block";
-
-    setTimeout(() => {
-        alertBox.style.display = "none";
-    }, 3500);
-}
+    
    
 
 
     </script>
-</body>
-</html>
+    <?php include "layouts/footer.php"; ?>
+
+<!-- </body>
+</html> -->

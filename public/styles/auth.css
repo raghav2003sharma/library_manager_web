@@ -1,5 +1,5 @@
 /* Center the whole container */
-body {
+/* body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -8,10 +8,22 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+} */
+.auth-container{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
+    width:100%;
 }
-
 /* Form wrapper */
-.container {
+.auth-inside-container {
+    display: flex;
+    flex-direction: column;
     background: #fff;
     width: 350px;
     padding: 25px;
@@ -20,23 +32,25 @@ body {
 }
 
 /* Form heading */
-.frm-heading {
+.auth-frm-heading {
     text-align: center;
     margin-bottom: 20px;
 }
 
 /* Inputs */
-.main-frm input[type="text"],
-.main-frm input[type="email"],
-.main-frm input[type="password"] {
+.main-frm input {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
-    /* border: 1px solid #dbdada; */
-    border:none;
+    border: none;
     border-radius: 5px;
     box-sizing: border-box;
     background-color: #f1f1f1;
+}
+.main-frm input:focus{
+    outline: none;
+    background-color: #f1f1f1;
+
 }
 
 /* Button */
@@ -118,3 +132,31 @@ a p{
   90% { opacity: 1; }
   100% { opacity: 0; }
 }
+.auth-pass{
+    height: fit-content;
+     width: 100%;
+     padding: 10px;       
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+        background-color: #f1f1f1;
+        align-items:center ;
+          border-radius: 5px;
+    box-sizing: border-box;
+
+}
+.auth-pass input{
+    border:none;
+     padding: 0;         
+    margin: 0;
+    background: transparent;
+    flex: 1;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #f1f1f1 inset;
+    -webkit-text-fill-color: #000;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
