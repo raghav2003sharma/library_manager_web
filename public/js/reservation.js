@@ -46,7 +46,6 @@ function resStepChange(step) {
 
     if (newPage < 1) return;
 
-    pageSpan.textContent = newPage;
     loadReservations(reserveSearch.value.trim(), newPage);
 }
 
@@ -57,6 +56,7 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
     fetch(`../app/controllers/fetch-reserve.php?q=${query}&page=${page}&filter=${filter}&sort=${sort}&order=${order}`)
         .then(res => res.json())
         .then(data => {
+                pageSpan.textContent = page;
 
             reserveTable.innerHTML = "";
 
@@ -97,6 +97,8 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
 
             // Handle pagination
             const totalPages = Math.ceil(data.totalRows / 5);
+            document.getElementById("reservepage-count").textContent = totalPages;
+
             if(page === 1){
             prevResBtn.disabled = true;
             prevResBtn.classList.add("disable");

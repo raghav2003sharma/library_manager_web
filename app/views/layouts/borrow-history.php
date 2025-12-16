@@ -27,7 +27,10 @@
 
 </div>
 <div class="pagination">
+     <p>Total Pages: <span id="historypage-count"></span></p>
+        <div class="page-buttons">
     <button id="prevPage" onclick="historyPage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
     <span id="historypageNumber">1</span>
     <button id="nextPage" onclick="historyPage(1)"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
 </div>

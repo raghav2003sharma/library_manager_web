@@ -27,7 +27,11 @@
 
 </div>
 <div class="pagination">
+            <p>Total Pages: <span id="borrowpage-count"></span></p>
+        <div class="page-buttons">
+
     <button id="prevBorrow" onclick="borrowPage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
     <span id="borrowPage">1</span>
     <button id="nextBorrow" onclick="borrowPage(1)"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
 </div>

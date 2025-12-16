@@ -37,7 +37,7 @@ $email = $_SESSION['email'];
 <div class="logo" > <a href="/public/index.php?page=user-home"><img src="/public/uploads/book_logo.png" alt="Logo" class="logo-img"><span> Books Mania </span></a></div>
 <div id="navLinks" class="nav-links">
 <a href="/public/index.php?page=user-home">Dashboard</a>
- <?php if(isset($_SESSION['user_id'])): ?>
+ <?php if(isset($_SESSION['user_id']) && $_SESSION['role']=== "user"): ?>
         <!-- User is logged in -->
 <a href="/public/index.php?page=borrowed" >Borrowed</a>
 <a href="/public/index.php?page=reserves">Reservations</a>

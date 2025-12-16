@@ -132,7 +132,6 @@ document.querySelectorAll(".sortable").forEach(header => {
     const currentPage = parseInt(bookpageNumber.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
-    bookpageNumber.textContent = newPage;
     
 
     loadBooks(searchBooks.value.trim(), newPage);
@@ -145,6 +144,7 @@ if(booksTable){
 fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
   .then(res => res.json())
   .then(data => {
+        bookpageNumber.textContent = page;
       booksTable.innerHTML = "";
     
 
@@ -172,6 +172,8 @@ fetch(`../app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&o
           </tr>`;
       });
        const totalPages = Math.ceil(data.totalRows / data.limit);
+        document.getElementById("bookpage-count").textContent = totalPages;
+
         if(page === 1){
         prevBooks.disabled = true;
                 prevBooks.classList.add("disable");

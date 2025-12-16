@@ -8,6 +8,8 @@ function loadApprovedBorrow(page=1) {
     fetch(`../app/controllers/approved-borrow.php?page=${page}`)
         .then(res => res.json())
         .then(data => {
+                todayPage.textContent = page;
+
             const container = document.getElementById("approved-list");
             container.innerHTML = ""; 
 
@@ -34,6 +36,8 @@ function loadApprovedBorrow(page=1) {
                 container.appendChild(card);
             });
               const totalPages = Math.ceil(data.totalRows /data.limit);
+             document.getElementById("dashpage-count").textContent = totalPages;
+
         if(page === 1){
         todayPrev.disabled = true;
                 todayPrev.classList.add("disable");
@@ -66,7 +70,6 @@ function borrowTodayPage(step){
     const currentPage = parseInt(todayPage.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
-    todayPage.textContent = newPage;
 
     loadApprovedBorrow(newPage);
 }

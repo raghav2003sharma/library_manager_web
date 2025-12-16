@@ -31,7 +31,7 @@
         <table class="users-table" id="usersTable">
             <thead>
                 <tr>
-                    <th class="sortable" data-column="user_id"  data-type="user">User ID <i class="fa-solid fa-sort"></i></th>
+                    <th class="sortable" data-column="user_id"  data-type="user">User Id <i class="fa-solid fa-sort"></i></th>
                     <th class="sortable" data-column="name"  data-type="user">Username <i class="fa-solid fa-sort"></i></th>
                     <th class="sortable" data-column="email"  data-type="user">Email <i class="fa-solid fa-sort"></i></th>
                     <th class="sortable" data-column="role"  data-type="user">Role <i class="fa-solid fa-sort"></i></th>
@@ -48,11 +48,13 @@
 
     <!-- Pagination -->
     <div class="pagination">
+        <p>Total Pages: <span id="userpage-count"></span></p>
+        <div class="page-buttons">
         <button id="prevBtn" onclick="stepChange(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <span id="userpageNumber">1</span>
         <button id="nextBtn" onclick="stepChange(1)"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
     </div>
-
 </div>
 
 

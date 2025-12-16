@@ -277,13 +277,19 @@ background: #3c57d6;
 /* Pagination */
 .pagination {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     margin-top: 18px;
     margin-right:10px;
+    padding: 5px;
     gap: 15px;
 }
-
+.page-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
 .pagination button {
     width:fit-content;
     background: #333;

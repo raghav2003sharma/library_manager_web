@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {// executes after the
 
         //  Check empty fields
         if (!username.value.trim() || !email.value.trim() || !password.value.trim() || !confirmPassword.value.trim()) {
-            // alert("All fields are required.");
             showAlert("All fields are required.", "error");
             e.preventDefault();
             return;
@@ -21,45 +20,38 @@ document.addEventListener("DOMContentLoaded", function () {// executes after the
 
         //  Username length < 3
         if (username.value.trim().length < 3) {
-            // alert("Username must be at least 3 characters long.");
              showAlert("Username must be at least 3 characters long.", "error");
              username.autofocus =true;
             e.preventDefault();
             return;
         }
-if (username.value.length > 30) {
-    showAlert("Username too long.", "error");
-    // alert("Username too long.");
-    e.preventDefault();
-    return;
-}
-const usernamePattern = /^[A-Za-z]+$/;
+        if (username.value.length > 30) {
+            showAlert("Username too long.", "error");
+          e.preventDefault();
+          return;
+        }
+        const usernamePattern = /^[A-Za-z]+$/;
 
-if (!usernamePattern.test(username.value.trim())) {
+         if (!usernamePattern.test(username.value.trim())) {
         showAlert("Username can contain only letters..", "error");
-    // alert("Username can contain only letters.");
-    e.preventDefault();
-    return;
-}
-if (email.value.length > 50) {
+        e.preventDefault();
+         return;
+        }
+        if (email.value.length > 50) {
             showAlert("Email too long.", "error");
-    // alert("Email too long.");
-    e.preventDefault();
-    return;
-}
+          e.preventDefault();
+         return;
+        }
         //  Valid email
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email.value.trim())) {
-                        showAlert("Please enter a valid email address.", "error");
-            // alert("Please enter a valid email address.");
+            showAlert("Please enter a valid email address.", "error");
             e.preventDefault();
             return;
         }
 
         if (password.value.length < 6) {
-                showAlert("Password must be at least 6 characters long.", "error");
-
-            // alert("Password must be at least 6 characters long.");
+            showAlert("Password must be at least 6 characters long.", "error");
             e.preventDefault();
             return;
         }

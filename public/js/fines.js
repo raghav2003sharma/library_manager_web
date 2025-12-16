@@ -41,7 +41,6 @@ function changeFinePage(step) {
       const currentPage = parseInt(finepage.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
-    pagenumber.textContent = newPage;
 
     loadFines(fineSearch.value.trim(), newPage);
 }
@@ -51,6 +50,8 @@ function loadFines(query = "", page = 1,sort="borrow_date",order="asc") {
     fetch(`../app/controllers/fetch-fines.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
         .then(res => res.json())
         .then(data => {
+                finepage.textContent = page;
+
             finesTable.innerHTML = "";
 
             
@@ -82,6 +83,8 @@ function loadFines(query = "", page = 1,sort="borrow_date",order="asc") {
 
             // Pagination Logic
             const totalPages = Math.ceil(data.totalRows / 5);
+             document.getElementById("finepage-count").textContent = totalPages;
+
 
             if (page === 1) {
                 prevFineBtn.disabled = true;

@@ -67,6 +67,7 @@ function borrowPage(step){
     fetch(`../app/controllers/show-borrows.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
   .then(res => res.json())
   .then(data => {
+      borrowpage.textContent = page;
       borrowTable.innerHTML = "";
     if (data.records.length === 0) {
                 borrowTable.innerHTML = `
@@ -92,6 +93,8 @@ function borrowPage(step){
           </tr>`;
       });
        const totalPages = Math.ceil(data.totalRows / data.limit);
+               document.getElementById("borrowpage-count").textContent = totalPages;
+
         if(page === 1){
         prevBorrow.disabled = true;
         prevBorrow.classList.add("disable");
@@ -123,6 +126,7 @@ function historyPage(step){
     fetch(`../app/controllers/borrow-history.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
   .then(res => res.json())
   .then(data => {
+        historyPagenumber.textContent = page;
       borrowHistory.innerHTML = "";
  if (data.records.length === 0) {
                 borrowHistory.innerHTML = `
@@ -145,6 +149,8 @@ function historyPage(step){
           </tr>`;
       });
         const totalPages = Math.ceil(data.totalRows / data.limit);
+                document.getElementById("historypage-count").textContent = totalPages;
+
         if(page === 1){
         prevPage.disabled = true;
         prevPage.classList.add("disable");

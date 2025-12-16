@@ -152,7 +152,6 @@ function stepChange(step){// on clicking next or previous
     const currentPage = parseInt(pageNumberSpan.textContent);
     const newPage = currentPage + step;
     if(newPage < 1) return; 
-    pageNumberSpan.textContent = newPage;
     
     loadUsers(usersInput.value.trim(), newPage);
 
@@ -161,6 +160,7 @@ function loadUsers(query="",page=1,sort="name",order="asc"){
 fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
   .then(res => res.json())
   .then(data => {
+        pageNumberSpan.textContent = page;
 
       table.innerHTML = "";
        
@@ -180,7 +180,7 @@ fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&o
           </tr>`;
       });
         const totalPages = Math.ceil(data.totalRows / data.limit);
-        console.log(totalPages,page);
+        document.getElementById("userpage-count").textContent = totalPages;
         if(page === 1){
         prevBtn.disabled = true;
         prevBtn.classList.add("disable");

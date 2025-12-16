@@ -2,6 +2,7 @@
 session_start();
 // Protect admin access
 if ($_SESSION['role'] !== 'admin') {
+    $_SESSION['error'] ="unauthorized access";
     header("Location: index.php?page=login");
     exit;
 }

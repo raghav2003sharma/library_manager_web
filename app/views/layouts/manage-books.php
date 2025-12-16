@@ -34,7 +34,7 @@
 <table class="users-table">
     <thead>
         <tr>
-            <th class="sortable" data-column="book_id" data-type="book">Book ID <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-column="book_id" data-type="book">Book Id <i class="fa-solid fa-sort"></i></th>
             <th class="sortable" data-column="title" data-type="book">Book Title <i class="fa-solid fa-sort"></i></th>
             <th class="sortable" data-column="author" data-type="book">Author <i class="fa-solid fa-sort"></i></th>
             <th class="sortable" data-column="category" data-type="book">Category <i class="fa-solid fa-sort"></i></th>
@@ -50,9 +50,12 @@
 </table>
 
 <div class="pagination">
+            <p>Total Pages: <span id="bookpage-count"></span></p>
+            <div class="page-buttons">
     <button id="prevBooks" onclick="bookStep(-1)"><i class="fa-solid fa-chevron-left"></i></button>
     <span id="bookpageNumber">1</span>
     <button id="nextBooks" onclick="bookStep(1)"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
 </div>
  <form style="display:none;" id="editBookForm" enctype="multipart/form-data" class="editForm" action="../app/controllers/edit-book.php" method="POST">
         <h3>Edit Book</h3>
