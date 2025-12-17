@@ -1,11 +1,11 @@
 <?php
 session_start();
+require_once "../helpers/helpers.php";
 require_once "../models/Reservation.php";
 $reserves = new Reservation();
 
-// Ensure user is logged in
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(["error" => "Unauthorized"]);
+    redirect("/public/index.php?page=login","error","You must be logged in first");
     exit;
 }
 

@@ -2,60 +2,39 @@
 session_start();
 $page = $_GET['page'] ?? 'user-home';
 
-if ($page === 'register') {
-    require_once "../app/views/register.php";
-    exit;
-}
+$publicPages = [
+    'register'   => '../app/views/register.php',
+    'login'      => '../app/views/login.php',
+    'contact'    => '../app/views/contact.php',
+    'about'      => '../app/views/aboutus.php',
+];
+$userPages = [
+    'user-home'  => '../app/views/user-dash.php',
+    'view-book'  => '../app/views/view-book.php',
+    'borrowed'   => '../app/views/borrowed.php',
+    'reserves'   => '../app/views/user-reservations.php',
+];
+$adminPages = [
+    'admin-home' => '../app/views/admin-dash.php',
+];
 
-if ($page === 'login') {
-    require_once "../app/views/login.php";
-    exit;
-}
-if ($page === 'admin-home') {
-    require_once "../app/views/admin-dash.php";
-    exit;
-}
-
-if ($page === 'user-home') {
-    require_once "../app/views/user-dash.php";
-    exit;
-}
-if($page === 'view-book'){
-    require_once "../app/views/view-book.php";
-    exit;
-}
-if($page === 'contact'){
-       require_once "../app/views/contact.php";
-    exit;
-}
-if($page === 'about'){
-       require_once "../app/views/aboutus.php";
-    exit;
-}
-if($page === 'borrowed'){
-       require_once "../app/views/borrowed.php";
-    exit;
-}
-if($page === 'reserves'){
-    require_once "../app/views/user-reservations.php";
-    exit;
-}
 if($page === 'logout'){
     require_once "../app/controllers/auth/logout.php";
     exit;
 }
-
-if (isset($_SESSION['user_id'])) {
-    if($_SESSION['role'] === 'admin'){
-        require_once "../app/views/admin-dash.php";
-        exit;
-    } else {
-        require_once "../app/views/user-dash.php";
-        exit;
-
-    }
+if (array_key_exists($page, $publicPages)) {
+    require_once $publicPages[$page];
+    exit;
 }
-
-require_once "../app/views/user-dash.php";
-
+if (array_key_exists($page, $adminPages)) {
+    require_once $adminPages[$page];
+    exit;
+}
+if (array_key_exists($page, $userPages)){
+    require_once $userPages[$page];
+    exit;
+}
+http_response_code(404);
+require_once "../app/views/404.php";
+exit;
 ?>

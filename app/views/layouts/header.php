@@ -11,8 +11,10 @@ if (isset($_SESSION['error'])) {
     $error = $_SESSION['error'];
     unset($_SESSION['error']);
 }
+if(isset($_SESSION['user_id'])){
 $name = $_SESSION['name'];
 $email = $_SESSION['email'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
