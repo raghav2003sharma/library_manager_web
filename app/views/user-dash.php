@@ -3,6 +3,10 @@
 
 <!-- SEARCH BAR -->
  <div id="home-section">
+
+
+<div class="avail-books">
+    <h2 class="section-title" >Discover & Reserve Available Books</h2>
 <div class="search-bar">
 <div class="inp-box">
     <input type="text" class="search-input" id="search-inp"  oninput="autoSearch(this.value)" placeholder="Search books..." />
@@ -12,10 +16,6 @@
 <div id="suggestions" class="suggest-box"></div>
 
 </div>
-
-<div class="avail-books">
-
-<h2 class="section-title">Discover & Reserve Available Books</h2>
 <div class="filters">
 <button id="allCategory"class="filter-btn active" onclick="loadCategory(this,'all');fetchAvailableBooks('all')">All Books</button>
 <button class="filter-btn" onclick="loadCategory(this,'fiction');fetchAvailableBooks('fiction')">Fiction</button>

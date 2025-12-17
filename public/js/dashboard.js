@@ -22,7 +22,7 @@ function loadApprovedBorrow(page=1) {
                 card.innerHTML = `
                     <h3>${req.title}</h3>
                     <p>${req.author}</p>
-                    <p><strong>User:</strong> ${req.name} (${req.email})</p>
+                    <p><strong>Borrower:</strong> ${req.name} (${req.email})</p>
                     <p><strong>Borrow Date:</strong> ${req.borrow_date}</p>
 
                     <form method="POST" action="/app/controllers/admin/borrow-today.php">
