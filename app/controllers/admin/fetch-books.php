@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../models/Book.php";
+require_once "../../models/Book.php";
 $book = new Book();
 $search = $_GET['q'] ?? ""; 
 $search = "%$search%";

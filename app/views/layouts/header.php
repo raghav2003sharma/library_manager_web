@@ -61,7 +61,7 @@ $email = $_SESSION['email'];
         <div class="pass-modal">
             <div class="form-modal">
                 <h1>Change Password</h1>
-        <form action="/app/controllers/change-password.php" method="post" id="change-pass-form">
+        <form action="/app/controllers/auth/change-password.php" method="post" id="change-pass-form">
             <input type="password" name="cur-pass"id="current-password" placeholder="Current Password" required />
             <input type="password" name="new-pass"id="new-password" placeholder="New Password" required />
             <input type="password" name="conf-pass"id="confirm-password" placeholder="Confirm New Password" required />
@@ -77,7 +77,7 @@ $email = $_SESSION['email'];
     <div class="edit-user-box">
         <h1>Edit Profile</h1>
 
-        <form action="/app/controllers/update-profile.php" method="POST" id="editProfileForm">
+        <form action="/app/controllers/user/update-profile.php" method="POST" id="editProfileForm">
             <input type="text" name="username" id="editProfileName" placeholder="Full Name" required>
             <input type="email" name="email" id="editProfileEmail" placeholder="Email Address" required>
 

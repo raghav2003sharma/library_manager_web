@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../helpers/helpers.php";
-require_once "../models/User.php";
+require_once "../../helpers/helpers.php";
+require_once "../../models/User.php";
 $user = new User();
 if (!isset($_SESSION['user_id'])) {
        redirect("/login","error","You must be logged in first");
@@ -30,7 +30,7 @@ if ($checkResult->num_rows > 0) {
 }
 
 
-$update = $user->updateUser($name, $email, $user_id);
+$update = $user->updateUser($name, $email,"user",$user_id);
 if ($update) {
     $_SESSION['name'] = $name;
     $_SESSION['email'] = $email;

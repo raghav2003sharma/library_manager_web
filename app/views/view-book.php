@@ -62,7 +62,7 @@ $preview = $book['preview_link'] ?? '';
                      <div class="reserve-modal" id="reserveModal">
                         <div class="reserve-box">
                              <h2>Reserve Book</h2> 
-                                 <form action="/app/controllers/reserve.php" method="POST" onsubmit="return confirmReserve()"> 
+                                 <form action="/app/controllers/user/reserve.php" method="POST" onsubmit="return confirmReserve()"> 
                                     <input type="hidden" name="book_id" value="<?= $id ?>">
                                         <label>Borrow Date</label>
                                         <input type="date" name="borrow_date" id="borrowDate" min="<?= date('Y-m-d') ?>"required>

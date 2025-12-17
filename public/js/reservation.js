@@ -53,21 +53,13 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
     if (!filter) {
         filter = document.querySelector(".filter-btn.active")?.dataset?.filter || "pending";
     }
-    fetch(`/app/controllers/fetch-reserve.php?q=${query}&page=${page}&filter=${filter}&sort=${sort}&order=${order}`)
+    fetch(`/app/controllers/admin/fetch-reserve.php?q=${query}&page=${page}&filter=${filter}&sort=${sort}&order=${order}`)
         .then(res => res.json())
         .then(data => {
                 pageSpan.textContent = page;
 
             reserveTable.innerHTML = "";
 
-            if (data.reservations.length === 0) {
-                reserveTable.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:15px;">No reservations found.</td>
-                    </tr>
-                `;
-                return;
-            }
 
             data.reservations.forEach(res => {
                 reserveTable.innerHTML += `
@@ -115,6 +107,14 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
                 nextResBtn.disabled = false;
                 nextResBtn.classList.remove("disable");
              }
+             if (data.reservations.length === 0) {
+                reserveTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:15px;">No reservations found.</td>
+                    </tr>
+                `;
+                return;
+            }
         })
         .catch(err => console.error("Fetch Error:", err));
 }
@@ -125,7 +125,7 @@ function setFilter(btn) {
 }
 function approveRequest(reservationId) {
     if (confirm("Are you sure you want to approve this reservation?")) {
-        fetch('/app/controllers/approve-reserve.php', {
+        fetch('/app/controllers/admin/approve-reserve.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -150,7 +150,7 @@ function approveRequest(reservationId) {
 
 function rejectRequest(reservationId) {
     if (confirm("Are you sure you want to reject this reservation?")) {
-        fetch('/app/controllers/reject-reserve.php', {
+        fetch('/app/controllers/admin/reject-reserve.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

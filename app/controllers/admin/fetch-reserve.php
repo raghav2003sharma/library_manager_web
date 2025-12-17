@@ -1,5 +1,5 @@
 <?php
-require_once "../models/Reservation.php";
+require_once "../../models/Reservation.php";
 $reserve = new Reservation();
 
 $filter = $_GET['filter'] ?? 'pending';

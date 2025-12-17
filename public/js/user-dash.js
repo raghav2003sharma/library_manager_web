@@ -59,7 +59,7 @@ function loadCategory(button,category){
 function fetchAvailableBooks(category="all",query="",page=1,append=false){
            if (isLoading || !hasMore) return;
             isLoading = true;
-    fetch(`/app/controllers/fetch-available.php?category=${category}&q=${query}&page=${page}`)
+    fetch(`/app/controllers/user/fetch-available.php?category=${category}&q=${query}&page=${page}`)
     .then(response => response.json())
     .then(data => {
           const booksContainer = document.getElementById('avail');
@@ -113,7 +113,7 @@ document.getElementById('reservation-filter').addEventListener('change', functio
     fetchReservations(filterValue);
 });
 function fetchBorrowedBooks(){
-    fetch('/app/controllers/fetch-borrowed.php',{
+    fetch('/app/controllers/user/fetch-borrowed.php',{
          
         method: "GET",
         credentials: "include"  
@@ -143,7 +143,7 @@ function fetchBorrowedBooks(){
 }
 
 function fetchReservations(filter = 'pending', page = 1, search = ''){
-     fetch(`/app/controllers/user-reservations.php?filter=${filter}&page=${page}&q=${encodeURIComponent(search)}`, {
+     fetch(`/app/controllers/user/user-reservations.php?filter=${filter}&page=${page}&q=${encodeURIComponent(search)}`, {
         method: "GET",
         credentials: "include"
     })
@@ -273,7 +273,7 @@ function autoSearch(query) {
         return;
     }
 
-    fetch(`/app/controllers/search-suggestions.php?q=${encodeURIComponent(query)}&category=${currentCategory}`)
+    fetch(`/app/controllers/user/search-suggestions.php?q=${encodeURIComponent(query)}&category=${currentCategory}`)
         .then(res => res.json())
         .then(data => {
             let html = "";
@@ -324,7 +324,7 @@ function closeEditUser() {
 }
 function confirmDeleteUser() {
     if (confirm("Are you sure you want to delete your account? This cannot be undone.")) {
-        window.location.href = "/app/controllers/delete-profile.php";
+        window.location.href = "/app/controllers/user/delete-profile.php";
     }
 }
 

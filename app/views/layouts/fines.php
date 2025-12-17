@@ -41,7 +41,7 @@
 </div>
 
 <!-- PAY FINE MODAL -->
-<form id="payFineForm" class="editForm pay-fine-form" action="/app/controllers/pay-fine.php" method="POST">
+<form id="payFineForm" class="editForm pay-fine-form" action="/app/controllers/admin/pay-fine.php" method="POST">
     <h3>Pay Fine</h3>
 
     <input type="hidden" id="fine_email" name="fine_email">

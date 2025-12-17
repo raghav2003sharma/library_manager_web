@@ -64,7 +64,7 @@ function borrowPage(step){
     loadBorrowRecords(searchBorrow.value.trim(), newPage);
 }
     function loadBorrowRecords(query="",page=1,sortBy = "borrow_date", sortOrder = "asc"){
-    fetch(`/app/controllers/show-borrows.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
+    fetch(`/app/controllers/admin/show-borrows.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
   .then(res => res.json())
   .then(data => {
       borrowpage.textContent = page;
@@ -85,7 +85,7 @@ function borrowPage(step){
               <td>${book.status}</td>
               <td>${book.borrow_date}</td>
               <td>${book.due_date}</td>
-              <td><form method="post" action="/app/controllers/return-today.php">
+              <td><form method="post" action="/app/controllers/admin/return-today.php">
               <input type="hidden" name="user_id" value="${book.user_id}">
                  <input type="hidden" name="book_id" value="${book.book_id}">
 
@@ -123,7 +123,7 @@ function historyPage(step){
     loadBorrowHistory(searchHistory.value.trim(), newPage);
 }
     function loadBorrowHistory(query="",page=1, sortBy = "borrow_date", sortOrder = "asc"){
-    fetch(`/app/controllers/borrow-history.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
+    fetch(`/app/controllers/admin/borrow-history.php?q=${query}&page=${page}&sort=${sortBy}&order=${sortOrder}`)
   .then(res => res.json())
   .then(data => {
         historyPagenumber.textContent = page;

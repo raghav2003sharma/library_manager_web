@@ -59,14 +59,15 @@ class User {
             return false;
         }
     }
-    public function updateUser($name, $email, $user_id){
+    public function updateUser($name, $email,$role, $user_id){
            try {
+             error_log("USER_ID: " . $user_id);
             $stmt = $this->conn->prepare(
-                "UPDATE users SET name = ?, email = ? WHERE user_id = ?"
+                "UPDATE users SET name = ?, email = ?,role=? WHERE user_id = ?"
             );
             if (!$stmt) throw new Exception($this->conn->error);
 
-            $stmt->bind_param("ssi", $name, $email, $user_id);
+            $stmt->bind_param("sssi", $name, $email,$role, $user_id);
             return $stmt->execute();
 
         } catch (Exception $e) {

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../helpers/helpers.php";
-require_once "../models/Book.php";
+require_once "../../helpers/helpers.php";
+require_once "../../models/Book.php";
 $book = new Book();
 if(
     empty($_POST['title']) ||
@@ -46,7 +46,7 @@ if($stock > 100){
 }
 $coverImagePath = null;
 if ($cover && $cover['error'] === UPLOAD_ERR_OK) {
-    $uploadDir = '../../public/uploads/';
+    $uploadDir = '../../../public/uploads/';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
@@ -62,7 +62,7 @@ if ($cover && $cover['error'] === UPLOAD_ERR_OK) {
 // check if book already exists
 $exists = $book->getBook($title,$author);
 if($exists->num_rows > 0){
-                redirectBack( "error", "Same book already exists.");
+    redirectBack( "error", "Same book already exists.");
 
 }
 //insert new book 

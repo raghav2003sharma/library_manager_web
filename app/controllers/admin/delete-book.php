@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../helpers/helpers.php";
-require_once "../models/Book.php";
+require_once "../../helpers/helpers.php";
+require_once "../../models/Book.php";
 $book = new Book();
 if (empty($_POST['id'])) {
              redirectBack( "error", "book ID is required.");

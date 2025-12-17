@@ -140,7 +140,7 @@ if(booksTable){
     loadBooks();
 }
     function loadBooks(query="",page=1,sort="title",order="asc"){
-fetch(`/app/controllers/fetch-books.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
+fetch(`/app/controllers/admin/fetch-books.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
   .then(res => res.json())
   .then(data => {
         bookpageNumber.textContent = page;

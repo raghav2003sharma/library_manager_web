@@ -3,7 +3,7 @@
 <div class="books-section">
 
 <button type="button" onclick="showBookAddForm()" class="btn-add">+ Add Book</button>
-<form action="/app/controllers/add-book.php" enctype="multipart/form-data" method="post" class="add-user-form " id="addBookForm" style="display:none;">
+<form action="/app/controllers/admin/add-book.php" enctype="multipart/form-data" method="post" class="add-user-form " id="addBookForm" style="display:none;">
             <h3>Add New Book</h3>
             <input type="text" name="title" placeholder="book title" required>
             <input type="text" name="author"  placeholder="author" required>
@@ -57,7 +57,7 @@
     <button id="nextBooks" onclick="bookStep(1)"><i class="fa-solid fa-angle-right"></i></button>
             </div>
 </div>
- <form style="display:none;" id="editBookForm" enctype="multipart/form-data" class="editForm" action="/app/controllers/edit-book.php" method="POST">
+ <form style="display:none;" id="editBookForm" enctype="multipart/form-data" class="editForm" action="/app/controllers/admin/edit-book.php" method="POST">
         <h3>Edit Book</h3>
         <input type="hidden" id="editBook_id" name="book_id">
         <input type="text" name="title" placeholder="book title" id="editTitle"required>
@@ -85,7 +85,7 @@
     
 <!-- Delete Modal -->
 <div id="deleteBookModal" class="modal">
-    <form method="post" action="/app/controllers/delete-book.php" class="modal-content">
+    <form method="post" action="/app/controllers/admin/delete-book.php" class="modal-content">
         <h3>Delete Book?</h3>
         <p>This action cannot be undone.</p>
 

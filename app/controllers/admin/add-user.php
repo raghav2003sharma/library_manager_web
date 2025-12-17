@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../helpers/helpers.php";
-require_once "../models/User.php";
+require_once "../../helpers/helpers.php";
+require_once "../../models/User.php";
 $user = new User();
 if(
     empty($_POST['username']) ||

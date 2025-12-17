@@ -23,7 +23,7 @@ exit;
         <div class="reserve-box">
 
              <h2>Reserve Book</h2> 
-                         <form action="/app/controllers/update-reservation.php" method="POST" onsubmit="return confirmReserve()"> 
+                         <form action="/app/controllers/user/update-reservation.php" method="POST" onsubmit="return confirmReserve()"> 
                                  <input type="hidden" name="book_id" id="hidden-bookid" >
                                  <label>Borrow Date</label>
                                  <input type="date" name="borrow_date" min="<?= date('Y-m-d') ?>"required>
@@ -34,7 +34,7 @@ exit;
                             </div> 
                         </div>
      <div id="deleteReserveModal" class="modal">
-    <form method="post" action="/app/controllers/delete-reservation.php" class="modal-content">
+    <form method="post" action="/app/controllers/user/delete-reservation.php" class="modal-content">
         <h3>Delete Reservation?</h3>
         <p>This action cannot be undone.</p>
 

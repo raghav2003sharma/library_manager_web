@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../helpers/helpers.php";
-require_once "../models/Borrow.php";
+require_once "../../helpers/helpers.php";
+require_once "../../models/Borrow.php";
 $borrow = new Borrow();
 
 if (empty($_POST['user_id']) ||

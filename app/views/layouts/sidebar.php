@@ -42,7 +42,7 @@ $email = $_SESSION['email'];
 <div id="pass-modal" >
             <div class="form-modal">
                 <h1>Change Password</h1>
-        <form action="/app/controllers/change-password.php" method="post" id="change-pass-form">
+        <form action="/app/controllers/auth/change-password.php" method="post" id="change-pass-form">
             <input type="password" name="cur-pass"id="current-password" placeholder="Current Password" required />
             <input type="password" name="new-pass"id="new-password" placeholder="New Password" required />
             <input type="password" name="conf-pass"id="confirm-password" placeholder="Confirm New Password" required />

@@ -3,7 +3,7 @@
 
     <div class="users-header">
         <button class="btn-add" id="btn-add" type="button" onclick="showAddUserForm()">+ Add User</button>
-        <form action="/app/controllers/add-user.php" method="post" class="add-user-form add-user" id="addUserForm" style="display:none;">
+        <form action="/app/controllers/admin/add-user.php" method="post" class="add-user-form add-user" id="addUserForm" style="display:none;">
             <h3>Add New User</h3>
             <input type="text" id="add-name" name="username" placeholder="username" required>
             <input type="email" id="add-email" name="email"placeholder="email" required>
@@ -59,7 +59,7 @@
 
 
 <!-- EDIT USER MODAL -->
-    <form id="editUserForm" class="editForm edit-user-form" action="/app/controllers/edit-user.php" method="POST">
+    <form id="editUserForm" class="editForm edit-user-form" action="/app/controllers/admin/edit-user.php" method="POST">
         <h3>Edit User</h3>
         <input type="hidden" id="edit_id" name="id">
         <input name="name"type="text" placeholder="username" id="editUsername">
@@ -78,7 +78,7 @@
 </div>
 <!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="modal">
-    <form class="modal-content" method="post" action="/app/controllers/delete-user.php">
+    <form class="modal-content" method="post" action="/app/controllers/admin/delete-user.php">
         <h3>Are you sure?</h3>
         <p>You are about to delete this user. This action cannot be undone.</p>
 

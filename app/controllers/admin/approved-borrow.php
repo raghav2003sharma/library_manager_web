@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-require_once "../models/Borrow.php";
+require_once "../../models/Borrow.php";
 $borrow = new Borrow();
 $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;

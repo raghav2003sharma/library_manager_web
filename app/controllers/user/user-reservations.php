@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../helpers/helpers.php";
-require_once "../models/Reservation.php";
+require_once "../../helpers/helpers.php";
+require_once "../../models/Reservation.php";
 $reserves = new Reservation();
 
 if (!isset($_SESSION['user_id'])) {
