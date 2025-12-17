@@ -84,7 +84,7 @@ function fetchAvailableBooks(category="all",query="",page=1,append=false){
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-card');
             bookDiv.innerHTML = `
-                <a style="text-decoration:none;color:black;" href="/public/index.php?page=view-book&id=${book.book_id}"> 
+                <a style="text-decoration:none;color:black;" href="view-book?id=${book.book_id}"> 
                 <img src="${book.cover_image}" />
                 <div class="title">${book.title}</div>
             <div class="author">${book.author}</div>
@@ -324,7 +324,7 @@ function closeEditUser() {
 }
 function confirmDeleteUser() {
     if (confirm("Are you sure you want to delete your account? This cannot be undone.")) {
-        window.location.href = "../app/controllers/delete-profile.php";
+        window.location.href = "/app/controllers/delete-profile.php";
     }
 }
 

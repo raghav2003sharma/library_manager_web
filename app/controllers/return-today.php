@@ -41,8 +41,12 @@ if ($returnDateObj > $dueDate) {
 
 $return_date_final = $returnDateObj->format("Y-m-d");
 
-$borrow->returnBook( $return_date_final, $fine_amount, $fine_status,$user_id,$book_id);
+$res = $borrow->returnBook( $return_date_final, $fine_amount, $fine_status,$user_id,$book_id);
+if($res){
+    redirectBack( "success", "return processed successfully");
+}else{
+        redirectBack( "error", "failed to return the book");
 
-header("Location: /public/index.php?page=admin-home&main-page=borrowed-books");
-exit;
+}
+
 ?>

@@ -1,31 +1,10 @@
-<!-- 
-// $error = $_SESSION['error'] ?? '';
-// unset($_SESSION['error']);
-// $success = $_SESSION['success'] ?? '';
-// unset($_SESSION['success']);
-// 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books Mania</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <link rel="stylesheet" href="/public/styles/auth.css">
-</head>
-<body> 
-     <div class="home-btn">
-    <a href="?page=user-home">
-      <div class="home-icon"> <i class="fa-solid fa-house"></i></div> <p>Home</p>
-    </a>
-</div> -->
 <?php include "layouts/header.php"; ?>
 
     <div class="auth-container">
      <div class="auth-inside-container">
         <h1 class="auth-frm-heading">Sign in</h1>
-        <form class="main-frm login-form"action="../app/controllers/auth/login.php" method="POST">
+        <form class="main-frm login-form"action="/app/controllers/auth/login.php" method="POST">
             <input type="email" id="login-email" name="email" placeholder="Email" required><br>
             <div class="auth-pass"> 
 
@@ -34,7 +13,7 @@
         </div>
             <button type="submit" >Submit</button>
         </form>
-        <p class="redirect-txt">Don't have an account? <a href="?page=register">Signup here</a></p>
+        <p class="redirect-txt">Don't have an account? <a href="register">Signup here</a></p>
     </div>
         <div id="custom-alert" class="alert-box"></div>
     </div>

@@ -1,6 +1,4 @@
 <?php
-session_name("USERSESS");
-session_start();
 $success = "";
 $error = "";
 if (isset($_SESSION['success'])) {
@@ -36,18 +34,18 @@ $email = $_SESSION['email'];
 <div class="page-wrapper">
 <!-- NAVBAR -->
 <div class="navbar">
-<div class="logo" > <a href="/public/index.php?page=user-home"><img src="/public/uploads/book_logo.png" alt="Logo" class="logo-img"><span> Books Mania </span></a></div>
+<div class="logo" > <a href="/user-home"><img src="/public/uploads/book_logo.png" alt="Logo" class="logo-img"><span> Books Mania </span></a></div>
 <div id="navLinks" class="nav-links">
-<a href="/public/index.php?page=user-home">Dashboard</a>
+<a href="/user-home">Dashboard</a>
  <?php if(isset($_SESSION['user_id']) && $_SESSION['role']=== "user"): ?>
         <!-- User is logged in -->
-<a href="/public/index.php?page=borrowed" >Borrowed</a>
-<a href="/public/index.php?page=reserves">Reservations</a>
+<a href="/borrowed" >Borrowed</a>
+<a href="/reserves">Reservations</a>
 <a href="#" onclick="toggleSettings(event)">Settings</a>
    <?php else: ?>
         <!-- User is NOT logged in -->
-        <a href="?page=login">Login</a>
-        <a href="?page=register">Register</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
 
     <?php endif; ?>
 </div>
@@ -58,12 +56,12 @@ $email = $_SESSION['email'];
         <div  id="settingsDropdown" class="dropdown">
             <a href="#" onclick="showUser('<?= $email ?>','<?= $name ?>')">Edit Profile</a>
             <a href="#" onclick="showForm()">Change Password</a>
-            <a href="public/index.php?page=logout">Logout</a>
+            <a href="logout">Logout</a>
         </div>
         <div class="pass-modal">
             <div class="form-modal">
                 <h1>Change Password</h1>
-        <form action="../app/controllers/change-password.php" method="post" id="change-pass-form">
+        <form action="/app/controllers/change-password.php" method="post" id="change-pass-form">
             <input type="password" name="cur-pass"id="current-password" placeholder="Current Password" required />
             <input type="password" name="new-pass"id="new-password" placeholder="New Password" required />
             <input type="password" name="conf-pass"id="confirm-password" placeholder="Confirm New Password" required />
@@ -79,7 +77,7 @@ $email = $_SESSION['email'];
     <div class="edit-user-box">
         <h1>Edit Profile</h1>
 
-        <form action="../app/controllers/update-profile.php" method="POST" id="editProfileForm">
+        <form action="/app/controllers/update-profile.php" method="POST" id="editProfileForm">
             <input type="text" name="username" id="editProfileName" placeholder="Full Name" required>
             <input type="email" name="email" id="editProfileEmail" placeholder="Email Address" required>
 

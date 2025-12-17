@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>404 - Page Not Found</title>
-    <link rel="stylesheet" href="/public/assets/css/404.css">
     <style>
         * {
     margin: 0;
@@ -68,7 +67,7 @@ body {
         <h2>Page Not Found</h2>
         <p>The page you are looking for does not exist</p>
 
-        <a href="/public/index.php" class="home-btn">Go Home</a>
+        <a href="/user-home" class="home-btn">Go Home</a>
     </div>
 </body>
 </html>

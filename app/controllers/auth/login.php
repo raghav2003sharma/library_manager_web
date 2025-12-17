@@ -41,9 +41,9 @@ if (strlen($password) < 6) {
         if ($user['role'] === 'admin') {
         // redirect("/public/index.php?page=admin-home","success","login success");
 
-        header("Location: /public/index.php?page=admin-home");
+        header("Location: /admin-home");
         } else {
-        header("Location: /public/index.php?page=user-home");
+        header("Location: /user-home");
         }
         exit;
       

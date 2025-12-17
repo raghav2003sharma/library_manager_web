@@ -47,7 +47,7 @@ function changeFinePage(step) {
 
 // Fetch Fines
 function loadFines(query = "", page = 1,sort="borrow_date",order="asc") {
-    fetch(`../app/controllers/fetch-fines.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
+    fetch(`/app/controllers/fetch-fines.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
         .then(res => res.json())
         .then(data => {
                 finepage.textContent = page;

@@ -157,7 +157,7 @@ function stepChange(step){// on clicking next or previous
 
 }
 function loadUsers(query="",page=1,sort="name",order="asc"){
-fetch(`../app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
+fetch(`/app/controllers/fetch-users.php?q=${query}&page=${page}&sort=${sort}&order=${order}`)
   .then(res => res.json())
   .then(data => {
         pageNumberSpan.textContent = page;

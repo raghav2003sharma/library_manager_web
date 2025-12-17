@@ -5,7 +5,7 @@ require_once "../models/Reservation.php";
 $reserves = new Reservation();
 
 if (!isset($_SESSION['user_id'])) {
-    redirect("/public/index.php?page=login","error","You must be logged in first");
+    redirect("/login","error","You must be logged in first");
     exit;
 }
 

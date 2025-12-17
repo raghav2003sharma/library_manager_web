@@ -8,17 +8,17 @@ Class Reservation{
         $db = new Database();
         $this->conn = $db->conn;
     }
-    public function getBorrowRecords($user_id, $book_id, $date) {
+    public function getBorrowRecords($user_id, $book_id) {
         try {
             $sql = "SELECT id FROM borrow_records 
                     WHERE user_id = ? 
                       AND book_id = ? 
-                      AND borrow_date = ?";
+                  AND return_date IS NULL";
 
             $stmt = $this->conn->prepare($sql);
             if (!$stmt) throw new Exception($this->conn->error);
 
-            $stmt->bind_param("iis", $user_id, $book_id, $date);
+            $stmt->bind_param("ii", $user_id, $book_id);
             $stmt->execute();
 
             return $stmt->get_result();
@@ -81,7 +81,7 @@ Class Reservation{
             $sql = "SELECT * FROM reservations 
                     WHERE user_id = ? 
                       AND book_id = ? 
-                      AND status IN ('pending','approved','borrowed')";
+                      AND status IN ('pending','approved')";
 
             $stmt = $this->conn->prepare($sql);
             if (!$stmt) throw new Exception($this->conn->error);

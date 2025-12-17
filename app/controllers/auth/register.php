@@ -59,7 +59,7 @@ if ($user_id) {
         $_SESSION['name'] = $username;
         $_SESSION['role'] = "user";
         $_SESSION['email'] = $email;
-           header("Location: /public/index.php?page=user-home");
+           header("Location: /user-home");
 
 } else {
      redirectBack("error","error in registering user.");

@@ -1,8 +1,8 @@
 <div class="footer">
       <div class="footer-links">
-        <a href="/public/index.php?page=about" >About Us</a>
+        <a href="about" >About Us</a>
         <span class="divider"></span>
-        <a href="/public/index.php?page=contact">Contact Us</a>
+        <a href="contact">Contact Us</a>
                 <span class="divider"></span>
                         <a href="#">Privacy Policy</a>
                         <span class="divider"></span>

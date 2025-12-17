@@ -377,12 +377,12 @@ try {
     $stock->execute();
 
     $this->conn->commit();
-    $_SESSION['success'] = "Return processed successfully.";
+    return true;
 
 } catch (Exception $e) {
     $this->conn->rollback();
      error_log("error in retuning transaction: " . $e->getMessage());
-    $_SESSION['error'] = "Failed to process return.";
+     return false;
 }
         
     }

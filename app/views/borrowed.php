@@ -2,7 +2,7 @@
  session_start();
 if(!isset($_SESSION['user_id']) || $_SESSION['role']!== "user"){
 $_SESSION['error'] = "Unauthorized access !";
-header("Location: /public/index.php?page=user-home");
+header("Location: /user-home");
 exit;
  } ?>
 <?php include "layouts/header.php"; ?>

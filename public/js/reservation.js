@@ -53,7 +53,7 @@ function loadReservations(query = "", page = 1, filter = "",sort="borrow_date",o
     if (!filter) {
         filter = document.querySelector(".filter-btn.active")?.dataset?.filter || "pending";
     }
-    fetch(`../app/controllers/fetch-reserve.php?q=${query}&page=${page}&filter=${filter}&sort=${sort}&order=${order}`)
+    fetch(`/app/controllers/fetch-reserve.php?q=${query}&page=${page}&filter=${filter}&sort=${sort}&order=${order}`)
         .then(res => res.json())
         .then(data => {
                 pageSpan.textContent = page;

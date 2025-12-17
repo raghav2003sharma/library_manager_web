@@ -63,6 +63,6 @@ $status = "borrowed";
 
 // Transaction: insert + decrease stock 
 $borrow->addBorrowRecord($user_id, $book_id, $borrow_date, $due_date, $status);
-header("Location: /public/index.php?page=admin-home&main-page=dashboard");
+header("Location: /admin-home?main-page=dashboard");
 exit;
 ?>

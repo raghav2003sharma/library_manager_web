@@ -3,7 +3,7 @@ session_start();
 // Protect admin access
 if ($_SESSION['role'] !== 'admin') {
     $_SESSION['error'] ="unauthorized access";
-    header("Location: index.php?page=login");
+    header("Location: /login");
     exit;
 }
 $success = "";
@@ -206,7 +206,7 @@ function closeEditUser(){
 }
 function confirmDeleteUser() {
     if (confirm("Are you sure you want to delete your account? This cannot be undone.")) {
-        window.location.href = "../app/controllers/delete-profile.php";
+        window.location.href = "/app/controllers/delete-profile.php";
     }
 }
     </script>

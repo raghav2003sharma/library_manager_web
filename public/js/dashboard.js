@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", loadApprovedBorrow());
 
 function loadApprovedBorrow(page=1) {
 
-    fetch(`../app/controllers/approved-borrow.php?page=${page}`)
+    fetch(`/app/controllers/approved-borrow.php?page=${page}`)
         .then(res => res.json())
         .then(data => {
                 todayPage.textContent = page;
@@ -25,7 +25,7 @@ function loadApprovedBorrow(page=1) {
                     <p><strong>User:</strong> ${req.name} (${req.email})</p>
                     <p><strong>Borrow Date:</strong> ${req.borrow_date}</p>
 
-                    <form method="POST" action="../app/controllers/borrow-today.php">
+                    <form method="POST" action="/app/controllers/borrow-today.php">
                         <input type="hidden" name="user_id" value="${req.user_id}">
                         <input type="hidden" name="book_id" value="${req.book_id}">
                         <input type="hidden" name="borrow_date" value="${req.borrow_date}">

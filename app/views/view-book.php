@@ -1,7 +1,7 @@
 
 <?php include "layouts/header.php"; ?>
 <?php
-require_once "../app/configs/dbconfig.php";
+require_once "app/configs/dbconfig.php";
  $db = new Database();
 $id = $_GET['id'] ?? '';
 $stmt = $db->conn->prepare("SELECT * FROM books WHERE book_id=? LIMIT 1");
@@ -20,7 +20,7 @@ $preview = $book['preview_link'] ?? '';
 <div id="view-book"> 
     <header>
          <div class="header-content">
-             <a href="index.php?page='user-home'">
+             <a href="user-home">
                 <span ><i style="color:black;" class="fa-solid fa-arrow-left"></i>
             </span></a>
              <h1 style="font-size: 18px; margin: 0; font-weight: 600;">Book Details</h1>
@@ -59,16 +59,20 @@ $preview = $book['preview_link'] ?? '';
                 </div>
                  </main> 
                                           <!-- POP-UP RESERVE FORM --> 
-                                             <div class="reserve-modal" id="reserveModal">
-                                                 <div class="reserve-box">
-                                                     <h2>Reserve Book</h2> 
-                                                     <form action="../app/controllers/reserve.php" method="POST" onsubmit="return confirmReserve()"> 
-                                                        <input type="hidden" name="book_id" value="<?= $id ?>">
-                                                         <label>Borrow Date</label>
-                                                          <input type="date" name="borrow_date" id="borrowDate" min="<?= date('Y-m-d') ?>"required>
-                                                           <div class="res-actions"> 
-                                                            <button type="button" class="cancel" onclick="closeReserveForm()">Cancel</button>
-                                                             <button type="submit" class="confirm">Reserve</button> </div> </form> </div> </div> <!-- <div class="reserve-form" > 
+                     <div class="reserve-modal" id="reserveModal">
+                        <div class="reserve-box">
+                             <h2>Reserve Book</h2> 
+                                 <form action="/app/controllers/reserve.php" method="POST" onsubmit="return confirmReserve()"> 
+                                    <input type="hidden" name="book_id" value="<?= $id ?>">
+                                        <label>Borrow Date</label>
+                                        <input type="date" name="borrow_date" id="borrowDate" min="<?= date('Y-m-d') ?>"required>
+                                        <div class="res-actions"> 
+                                         <button type="button" class="cancel" onclick="closeReserveForm()">Cancel</button>
+                                         <button type="submit" class="confirm">Reserve</button>
+                                         </div> 
+                                        </form> 
+                                    </div> 
+                                </div> <!-- <div class="reserve-form" > 
                                                                 <form method="Post" action="../app/controllers/reserve.php" class="footer-content"> <input type="hidden" name="book_id" value="<?= $id ?>"> 
                                                                 <button type="submit" class="rent-btn">Reserve Book</button> </form> </div> --> </div> 
 

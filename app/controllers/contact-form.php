@@ -5,7 +5,7 @@ require_once "../models/User.php";
 $user = new User();
 
 if(!isset($_SESSION['user_id'])){
-    redirect("/public/index.php?page=login","error","You must be logged in first");
+    redirect("/login","error","You must be logged in first");
 }
 $user_id = $_SESSION['user_id'];
 

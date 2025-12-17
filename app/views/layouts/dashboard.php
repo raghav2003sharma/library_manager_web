@@ -1,5 +1,5 @@
 <?php
-require_once "../app/configs/dbconfig.php";
+require_once "app/configs/dbconfig.php";
  $db = new Database();
       $users =  $db->conn->query("SELECT COUNT(*) AS total_users FROM users");
       $books = $db->conn->query("SELECT COUNT(*) AS total_books FROM books");
@@ -15,19 +15,19 @@ require_once "../app/configs/dbconfig.php";
 
 <div class="section-title">Dashboard</div>
 <div class="cards">
-<a href="index.php?page=admin-home&main-page=manage-users"  class="card">
+<a href="admin-home?main-page=manage-users"  class="card">
   <div class="card-icon">
 <h3>Total Users</h3>
 <i class="fa-solid fa-users"></i>  </div>
 <p><?= $total_users ?></p>
 </a>
-<a href="index.php?page=admin-home&main-page=manage-books" class="card">
+<a href="admin-home?main-page=manage-books" class="card">
   <div class="card-icon">
 <h3>Total Books</h3>
 <i class="fa-solid fa-layer-group"></i>  </div>
 <p><?= $total_books ?></p>
 </a>
-<a href="index.php?page=admin-home&main-page=borrowed-books"  class="card">
+<a href="admin-home?main-page=borrowed-books"  class="card">
     <div class="card-icon">
 
 <h3>Borrowed Books</h3>
@@ -36,7 +36,7 @@ require_once "../app/configs/dbconfig.php";
 
 <p><?= $borrowed_books ?></p>
 </a>
-<a href="index.php?page=admin-home&main-page=reservations"  class="card">
+<a href="admin-home?main-page=reservations"  class="card">
     <div class="card-icon">
 <h3>Pending Reservations</h3>
 <i class="fa-solid fa-calendar-days"></i>

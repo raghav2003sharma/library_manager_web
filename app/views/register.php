@@ -1,30 +1,11 @@
-<!-- 
-// $error = $_SESSION['error'] ?? '';
-// unset($_SESSION['error']);
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Mania</title>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <link rel="stylesheet" href="/public/styles/auth.css">
-</head>
-<body>
-     <div class="home-btn">
-    <a href="?page=user-home">
-      <div class="home-icon"> <i class="fa-solid fa-house"></i></div> <p>Home</p>
-    </a>
-</div> -->
 <?php include "layouts/header.php"; ?>
 
     <div class="auth-container">
     <div class="auth-inside-container">
         
         <h1 class="auth-frm-heading">Become a Member</h1>
-        <form class="main-frm register-form"action="../app/controllers/auth/register.php" method="POST">
+        <form class="main-frm register-form"action="/app/controllers/auth/register.php" method="POST">
             <input type="text" id="reg-name"name="username" placeholder="Username" required><br>
             <input type="text" id="reg-email" name="email" placeholder="Email" required><br>
            <div class="auth-pass"> 
@@ -35,7 +16,7 @@
               <span class="eye" style="background-color:none;" onclick="togglePassword(this)"><i class="fa-solid fa-eye-slash"></i></span></div>
             <button type="submit">Register</button>
         </form>
-        <p class="redirect-txt">Already have an account? <a href="?page=login">Login here</a></p>
+        <p class="redirect-txt">Already have an account? <a href="login">Login here</a></p>
     </div>
     </div>
     <div id="custom-alert" class="alert-box"></div>
