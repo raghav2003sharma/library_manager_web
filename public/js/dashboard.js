@@ -1,6 +1,8 @@
 const todayPage = document.getElementById("todayPage");
 const todayPrev = document.getElementById("prevToday");
 const todayNext = document.getElementById("nextToday");
+const dashpageCount = document.getElementById("dashpage-count");
+
 document.addEventListener("DOMContentLoaded", loadApprovedBorrow());
 
 function loadApprovedBorrow(page=1) {
@@ -36,7 +38,10 @@ function loadApprovedBorrow(page=1) {
                 container.appendChild(card);
             });
               const totalPages = Math.ceil(data.totalRows /data.limit);
-             document.getElementById("dashpage-count").textContent = totalPages;
+             dashpageCount.textContent = totalPages;
+             if(totalPages===1){
+                document.getElementById("dash-pagination").style.display = "none";
+             }
 
         if(page === 1){
         todayPrev.disabled = true;

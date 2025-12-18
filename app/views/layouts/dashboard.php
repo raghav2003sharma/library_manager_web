@@ -53,7 +53,7 @@ require_once "app/configs/dbconfig.php";
 <div class="approved-list" id="approved-list">
 
 </div>
-<div class="pagination">
+<div class="pagination" id="dash-pagination">
       <p>Total Pages: <span id="dashpage-count"></span></p>
             <div class="page-buttons">
     <button id="prevToday" onclick="borrowTodayPage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
